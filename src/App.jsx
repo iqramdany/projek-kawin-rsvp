@@ -11,6 +11,7 @@ import GiftSection from "./components/GiftSection";
 import MobileMenu from "./components/MobileMenu";
 import MusicPlayer from "./components/MusicPlayer";
 import OpeningEnvelope from "./components/OpeningEnvelope";
+import ContactFab from "./components/ContactFab";
 
 // floating gold dust in the hero (fixed values so it never re-randomises)
 const DUST = Array.from({ length: 22 }, (_, i) => ({
@@ -181,6 +182,8 @@ function App() {
 
         {/* MUSIC BUTTON */}
         <MusicPlayer isPlaying={isPlaying} onToggle={toggleMusic} />
+
+        <ContactFab/>
       </main>
     </>
   );

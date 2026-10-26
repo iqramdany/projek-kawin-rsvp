@@ -1,0 +1,192 @@
+/* =====================================
+   FLOATING CONTACT BUTTON 
+   (Positioned above the music player)
+   burgundy + gold + olive
+===================================== */
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: 84px;                /* Sits right above the music player (24px + 48px height + 12px gap) */
+  z-index: 9000;               /* below the opening envelope (99999) */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* ---------- main round button (Reduced Size) ---------- */
+.fab-main {
+  position: relative;
+  width: 44px;                 /* Reduced from 58px */
+  height: 44px;                /* Reduced from 58px */
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+
+  color: #ecd593;
+  border: 1px solid rgba(236, 213, 147, 0.8);
+  background:
+    var(--grain, none),
+    radial-gradient(circle at 30% 25%, #8a2540 0%, #5a1424 55%, #4a0e1a 100%);
+  box-shadow:
+    0 0 0 3px rgba(248, 241, 225, 0.9),
+    0 0 0 4px rgba(176, 139, 70, 0.6),
+    0 8px 20px rgba(74, 14, 26, 0.45);
+
+  transition: transform 0.3s ease, background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab-main svg {
+  width: 20px;                 /* Scaled down to fit */
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fab-main:hover { transform: scale(1.06); }
+.fab-main:focus-visible { outline: 2px solid #b08b46; outline-offset: 4px; }
+
+/* soft pulsing ring while closed */
+.fab-main::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(176, 139, 70, 0.8);
+  animation: fabPulse 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.fab.is-open .fab-main::after { animation: none; opacity: 0; }
+
+.fab.is-open .fab-main {
+  background:
+    var(--grain, none),
+    radial-gradient(circle at 30% 25%, #808a4c, #4b5428 80%);
+}
+
+@keyframes fabPulse {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* ---------- panel ---------- */
+.fab-panel {
+  width: min(280px, calc(100vw - 32px));
+  padding: 14px 14px 6px;
+  border-radius: 14px;
+
+  background: linear-gradient(160deg, #f6ecd5, #efe2c4);
+  border: 1px solid rgba(176, 139, 70, 0.6);
+  box-shadow:
+    0 14px 30px rgba(47, 53, 25, 0.3),
+    inset 0 0 0 3px #f6ecd5,
+    inset 0 0 0 4px rgba(176, 139, 70, 0.35);
+
+  transform-origin: bottom right;
+  opacity: 0;
+  transform: translateY(12px) scale(0.92);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.3s;
+}
+
+.fab.is-open .fab-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.fab-title {
+  margin: 0 0 8px;
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #4a0e1a;
+}
+
+/* ---------- one contact row ---------- */
+.fab-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 4px;
+  border-top: 1px solid rgba(176, 139, 70, 0.35);
+}
+
+.fab-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.fab-info strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #4a0e1a;
+}
+.fab-info span {
+  margin-top: 2px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #5f7027;
+}
+
+.fab-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.fab-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #f4ecd2;
+  border: 1px solid rgba(236, 213, 147, 0.7);
+  box-shadow: 0 4px 10px rgba(47, 53, 25, 0.25);
+  transition: transform 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.fab-btn:hover { transform: translateY(-2px); }
+
+.fab-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fab-wa   { background: linear-gradient(180deg, #6b7538, #4b5428); }
+.fab-call { background: linear-gradient(180deg, #8a2540, #4a0e1a); }
+
+@media (max-width: 600px) {
+  .fab { 
+    right: 18px; 
+    bottom: 142px; /* Adjusted for mobile to sit nicely above the mobile music player position (92px + 42px height + gap) */
+  }
+  .fab-main { width: 42px; height: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fab-main::after { animation: none; }
+  .fab-panel, .fab-main, .fab-btn { transition: none; }
+}

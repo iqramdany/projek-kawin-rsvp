@@ -4,7 +4,6 @@ function Invitation() {
   return (
     <section className="invitation" id="couple">
       <div className="invitation-card">
-        {/* floral corners (files in /public) */}
         <img
           className="inv-corner inv-corner-tl"
           src="/floral-left.png"
@@ -28,14 +27,28 @@ function Invitation() {
           Dengan penuh kesyukuran ke hadrat Allah SWT,
         </p>
 
-        <h2>Iqram &amp; Sharmariz</h2>
+        <h2 className="inv-parent">Muamar Aslie Bin Haznil &amp; Keluarga</h2>
+        <h3 className="inv-note">
+          (Wakil kepada Allahyarham Haznil Bin Husin &amp; Allahyarham Marjanah Binti Embor)
+        </h3>
+
+        <p className="invitation-serta">Serta</p>
+
+        <h2 className="inv-parent">Rosnani Binti Ismail &amp; Keluarga</h2>
+        <h3 className="inv-note">
+          (Isteri kepada Allahyarham Mohamad Zaki Bin Lemas)
+        </h3>
 
         <p className="invitation-text">
-          Dengan sukacitanya kami menjemput Dato' / Datin /
-          Tuan / Puan / Encik / Cik untuk hadir ke majlis
-          perkahwinan kami dan bersama-sama meraikan hari
-          bahagia ini.
+          Dengan penuh kesyukuran menjemput Dato' / Datin / Tuan / Puan /
+          Encik / Cik untuk hadir ke majlis perkahwinan anakda kami,
         </p>
+
+        <h2 className="inv-couple">
+          <span>Sharmariz Binti Haznil</span>
+          <i>&amp;</i>
+          <span>Muhammad Iqram Daniel Bin Mohamad Zaki</span>
+        </h2>
 
         <div className="invitation-divider" aria-hidden="true">
           <span />
@@ -44,7 +57,8 @@ function Invitation() {
         </div>
 
         <p className="invitation-closing">
-          Kehadiran dan doa restu anda amat kami hargai.
+          Semoga kehadiran para jemputan akan menyempurnakan majlis kami dan
+          diberkati oleh-Nya.
         </p>
       </div>
     </section>

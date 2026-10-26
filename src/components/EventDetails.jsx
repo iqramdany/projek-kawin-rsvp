@@ -40,6 +40,14 @@ const icons = {
       <circle cx="12" cy="5.5" r="1" />
     </>
   ),
+  cake: (
+    <>
+      <rect x="4" y="12" width="16" height="8" rx="1" />
+      <path d="M4 16c2 1.5 3.5 1.5 4 0 .5 1.5 2 1.5 4 0 .5 1.5 2 1.5 4 0 .5 1.5 2 1.5 4 0" />
+      <path d="M12 12V9.5" />
+      <path d="M12 9.5c-1.2-1 0-2.2 0-3.5 1.2 1.2 1.2 2.4 0 3.5z" />
+    </>
+  ),
   camera: (
     <>
       <path d="M4 8h3l1.5-2.5h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
@@ -56,13 +64,14 @@ const icons = {
 };
 
 const events = [
-  { icon: "guests", title: "Ketibaan Tetamu", time: "10:00 Pagi" },
-  { icon: "car", title: "Ketibaan Pengantin", time: "11:30 Pagi" },
-  { icon: "rings", title: "Majlis Akad Nikah", time: "12:00 Tengah Hari", featured: true },
-  { icon: "crown", title: "Bersanding", time: "1:00 Petang" },
-  { icon: "food", title: "Makan Beradab", time: "1:30 Petang" },
-  { icon: "camera", title: "Sesi Bergambar", time: "2:00 Petang" },
-  { icon: "gift", title: "Majlis Bersurai", time: "3:00 Petang" },
+  { icon: "guests", title: "Ketibaan Tetamu", time: "10:30 Pagi" },
+  { icon: "car", title: "Ketibaan Rombongan Keluarga", time: "10:50 Pagi" },
+  { icon: "rings", title: "Perarakan Keluarga Masuk", time: "10:55 Pagi" },
+  { icon: "crown", title: "Ketibaan Pengantin", time: "11:00 Pagi", featured: true },
+  { icon: "food", title: "Makan Beradab", time: "11:30 Tengah Hari" },
+  { icon: "cake", title: "Potong Kek", time: "12:00 Tengah Hari" },
+  { icon: "camera", title: "Sesi Bergambar", time: "12:20 Tengah Hari" },
+  { icon: "gift", title: "Majlis Bersurai", time: "2:00 Petang" },
 ];
 
 function EventDetails() {
@@ -84,7 +93,7 @@ function EventDetails() {
           io.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -105,26 +114,27 @@ function EventDetails() {
         </div>
       </div>
 
-      <div className="event-timeline">
+      <div className="tl">
         {events.map((ev, i) => (
           <div
             key={ev.title}
-            className={`timeline-item ${ev.featured ? "is-featured" : ""}`}
+            className={`tl-item ${i % 2 ? "is-alt" : ""} ${
+              ev.featured ? "is-featured" : ""
+            }`}
             style={{ "--i": i }}
           >
-            <div className="timeline-dot">
+            <div className="tl-card">
+              <span className="tl-step">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{ev.title}</h3>
+            </div>
+
+            <div className="tl-dot">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 {icons[ev.icon]}
               </svg>
-              <span className="timeline-step">
-                {String(i + 1).padStart(2, "0")}
-              </span>
             </div>
 
-            <div className="timeline-content">
-              <h3>{ev.title}</h3>
-              <p className="timeline-time">{ev.time}</p>
-            </div>
+            <p className="tl-time">{ev.time}</p>
           </div>
         ))}
       </div>
