@@ -16,6 +16,10 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 
+  /* scroll lock */
+  overscroll-behavior: none;
+  touch-action: none;
+
   background-color: #4b5428;
   background-image:
     radial-gradient(ellipse at center, rgba(128, 138, 76, 0.65) 0%, rgba(0, 0, 0, 0) 62%),
@@ -265,6 +269,13 @@
   visibility: hidden;
   transition: none;
 }
+
+body.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 
 /* =====================================
    KEYFRAMES

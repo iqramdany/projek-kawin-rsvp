@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 
 import "./styles/home.css";
 
-import Countdown from "./components/countdown";
 import Invitation from "./components/Invitation";
 import EventDetails from "./components/EventDetails";
 import Venue from "./components/Venue";
@@ -159,8 +158,7 @@ function App() {
         {/* GALLERY */}
         <Gallery />
 
-        {/* COUNTDOWN */}
-        <Countdown />
+
 
         {/* EVENT DETAILS */}
         <section id="event">
