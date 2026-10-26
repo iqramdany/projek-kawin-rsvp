@@ -6,7 +6,7 @@ import "./ContactFab.css";
    e.g. 012-345 6789  ->  "60123456789"
 ---------------------------------- */
 const contacts = [
-  { name: "Hasanah", role: "Adik Lelaki Pengantin Perempuan", phone: "60143777935" },
+  { name: "Hassan", role: "Adik Lelaki Pengantin Perempuan", phone: "60143777935" },
   { name: "Iqram", role: " Pengantin Lelaki", phone: "601112043447" },
 ];
 
