@@ -37,10 +37,6 @@ function Venue() {
               Malaysia
             </p>
 
-            <div className="venue-event">
-              <p>12 Disember 2026</p>
-              <span>12:00 Tengah Hari</span>
-            </div>
 
             <a
               href={MAP_LINK}

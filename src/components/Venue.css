@@ -1,7 +1,9 @@
+
 /* =====================================
-   VENUE  (burgundy section, cream card, gold frame)
-   colours come from home.css variables, with fallbacks
+   VENUE SECTION
+   Burgundy background with gold details
 ===================================== */
+
 .venue {
   position: relative;
   padding: 120px 24px;
@@ -9,9 +11,21 @@
 
   background:
     var(--grain, none),
-    radial-gradient(ellipse at 50% 40%, rgba(138, 42, 64, 0.5), rgba(138, 42, 64, 0) 65%),
-    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(26, 4, 10, 0.55) 100%),
-    linear-gradient(180deg, #55101f 0%, var(--burgundy-deep, #4a0e1a) 100%);
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(138, 42, 64, 0.5),
+      rgba(138, 42, 64, 0) 65%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 55%,
+      rgba(26, 4, 10, 0.55) 100%
+    ),
+    linear-gradient(
+      180deg,
+      #55101f 0%,
+      var(--burgundy-deep, #4a0e1a) 100%
+    );
 
   box-shadow:
     inset 0 1px 0 rgba(217, 182, 106, 0.55),
@@ -25,9 +39,9 @@
   margin: 0 auto;
 }
 
-/* =========================
+/* =====================================
    HEADER
-========================= */
+===================================== */
 
 .venue-header {
   text-align: center;
@@ -58,7 +72,7 @@
   text-shadow: 0 3px 16px rgba(26, 4, 10, 0.5);
 }
 
-/* Divider */
+/* Header divider */
 
 .venue-divider {
   display: flex;
@@ -79,12 +93,13 @@
   font-family: "Cormorant Garamond", serif;
   font-size: 18px;
   font-style: normal;
+
   color: var(--gold, #d9b66a);
 }
 
-/* =========================
-   MAIN LAYOUT (cream card)
-========================= */
+/* =====================================
+   MAIN LAYOUT
+===================================== */
 
 .venue-layout {
   display: grid;
@@ -94,23 +109,29 @@
 
   border: 1px solid rgba(217, 182, 106, 0.7);
 
-  background: var(--grain, none), linear-gradient(160deg, #f6ecd5, #efe2c4);
+  background:
+    var(--grain, none),
+    linear-gradient(160deg, #f6ecd5, #efe2c4);
 
   box-shadow:
     0 25px 60px rgba(20, 3, 8, 0.55),
     0 0 0 6px rgba(217, 182, 106, 0.12);
 }
 
-/* =========================
-   VENUE INFO
-========================= */
+/* =====================================
+   VENUE INFORMATION
+   All content centered
+===================================== */
 
 .venue-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   padding: 60px;
+
+  text-align: center;
 }
 
 .venue-small-label {
@@ -146,13 +167,18 @@
   color: #5e5043;
 }
 
-/* Date / time */
+/* =====================================
+   EVENT DATE / TIME
+   Applies if .venue-event is used in JSX
+===================================== */
 
 .venue-event {
   margin-top: 35px;
   padding-top: 25px;
 
   border-top: 1px solid rgba(176, 139, 70, 0.45);
+
+  text-align: center;
 }
 
 .venue-event p {
@@ -173,9 +199,9 @@
   color: var(--olive, #4b5428);
 }
 
-/* =========================
-   GOOGLE MAP BUTTON
-========================= */
+/* =====================================
+   GOOGLE MAPS BUTTON
+===================================== */
 
 .map-button {
   display: inline-flex;
@@ -183,6 +209,7 @@
   justify-content: center;
 
   width: fit-content;
+  max-width: 100%;
 
   margin-top: 35px;
   padding: 14px 26px;
@@ -197,7 +224,12 @@
   text-transform: uppercase;
 
   color: var(--cream, #f1e6cf);
-  background: linear-gradient(180deg, #7c1f35, #5a1223);
+
+  background: linear-gradient(
+    180deg,
+    #7c1f35,
+    #5a1223
+  );
 
   box-shadow: 0 8px 18px rgba(74, 14, 26, 0.3);
 
@@ -210,7 +242,11 @@
 }
 
 .map-button:hover {
-  background: linear-gradient(180deg, var(--olive-light, #808a4c), var(--olive, #4b5428));
+  background: linear-gradient(
+    180deg,
+    var(--olive-light, #808a4c),
+    var(--olive, #4b5428)
+  );
 
   transform: translateY(-3px);
 
@@ -222,15 +258,14 @@
   outline-offset: 4px;
 }
 
-/* =========================
-   MAP
-========================= */
+/* =====================================
+   GOOGLE MAP
+===================================== */
 
 .venue-map {
   position: relative;
 
   min-height: 480px;
-
   overflow: hidden;
 
   background: #e4d9bd;
@@ -247,11 +282,12 @@
 
   border: 0;
 
-  /* soften the map colours so they sit with the warm palette */
+  /* Warm map colours to match the wedding theme */
   filter: sepia(0.25) saturate(0.85) contrast(0.95);
 }
 
-/* gold inner frame over the map */
+/* Gold inner frame over the map */
+
 .venue-map::after {
   content: "";
 
@@ -263,9 +299,9 @@
   pointer-events: none;
 }
 
-/* =========================
-   DECORATION
-========================= */
+/* =====================================
+   DECORATIVE STARS
+===================================== */
 
 .venue::before {
   content: "✦";
@@ -304,9 +340,9 @@
   }
 }
 
-/* =========================
+/* =====================================
    TABLET
-========================= */
+===================================== */
 
 @media (max-width: 800px) {
   .venue {
@@ -333,17 +369,21 @@
   }
 }
 
-/* =========================
+/* =====================================
    MOBILE
-========================= */
+===================================== */
 
 @media (max-width: 480px) {
   .venue {
     padding: 80px 18px;
   }
 
+  .venue-header h2 {
+    font-size: 46px;
+  }
+
   .venue-info {
-    padding: 45px 28px;
+    padding: 45px 24px;
   }
 
   .venue-info h3 {
@@ -352,6 +392,7 @@
 
   .venue-address {
     font-size: 10px;
+    overflow-wrap: anywhere;
   }
 
   .venue-map {
@@ -364,8 +405,15 @@
 
   .map-button {
     width: 100%;
+    padding: 14px 12px;
+    font-size: 9px;
+    letter-spacing: 1px;
   }
 }
+
+/* =====================================
+   REDUCED MOTION ACCESSIBILITY
+===================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .venue::before,
@@ -375,5 +423,9 @@
 
   .map-button {
     transition: none;
+  }
+
+  .map-button:hover {
+    transform: none;
   }
 }
