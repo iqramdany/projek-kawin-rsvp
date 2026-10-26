@@ -1,0 +1,134 @@
+/* =====================================
+   MUSIC PLAYER  (burgundy button, gold ring)
+   colours come from home.css variables, with fallbacks
+===================================== */
+
+.music-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid rgba(217, 182, 106, 0.8);
+  border-radius: 50%;
+
+  background:
+    var(--grain, none),
+    linear-gradient(160deg, #7c1f35, var(--burgundy-deep, #4a0e1a));
+  color: var(--cream, #f1e6cf);
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: 25px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 22px rgba(47, 14, 22, 0.4),
+    0 0 0 3px rgba(248, 241, 225, 0.35);
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.music-button:hover {
+  background:
+    var(--grain, none),
+    linear-gradient(160deg, var(--olive-light, #808a4c), var(--olive, #4b5428));
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 28px rgba(47, 53, 25, 0.45),
+    0 0 0 3px rgba(248, 241, 225, 0.45);
+}
+
+.music-button:active {
+  transform: scale(0.92);
+}
+
+.music-button:focus-visible {
+  outline: 2px solid var(--gold, #d9b66a);
+  outline-offset: 4px;
+}
+
+
+/* =========================
+   PLAYING ANIMATION
+========================= */
+
+.music-button.playing span {
+  display: inline-block;
+  animation: musicFloat 1.5s ease-in-out infinite;
+}
+
+/* soft gold ring that pulses while music plays */
+.music-button.playing::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 182, 106, 0.9);
+  pointer-events: none;
+  animation: musicRing 2.2s ease-out infinite;
+}
+
+@keyframes musicFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-2px) rotate(8deg);
+  }
+}
+
+@keyframes musicRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .music-button {
+    right: 18px;
+    bottom: 92px;
+
+    width: 42px;
+    height: 42px;
+
+    font-size: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-button.playing span,
+  .music-button.playing::after {
+    animation: none;
+  }
+
+  .music-button {
+    transition: none;
+  }
+}

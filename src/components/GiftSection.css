@@ -1,0 +1,196 @@
+/* =====================================
+   GIFT SECTION  (olive section, cream QR card)
+   colours come from home.css variables, with fallbacks
+===================================== */
+
+.gift-section {
+  position: relative;
+  padding: 110px 24px;
+  color: var(--cream, #f1e6cf);
+  overflow: hidden;
+
+  background:
+    var(--grain, none),
+    radial-gradient(ellipse at center, rgba(128, 138, 76, 0.5) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.55) 100%),
+    var(--olive, #4b5428);
+
+  box-shadow:
+    inset 0 1px 0 rgba(217, 182, 106, 0.45),
+    inset 0 -1px 0 rgba(217, 182, 106, 0.45);
+}
+
+/* big faint word behind the content */
+.gift-section::before {
+  content: "GIFT";
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 130px;
+  font-weight: 500;
+  letter-spacing: 12px;
+  color: rgba(217, 182, 106, 0.09);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.gift-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 560px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.gift-label {
+  margin: 0 0 12px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold, #d9b66a);
+}
+
+.gift-content h2 {
+  margin: 0 0 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(42px, 6vw, 58px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--cream, #f1e6cf);
+  text-shadow: 0 3px 16px rgba(18, 22, 6, 0.5);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.gift-message {
+  width: min(100%, 450px);
+  margin: 0 auto 35px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--cream-soft, #e8dcb8);
+}
+
+
+/* =========================
+   QR CARD (cream paper + gold frame)
+========================= */
+
+.qr-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 22px;
+
+  border: 1px solid rgba(217, 182, 106, 0.8);
+
+  background: var(--grain, none), linear-gradient(160deg, #f6ecd5, #efe2c4);
+
+  box-shadow:
+    0 24px 50px rgba(18, 22, 6, 0.5),
+    0 0 0 6px rgba(217, 182, 106, 0.14);
+}
+
+/* inner gold frame */
+.qr-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(176, 139, 70, 0.55);
+  pointer-events: none;
+}
+
+.qr-code {
+  display: block;
+  width: 230px;
+  height: 230px;
+  object-fit: contain;
+  background: #fff;
+}
+
+
+/* =========================
+   QR TEXT
+========================= */
+
+.qr-text {
+  margin: 20px 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold, #d9b66a);
+}
+
+
+/* =========================
+   DECORATIVE LINE
+========================= */
+
+.gift-content::after {
+  content: "";
+  display: block;
+  width: 45px;
+  height: 1px;
+  margin: 28px auto 0;
+  background: var(--gold, #d9b66a);
+  opacity: 0.7;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .gift-section {
+    padding: 80px 18px;
+  }
+
+  .gift-section::before {
+    top: 30px;
+    font-size: 75px;
+    letter-spacing: 6px;
+  }
+
+  .gift-content h2 {
+    font-size: 44px;
+  }
+
+  .gift-message {
+    font-size: 11px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+
+  .qr-wrapper {
+    padding: 18px;
+  }
+
+  .qr-code {
+    width: 200px;
+    height: 200px;
+  }
+
+  .qr-text {
+    font-size: 8px;
+  }
+}

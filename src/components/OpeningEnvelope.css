@@ -1,0 +1,432 @@
+/* =====================================
+   SCREEN  (olive background)
+===================================== */
+.opening-envelope {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  background-color: #4b5428;
+  background-image:
+    radial-gradient(ellipse at center, rgba(128, 138, 76, 0.65) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.6) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* timeline (ms):
+   0     seal pops
+   200   flap opens            (800)
+   900   letter slides out     (900)
+   1950  zoom into the letter  (1000)
+   2500  screen fades          (700)  -> 3200 total */
+.is-opening {
+  animation: screen-out 700ms ease 2500ms forwards;
+}
+
+.stage {
+  /* envelope width, leaves room above for the open flap + letter */
+  --w: min(88vw, 440px, calc((100dvh - 110px) * 0.82));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.6rem;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  position: relative;
+  z-index: 1;
+  transform-origin: 50% 28%;
+  /* fine paper grain, laid over every envelope face */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0 0 0 0 0 0 0 0 0 .28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+.is-opening .stage {
+  animation: stage-zoom 1000ms cubic-bezier(0.5, 0, 0.3, 1) 1950ms forwards;
+}
+
+/* =====================================
+   ENVELOPE (built from layers)
+===================================== */
+.envelope {
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 395 / 269;
+  margin-top: calc(var(--w) * 0.34); /* space for the flap when it opens */
+  perspective: 1100px;
+  animation: float 4.5s ease-in-out infinite;
+}
+.is-opening .envelope { animation: none; }
+
+.envelope > * { position: absolute; }
+
+.env-shadow {
+  inset: 0;
+  border-radius: 3px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.45);
+  z-index: 0;
+}
+
+.env-back {
+  inset: 0;
+  border-radius: 3px;
+  background: var(--grain), linear-gradient(180deg, #34090f 0%, #52151c 100%);
+  z-index: 1;
+}
+
+/* ---------- letter ---------- */
+.letter {
+  left: 8%;
+  right: 8%;
+  bottom: 5%;
+  height: 88%;
+  z-index: 2;
+  border-radius: 3px;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(160deg, #f1e6cf, #e2d2b2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.letter::before {
+  content: "";
+  position: absolute;
+  inset: 3.5%;
+  border: 1px solid rgba(176, 139, 70, 0.7);
+  border-radius: 2px;
+}
+.letter-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--w) * 0.012);
+  font-family: Georgia, "Times New Roman", serif;
+  color: #6b1a2e;
+  text-align: center;
+}
+.letter-small {
+  font-size: calc(var(--w) * 0.032);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+}
+.letter-script {
+  font-size: calc(var(--w) * 0.1);
+  font-style: italic;
+  line-height: 1;
+}
+.letter-line {
+  width: 22%;
+  height: 1px;
+  margin: calc(var(--w) * 0.012) 0;
+  background: #b08b46;
+}
+.letter-date {
+  font-size: calc(var(--w) * 0.04);
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+}
+
+/* ---------- front pocket ---------- */
+.pocket {
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 -1px 0 rgba(255, 196, 196, 0.16)) drop-shadow(0 -2px 3px rgba(0, 0, 0, 0.4));
+}
+.fold { position: absolute; inset: 0; }
+.fold-l {
+  clip-path: polygon(0 0, 50% 55%, 0 100%);
+  background: var(--grain), linear-gradient(100deg, #4a0c18 0%, #5e1424 100%);
+}
+.fold-r {
+  clip-path: polygon(100% 0, 50% 55%, 100% 100%);
+  background: var(--grain), linear-gradient(260deg, #5a1222 0%, #701a2e 100%);
+}
+.fold-b {
+  clip-path: polygon(0 100%, 50% 55%, 100% 100%);
+  background: var(--grain), linear-gradient(180deg, #5f1424 0%, #430b17 100%);
+}
+
+/* ---------- flap ---------- */
+.flap {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 58%;
+  z-index: 4;
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+}
+.flap-face {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flap-front {
+  background:
+    var(--grain),
+    linear-gradient(115deg, rgba(255, 150, 160, 0.16) 0%, rgba(255, 150, 160, 0) 50%),
+    linear-gradient(180deg, #741b2e 0%, #5a1223 65%, #4f0f1e 100%);
+}
+.flap-back  {
+  background: var(--grain), linear-gradient(180deg, #3d0b14, #621a26);
+  transform: rotateY(180deg);
+}
+
+/* ---------- flowers ---------- */
+.flowers {
+  left: -9%;
+  bottom: -9%;
+  width: 46%;
+  z-index: 5;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* =====================================
+   WAX SEAL BUTTON (on the flap tip)
+===================================== */
+.seal-button {
+  left: 50%;
+  top: 58%;
+  width: 24%;
+  z-index: 6;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  animation: seal-pulse 2.4s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.seal-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+.seal-button::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 214, 140, 0.55), rgba(240, 214, 140, 0) 68%);
+  animation: halo 2.4s ease-in-out infinite;
+  z-index: -1;
+}
+.seal-button:focus-visible { outline: 2px solid #f0dc9a; outline-offset: 6px; }
+
+/* =====================================
+   OPENING SEQUENCE
+===================================== */
+.is-opening .seal-button {
+  animation: seal-away 300ms ease-out forwards;
+  pointer-events: none;
+}
+.is-opening .seal-button::before { animation: none; opacity: 0; }
+
+.is-opening .flap   { animation: flap-open 800ms cubic-bezier(0.45, 0, 0.25, 1) 200ms forwards; }
+.is-opening .letter { animation: letter-out 900ms cubic-bezier(0.3, 0.7, 0.2, 1) 900ms forwards; }
+
+/* =====================================
+   HINT
+===================================== */
+.envelope-hint {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #efe6c4;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  animation: hint-glow 2.8s ease-in-out infinite;
+}
+.is-opening .envelope-hint {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+}
+
+/* =====================================
+   KEYFRAMES
+===================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes seal-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%      { transform: translate(-50%, -50%) scale(1.06); }
+}
+@keyframes halo {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
+}
+@keyframes seal-away {
+  0%   { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+  100% { transform: translate(-50%, -62%) scale(1.35); opacity: 0; }
+}
+/* flap swings up; once past vertical it drops behind the letter */
+@keyframes flap-open {
+  0%, 45% { transform: rotateX(0deg);    z-index: 4; }
+  46%     { z-index: 1; }
+  100%    { transform: rotateX(-180deg); z-index: 1; }
+}
+@keyframes letter-out {
+  to { transform: translateY(-57%); }
+}
+@keyframes hint-glow {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+@keyframes stage-zoom {
+  to { transform: translateY(calc(var(--w) * 0.26)) scale(2); }
+}
+@keyframes screen-out {
+  to { opacity: 0; }
+}
+
+/* =====================================
+   HOME PAGE "POP"  (wrap your home page in className="home-pop")
+===================================== */
+.home-pop {
+  animation: home-pop 900ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 2500ms backwards;
+}
+@keyframes home-pop {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* =====================================
+   MOBILE / REDUCED MOTION
+===================================== */
+@media (max-width: 600px) {
+  .stage { gap: 2rem; }
+  .envelope-hint { font-size: 10px; letter-spacing: 2px; }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .stage { gap: 1rem; }
+  .envelope-hint { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-opening,
+  .is-opening * {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+  .envelope, .seal-button, .seal-button::before, .envelope-hint { animation: none; }
+  .home-pop { animation: none; }
+}
+
+
+/* =====================================
+   CREASES, NAMES, DECORATION
+===================================== */
+.creases {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+.is-opening .flap-shadow { animation: fade-out 250ms ease 200ms forwards; }
+
+.invite-head {
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 1.1rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #efe6c4;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+.head-small {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+}
+.head-names {
+  font-size: calc(var(--w) * 0.088);
+  font-style: italic;
+  line-height: 1.1;
+  color: #f3dfa8;
+}
+.is-opening .invite-head { animation: fade-out 250ms ease forwards; }
+
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.corner {
+  position: absolute;
+  max-width: none;
+  user-select: none;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
+}
+.corner-tl {
+  top: -2%;
+  left: -6vw;
+  width: min(52vw, 290px);
+  transform-origin: 0 0;
+  animation: sway 7s ease-in-out infinite;
+}
+.corner-br {
+  bottom: -2%;
+  right: -6vw;
+  width: min(48vw, 270px);
+  transform-origin: 100% 100%;
+  animation: sway 8s ease-in-out infinite reverse;
+}
+
+.dust span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff2c4, rgba(240, 214, 140, 0) 70%);
+  opacity: 0;
+  animation: dust-rise 6s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(1.6deg); }
+}
+@keyframes dust-rise {
+  0%   { opacity: 0;   transform: translateY(14px) scale(0.6); }
+  40%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translateY(-46px) scale(1.2); }
+}
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corner, .dust span { animation: none; }
+  .dust span { opacity: 0.5; }
+}

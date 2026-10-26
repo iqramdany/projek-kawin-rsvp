@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+
+/* =====================================
+   THEME: burgundy + olive
+   change a colour here and it updates everywhere
+===================================== */
+:root {
+  --burgundy-deep: #4a0e1a;
+  --burgundy: #6b1a2e;
+  --burgundy-light: #8a2a40;
+
+  --olive-dark: #2f3519;
+  --olive: #4b5428;
+  --olive-light: #808a4c;
+
+  --cream: #f1e6cf;
+  --cream-soft: #e8dcb8;
+  --gold: #d9b66a;
+  --gold-deep: #b08b46;
+
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background: var(--olive-dark);
+  color: var(--cream);
+}
+
+.wedding-page {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* =====================================
+   OPEN TRANSITION
+   (classes are added by App.jsx when the envelope is tapped)
+===================================== */
+.home-pop {
+  animation: home-pop 900ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 2500ms backwards;
+}
+
+@keyframes home-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* hero text waits (hidden) until the page is "live", then rises in */
+.hero .reveal {
+  opacity: 0;
+}
+
+.is-live .hero .reveal {
+  animation: fadeUp 1s ease both;
+  animation-delay: calc(2.5s + var(--d, 0s));
+}
+
+/* =====================================
+   HERO
+===================================== */
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  padding: 40px 20px;
+
+  /* same olive glow as the envelope screen, with a touch of burgundy at the bottom */
+  background-color: var(--olive);
+  background-image:
+    var(--grain),
+    radial-gradient(ellipse at center, rgba(128, 138, 76, 0.65) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at 50% 120%, rgba(107, 26, 46, 0.55) 0%, rgba(0, 0, 0, 0) 55%),
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.6) 100%);
+
+  background-size: auto, cover, cover, cover;
+  background-position: center;
+}
+
+/* Decorative frame */
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 25px;
+  z-index: 1;
+
+  border: 1px solid rgba(217, 182, 106, 0.55);
+
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "✦";
+
+  position: absolute;
+  top: 45px;
+  z-index: 1;
+
+  font-size: 22px;
+
+  color: var(--gold);
+}
+
+/* hero text sits above the decoration */
+.hero > .subtitle,
+.hero > h1,
+.hero > .hero-ornament,
+.hero > .description,
+.hero > .date,
+.hero > .rsvp-button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Floral corners */
+
+.hero .corner {
+  position: absolute;
+  z-index: 1;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
+}
+
+.hero .corner-tl {
+  top: -2%;
+  left: -6vw;
+  width: min(48vw, 320px);
+  transform-origin: 0 0;
+  animation: sway 7s ease-in-out infinite;
+}
+
+.hero .corner-br {
+  bottom: -2%;
+  right: -6vw;
+  width: min(44vw, 300px);
+  transform-origin: 100% 100%;
+  animation: sway 8s ease-in-out infinite reverse;
+}
+
+/* Gold dust */
+
+.hero-dust {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-dust span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff2c4, rgba(240, 214, 140, 0) 70%);
+  opacity: 0;
+  animation: dust-rise 6s ease-in-out infinite;
+}
+
+/* TEXT */
+
+.subtitle {
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+
+  color: var(--cream-soft);
+
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-family: "Great Vibes", "Cormorant Garamond", cursive;
+
+  font-size: clamp(56px, 11vw, 124px);
+
+  font-weight: 400;
+
+  line-height: 1.05;
+
+  color: var(--cream);
+
+  text-shadow: 0 3px 18px rgba(18, 22, 6, 0.55);
+
+  margin-bottom: 18px;
+}
+
+.hero-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  color: var(--gold);
+
+  margin-bottom: 18px;
+}
+
+.hero-ornament span {
+  width: 64px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.hero-ornament i {
+  font-style: normal;
+  font-size: 14px;
+}
+
+.description {
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 28px;
+
+  font-style: italic;
+
+  color: var(--gold);
+
+  margin-bottom: 18px;
+}
+
+.date {
+  font-size: 13px;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+
+  color: var(--cream-soft);
+
+  margin-bottom: 45px;
+}
+
+/* BUTTON */
+
+.rsvp-button {
+  border: 1px solid var(--gold);
+
+  background: var(--burgundy);
+
+  color: var(--cream);
+
+  padding: 15px 35px;
+
+  font-family: "Montserrat", sans-serif;
+
+  font-size: 12px;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(18, 22, 6, 0.4);
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.rsvp-button:hover {
+  background: var(--cream);
+
+  color: var(--burgundy-deep);
+
+  transform: translateY(-4px);
+}
+
+.rsvp-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* =====================================
+   ANIMATION
+===================================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(1.6deg); }
+}
+
+@keyframes dust-rise {
+  0%   { opacity: 0;   transform: translateY(14px) scale(0.6); }
+  40%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translateY(-46px) scale(1.2); }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+@media (max-width: 600px) {
+  .hero::before {
+    inset: 15px;
+  }
+
+  .hero h1 {
+    font-size: 64px;
+  }
+
+  .subtitle {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .description {
+    font-size: 24px;
+  }
+
+  .date {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .hero-ornament span {
+    width: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-pop {
+    animation: none;
+  }
+
+  .hero .reveal {
+    opacity: 1;
+  }
+
+  .is-live .hero .reveal,
+  .hero .corner,
+  .hero-dust span {
+    animation: none;
+  }
+
+  .hero-dust span {
+    opacity: 0.5;
+  }
+}

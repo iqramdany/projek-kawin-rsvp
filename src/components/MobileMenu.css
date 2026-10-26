@@ -1,0 +1,130 @@
+/* =====================================
+   MOBILE MENU  (burgundy bar, gold icons)
+   colours come from home.css variables, with fallbacks
+===================================== */
+
+.mobile-menu {
+  display: none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .mobile-menu {
+    position: fixed;
+    z-index: 1000;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 68px;
+
+    border: 1px solid rgba(217, 182, 106, 0.7);
+    border-radius: 18px;
+
+    background:
+      var(--grain, none),
+      linear-gradient(180deg, #5f1426, var(--burgundy-deep, #4a0e1a));
+
+    box-shadow:
+      0 12px 30px rgba(26, 4, 10, 0.5),
+      0 0 0 3px rgba(248, 241, 225, 0.25);
+  }
+
+  .mobile-menu button {
+    position: relative;
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    height: 100%;
+
+    border: none;
+    background: transparent;
+
+    color: var(--cream-soft, #e8dcb8);
+    opacity: 0.75;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+      color 0.25s ease,
+      opacity 0.25s ease,
+      transform 0.2s ease;
+  }
+
+  .mobile-menu button span {
+    display: block;
+
+    color: var(--gold, #d9b66a);
+
+    line-height: 0;
+
+    transition: transform 0.25s ease;
+  }
+
+  .mobile-menu button span img {
+    display: block;
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  /* current section */
+  .mobile-menu button.is-active {
+    color: var(--cream, #f1e6cf);
+    opacity: 1;
+  }
+
+  .mobile-menu button.is-active span {
+    transform: translateY(-1px) scale(1.08);
+  }
+
+  .mobile-menu button.is-active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 22px;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    background: var(--gold, #d9b66a);
+    transform: translateX(-50%);
+  }
+
+  .mobile-menu button:active {
+    transform: scale(0.92);
+  }
+
+  .mobile-menu button:focus-visible {
+    outline: 2px solid var(--gold, #d9b66a);
+    outline-offset: -4px;
+    border-radius: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu button,
+  .mobile-menu button span {
+    transition: none;
+  }
+}

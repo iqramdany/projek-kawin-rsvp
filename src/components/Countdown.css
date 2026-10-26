@@ -1,0 +1,207 @@
+/* =====================================
+   COUNTDOWN  (olive section, burgundy arch tiles)
+   colours come from home.css variables, with fallbacks
+===================================== */
+.countdown {
+  position: relative;
+
+  padding: 110px 20px;
+
+  text-align: center;
+
+  overflow: hidden;
+
+  background:
+    var(--grain, none),
+    radial-gradient(ellipse at center, rgba(128, 138, 76, 0.5) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.55) 100%),
+    var(--olive, #4b5428);
+
+  box-shadow:
+    inset 0 1px 0 rgba(217, 182, 106, 0.45),
+    inset 0 -1px 0 rgba(217, 182, 106, 0.45);
+}
+
+.countdown::before {
+  content: "✦";
+
+  position: absolute;
+
+  top: 35px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 18px;
+
+  color: var(--gold, #d9b66a);
+}
+
+.countdown-subtitle {
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+
+  color: var(--cream-soft, #e8dcb8);
+
+  margin-bottom: 12px;
+}
+
+.countdown h2 {
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 48px;
+
+  font-weight: 500;
+
+  color: var(--cream, #f1e6cf);
+
+  text-shadow: 0 3px 16px rgba(18, 22, 6, 0.5);
+
+  margin-bottom: 10px;
+}
+
+.countdown-date {
+  font-family: "Cormorant Garamond", serif;
+
+  font-style: italic;
+
+  font-size: 22px;
+
+  color: var(--gold, #d9b66a);
+
+  margin-bottom: 45px;
+}
+
+/* COUNTDOWN TILES */
+
+.countdown-container {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 18px;
+
+  max-width: 700px;
+
+  margin: 0 auto;
+}
+
+.countdown-item {
+  width: 130px;
+
+  height: 150px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  /* arch top, like the frame on the RSVP page */
+  border-radius: 999px 999px 12px 12px;
+
+  border: 1px solid rgba(217, 182, 106, 0.7);
+
+  background:
+    var(--grain, none),
+    linear-gradient(180deg, #6b1a2e 0%, var(--burgundy-deep, #4a0e1a) 100%);
+
+  box-shadow: 0 14px 28px rgba(18, 22, 6, 0.45);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.countdown-item:hover {
+  transform: translateY(-8px);
+
+  box-shadow: 0 20px 34px rgba(18, 22, 6, 0.55);
+}
+
+.countdown-item span {
+  font-family: "Cormorant Garamond", serif;
+
+  font-size: 48px;
+
+  line-height: 1;
+
+  font-variant-numeric: tabular-nums;
+
+  color: var(--cream, #f1e6cf);
+
+  margin-bottom: 8px;
+}
+
+.countdown-item small {
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: var(--gold, #d9b66a);
+}
+
+.countdown-done {
+  margin-top: 30px;
+
+  font-family: "Cormorant Garamond", serif;
+
+  font-style: italic;
+
+  font-size: 24px;
+
+  color: var(--cream, #f1e6cf);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .countdown {
+    padding: 80px 15px;
+  }
+
+  .countdown h2 {
+    font-size: 40px;
+  }
+
+  .countdown-date {
+    font-size: 19px;
+
+    margin-bottom: 35px;
+  }
+
+  .countdown-container {
+    gap: 8px;
+  }
+
+  .countdown-item {
+    width: 75px;
+
+    height: 100px;
+  }
+
+  .countdown-item span {
+    font-size: 32px;
+  }
+
+  .countdown-item small {
+    font-size: 7px;
+
+    letter-spacing: 1.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown-item {
+    transition: none;
+  }
+}
