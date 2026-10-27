@@ -3,8 +3,14 @@ import "./RSVP.css";
 
 const MAX_GUESTS = 10; // highest number guests can pick (change if you want a lower limit)
 
+const SHEET_URL =
+  "https://script.google.com/macros/s/AKfycbygfTCV5UJ-JyxKR9-OukSa_wZVy2IQjrEsfCy3Ag4DwdGo4yQzKAbxE2kbKJtI8YLD/exec";
+
 function RSVP() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
   const [attendance, setAttendance] = useState("");
   const [guests, setGuests] = useState(1);
 
@@ -16,9 +22,27 @@ function RSVP() {
     setGuests((current) => Math.max(current - 1, 1));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+
+    try {
+      await fetch(SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams({
+          name,
+          attendance,
+          guests,
+          message,
+        }),
+      });
+      setSubmitted(true);
+    } catch (error) {
+      alert("Maaf, RSVP gagal dihantar. Sila cuba lagi.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -77,6 +101,8 @@ function RSVP() {
             type="text"
             placeholder="Nama penuh"
             required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
@@ -154,6 +180,8 @@ function RSVP() {
             id="message"
             rows="4"
             placeholder="Tinggalkan ucapan untuk pasangan..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
           />
         </div>
 
@@ -161,9 +189,9 @@ function RSVP() {
         <button
           type="submit"
           className="rsvp-submit"
-          disabled={!attendance}
+          disabled={!attendance || sending}
         >
-          Hantar RSVP
+          {sending ? "Menghantar..." : "Hantar RSVP"}
         </button>
       </form>
     </section>
