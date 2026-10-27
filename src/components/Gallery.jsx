@@ -18,7 +18,10 @@ const calculateTimeLeft = () => {
   };
 };
 
-const pad = (n) => String(n).padStart(2, "0");
+const formatValue = (value, label) => {
+  if (label === "Hari") return String(value);
+  return String(value).padStart(2, "0");
+};
 
 function Gallery() {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
@@ -41,38 +44,44 @@ function Gallery() {
   return (
     <section className="gallery">
       <div className="gallery-inner">
+        {/* Title */}
+        <h2 className="gallery-title">Menuju Hari Bahagia</h2>
 
-        <div className="gallery-header">
-          <p className="gallery-label">Our Story</p>
-
-          <h2>Menuju Hari Bahagia</h2>
-
-          <span>
-            Sebuah kisah cinta yang akan
-            <br />
-            kami abadikan selamanya.
-          </span>
-        </div>
-
-        <div className="countdown-container" role="timer">
+        {/* Countdown */}
+        <div
+          className="countdown-container"
+          role="timer"
+          aria-live="polite"
+          aria-label={`Baki masa: ${timeLeft.days} hari, ${timeLeft.hours} jam, ${timeLeft.minutes} minit, ${timeLeft.seconds} saat`}
+        >
           {items.map((item) => (
             <div className="countdown-item" key={item.label}>
-              <span>{pad(item.value)}</span>
-              <small>{item.label}</small>
+              <span aria-hidden="true">
+                {formatValue(item.value, item.label)}
+              </span>
+              <small aria-hidden="true">{item.label}</small>
             </div>
           ))}
         </div>
 
+        {/* Story text */}
+        <p className="gallery-text">
+          Sebuah kisah cinta yang akan
+          <br />
+          kami abadikan selamanya.
+        </p>
+
+        {/* Photo frame */}
         <div className="gallery-grid">
           <div className="gallery-item gallery-item-large">
             <img
               src="/couple-cartoon.png"
               alt="Ilustrasi Iqram & Sharmariz"
               className="gallery-image"
+              loading="lazy"
             />
           </div>
         </div>
-
       </div>
     </section>
   );

@@ -29,7 +29,9 @@ function Invitation() {
 
         <h2 className="inv-parent">Muamar Aslie Bin Haznil &amp; Keluarga</h2>
         <h3 className="inv-note">
-          (Wakil kepada Allahyarham Haznil Bin Husin &amp; Allahyarham Marjanah Binti Embor)
+          (Wakil kepada Allahyarham Haznil Bin Husin &amp;
+          <br />
+          <span className="nowrap">Allahyarham Marjanah Binti Embor)</span>
         </h3>
 
         <p className="invitation-serta">Serta</p>
@@ -50,16 +52,16 @@ function Invitation() {
           <span>Muhammad Iqram Daniel Bin Mohamad Zaki</span>
         </h2>
 
+        <p className="invitation-closing">
+          Semoga kehadiran para jemputan akan menyempurnakan majlis kami dan
+          diberkati oleh-Nya.
+        </p>
+
         <div className="invitation-divider" aria-hidden="true">
           <span />
           <i>✦</i>
           <span />
         </div>
-
-        <p className="invitation-closing">
-          Semoga kehadiran para jemputan akan menyempurnakan majlis kami dan
-          diberkati oleh-Nya.
-        </p>
       </div>
     </section>
   );

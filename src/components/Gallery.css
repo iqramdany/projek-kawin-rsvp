@@ -1,14 +1,15 @@
 /* =====================================
-   GALLERY  (burgundy velvet + cream photo mat)
-   colours come from home.css variables, with fallbacks
+   GALLERY (burgundy velvet + cream photo mat)
 ===================================== */
 .gallery {
   position: relative;
   padding: 120px 24px;
   overflow: hidden;
 
+  /* burgundy velvet with a soft olive glow at the top */
   background:
     var(--grain, none),
+    radial-gradient(ellipse at 50% 22%, rgba(107, 117, 56, 0.35), rgba(107, 117, 56, 0) 55%),
     radial-gradient(ellipse at 50% 40%, rgba(138, 42, 64, 0.5), rgba(138, 42, 64, 0) 65%),
     radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(26, 4, 10, 0.55) 100%),
     linear-gradient(180deg, #55101f 0%, var(--burgundy-deep, #4a0e1a) 100%);
@@ -26,28 +27,12 @@
   margin: 0 auto;
 }
 
-
 /* =========================
-   HEADER
+   TITLE
 ========================= */
-
-.gallery-header {
-  margin-bottom: 50px;
+.gallery-title {
+  margin: 0 0 44px;
   text-align: center;
-}
-
-.gallery-label {
-  margin: 0 0 12px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold, #d9b66a);
-}
-
-.gallery-header h2 {
-  margin: 0 0 15px;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(42px, 7vw, 65px);
   font-weight: 500;
@@ -56,26 +41,16 @@
   text-shadow: 0 3px 16px rgba(26, 4, 10, 0.5);
 }
 
-.gallery-header span {
-  display: block;
-  font-family: "Montserrat", sans-serif;
-  font-size: 11px;
-  line-height: 1.8;
-  color: var(--cream-soft, #e8dcb8);
-}
-
-
 /* =========================
-   COUNTDOWN TILES (olive, arch top, gold border)
+   COUNTDOWN TILES (olive arch, gold border, glass backdrop)
 ========================= */
-
 .countdown-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 18px;
   max-width: 700px;
-  margin: 0 auto 50px;
+  margin: 0 auto 40px;
 }
 
 .countdown-item {
@@ -86,28 +61,30 @@
   justify-content: center;
   align-items: center;
 
-  border-radius: 999px 999px 12px 12px;
-  border: 1px solid rgba(217, 182, 106, 0.7);
+  border-radius: 999px 999px 16px 16px;
+  border: 1px solid rgba(217, 182, 106, 0.65);
 
   background:
-    var(--grain, none),
-    radial-gradient(ellipse at 50% 0%, rgba(160, 172, 100, 0.45), rgba(160, 172, 100, 0) 70%),
-    linear-gradient(180deg, #6b7538 0%, var(--olive, #4b5428) 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(160, 172, 100, 0.35), rgba(160, 172, 100, 0) 70%),
+    linear-gradient(180deg, rgba(107, 117, 56, 0.92) 0%, rgba(75, 84, 40, 0.95) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 
   box-shadow:
     0 14px 28px rgba(20, 3, 8, 0.55),
-    inset 0 1px 0 rgba(241, 230, 207, 0.18);
+    inset 0 1px 1px rgba(255, 245, 220, 0.3),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2);
 
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .countdown-item:hover {
   transform: translateY(-8px);
   box-shadow:
     0 20px 34px rgba(20, 3, 8, 0.65),
-    inset 0 1px 0 rgba(241, 230, 207, 0.25);
+    inset 0 1px 1px rgba(255, 245, 220, 0.35);
 }
 
 .countdown-item span {
@@ -128,18 +105,21 @@
 }
 
 /* =========================
-   PHOTO (cream mat + gold inner frame)
+   STORY TEXT
 ========================= */
-
-.gallery {
-  background:
-    var(--grain, none),
-    radial-gradient(ellipse at 50% 22%, rgba(107, 117, 56, 0.35), rgba(107, 117, 56, 0) 55%),
-    radial-gradient(ellipse at 50% 40%, rgba(138, 42, 64, 0.5), rgba(138, 42, 64, 0) 65%),
-    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(26, 4, 10, 0.55) 100%),
-    linear-gradient(180deg, #55101f 0%, var(--burgundy-deep, #4a0e1a) 100%);
+.gallery-text {
+  margin: 0 0 50px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--cream-soft, #e8dcb8);
+  letter-spacing: 0.5px;
 }
 
+/* =========================
+   PHOTO MAT & FRAME
+========================= */
 .gallery-grid {
   display: flex;
   justify-content: center;
@@ -164,7 +144,7 @@
     box-shadow 0.5s ease;
 }
 
-/* inner gold frame */
+/* Inner gold frame */
 .gallery-item::before {
   content: "";
   position: absolute;
@@ -184,7 +164,6 @@
 
 .gallery-item:hover {
   transform: translateY(-6px);
-
   box-shadow:
     0 35px 75px rgba(20, 3, 8, 0.65),
     0 0 0 6px rgba(217, 182, 106, 0.2);
@@ -194,11 +173,9 @@
   transform: scale(1.025);
 }
 
-
 /* =========================
    DECORATIVE STARS
 ========================= */
-
 .gallery::before {
   content: "✦";
   position: absolute;
@@ -219,13 +196,9 @@
   animation: floatingStar 5s ease-in-out infinite reverse;
 }
 
-
 /* =========================
-   ANIMATION
-   (plays when the photo scrolls into view where supported,
-    otherwise a normal fade on load)
+   ANIMATIONS
 ========================= */
-
 .gallery-item {
   animation: galleryFade 0.9s ease both;
 }
@@ -243,7 +216,6 @@
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -251,46 +223,36 @@
 }
 
 @keyframes floatingStar {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-10px);
   }
 }
 
-
 /* =========================
-   MOBILE
+   MOBILE BREAKPOINTS
 ========================= */
-
 @media (max-width: 600px) {
   .gallery {
     padding: 90px 18px;
   }
 
-  .gallery-header {
-    margin-bottom: 35px;
-  }
-
-  .gallery-header h2 {
+  .gallery-title {
     font-size: 43px;
-  }
-
-  .gallery-header span {
-    font-size: 10px;
+    margin-bottom: 32px;
   }
 
   .countdown-container {
     gap: 8px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
   }
 
   .countdown-item {
     width: 75px;
     height: 100px;
+    border-radius: 999px 999px 12px 12px;
   }
 
   .countdown-item span {
@@ -300,6 +262,17 @@
   .countdown-item small {
     font-size: 7px;
     letter-spacing: 1.5px;
+  }
+  .gallery-text {
+    margin: 0 auto 50px;
+    max-width: 480px;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px; /* Memberikan kesan longgar dan mewah */
+    line-height: 1.9;
+    color: var(--cream-soft, #e8dcb8);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   .gallery-item {

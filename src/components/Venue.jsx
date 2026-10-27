@@ -27,16 +27,29 @@ function Venue() {
 
             <h3>Taman Nasalim</h3>
 
-            <p className="venue-address">
-              Taman Nasalim, Lorong 7E, Lot 96
-              <br />
-              Taman Nasalim,
-              <br />
-              90000 Sandakan, Sabah,
-              <br />
-              Malaysia
-            </p>
+            <div className="venue-address-box">
+              <span className="venue-address-icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="17"
+                  height="17"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" />
+                  <circle cx="12" cy="10" r="2.4" />
+                </svg>
+              </span>
 
+              <address className="venue-address">
+                <span className="addr-main">Taman Nasalim, Lorong 7E, Lot 96</span>
+                <span className="addr-sub">Taman Nasalim,</span>
+                <span className="addr-sub">90000 Sandakan, Sabah,</span>
+              </address>
+            </div>
 
             <a
               href={MAP_LINK}
@@ -48,7 +61,7 @@ function Venue() {
             </a>
           </div>
 
-          {/* live map (same location as the button) */}
+          {/* Live Map */}
           <div className="venue-map">
             <iframe
               title="Peta lokasi majlis"

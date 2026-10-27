@@ -19,7 +19,8 @@
   overflow: hidden;
   max-width: 800px;
   margin: 0 auto;
-  padding: clamp(56px, 8vw, 80px) clamp(24px, 7vw, 70px);
+  /* top | left-right | bottom (extra bottom space so the flower doesn't cover the text) */
+  padding: clamp(56px, 8vw, 80px) clamp(24px, 7vw, 70px) clamp(70px, 10vw, 100px);
   text-align: center;
 
   background:
@@ -93,11 +94,16 @@
   max-width: 480px;
   margin: 0 auto 16px;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(13px, 2.8vw, 15px);
+  font-size: clamp(12px, 2.6vw, 15px);
   font-style: italic;
   font-weight: 500;
   line-height: 1.4;
   color: var(--green);
+}
+
+/* keep "Allahyarham Marjanah Binti Embor)" together on one line */
+.inv-note .nowrap {
+  white-space: nowrap;
 }
 
 .invitation-serta {
@@ -144,13 +150,25 @@
   color: var(--gold-deep, #b08b46);
 }
 
-/* ---------- divider ---------- */
+/* ---------- closing (now sits right after the names) ---------- */
+.invitation-closing {
+  max-width: 460px;
+  margin: 20px auto 0;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(15px, 2.8vw, 17px);
+  line-height: 1.55;
+  color: var(--green);
+}
+
+/* ---------- divider (now the last item) ---------- */
 .invitation-divider {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 20px 0;
+  margin: 20px 0 0;
   color: var(--gold-deep, #b08b46);
 }
 .invitation-divider span {
@@ -162,18 +180,6 @@
 .invitation-divider i {
   font-style: normal;
   font-size: 14px;
-}
-
-/* ---------- closing ---------- */
-.invitation-closing {
-  max-width: 460px;
-  margin: 0 auto;
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(15px, 2.8vw, 17px);
-  line-height: 1.55;
-  color: var(--green);
 }
 
 @media (max-width: 600px) {

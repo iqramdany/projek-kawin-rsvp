@@ -1,4 +1,3 @@
-
 /* =====================================
    VENUE SECTION
    Burgundy background with gold details
@@ -49,12 +48,12 @@
 }
 
 .venue-label {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 
   font-family: "Montserrat", sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 4px;
+  letter-spacing: 5px;
   text-transform: uppercase;
 
   color: var(--gold, #d9b66a);
@@ -66,7 +65,7 @@
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(45px, 7vw, 68px);
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.1;
 
   color: var(--cream, #f1e6cf);
   text-shadow: 0 3px 16px rgba(26, 4, 10, 0.5);
@@ -120,7 +119,6 @@
 
 /* =====================================
    VENUE INFORMATION
-   All content centered
 ===================================== */
 
 .venue-info {
@@ -129,74 +127,139 @@
   justify-content: center;
   align-items: center;
 
-  padding: 60px;
-
+  padding: 50px 40px;
   text-align: center;
 }
 
 .venue-small-label {
-  margin: 0 0 18px;
+  margin: 0 0 12px;
 
   font-family: "Montserrat", sans-serif;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 
   color: var(--olive, #4b5428);
 }
 
 .venue-info h3 {
-  margin: 0 0 20px;
+  margin: 0 0 16px;
 
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(36px, 4vw, 50px);
+  font-size: clamp(34px, 4vw, 46px);
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 1.15;
 
   color: var(--burgundy-deep, #4a0e1a);
 }
 
-.venue-address {
-  margin: 0;
-
-  font-family: "Montserrat", sans-serif;
-  font-size: 11px;
-  line-height: 1.9;
-
-  color: #5e5043;
-}
-
 /* =====================================
-   EVENT DATE / TIME
-   Applies if .venue-event is used in JSX
+   ADDRESS CARD
+   cream paper, double gold frame, pin badge on the top edge
 ===================================== */
 
-.venue-event {
-  margin-top: 35px;
-  padding-top: 25px;
+.venue-address-box {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 22px 0 28px;          /* top space makes room for the badge */
+  padding: 34px 22px 24px;
 
-  border-top: 1px solid rgba(176, 139, 70, 0.45);
+  border: 1px solid rgba(176, 139, 70, 0.7);
 
-  text-align: center;
+  background:
+    var(--grain, none),
+    linear-gradient(180deg, rgba(255, 252, 243, 0.85), rgba(251, 244, 227, 0.6));
+
+  /* inner second gold line = double frame */
+  box-shadow:
+    0 14px 28px rgba(74, 14, 26, 0.1),
+    inset 0 0 0 4px rgba(250, 243, 224, 0.95),
+    inset 0 0 0 5px rgba(176, 139, 70, 0.4);
 }
 
-.venue-event p {
-  margin: 0 0 7px;
+/* pin badge, half outside the card */
+.venue-address-icon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  color: var(--gold, #d9b66a);
+  background: linear-gradient(160deg, #7c1f35, #4a0e1a);
+  border: 1px solid rgba(217, 182, 106, 0.9);
+
+  /* cream ring so the badge looks cut into the card edge */
+  box-shadow:
+    0 0 0 5px #f3e8cf,
+    0 6px 14px rgba(74, 14, 26, 0.3);
+}
+
+.venue-address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 0;
+  font-style: normal;           /* <address> is italic by default */
+}
+
+/* first line: elegant serif in burgundy */
+.addr-main {
+  margin-bottom: 8px;
 
   font-family: "Cormorant Garamond", serif;
-  font-size: 22px;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.2px;
 
-  color: var(--burgundy, #6b1a2e);
+  color: var(--burgundy-deep, #4a0e1a);
 }
 
-.venue-event span {
+/* detail lines: olive, calm and readable */
+.addr-sub {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  line-height: 1.9;
+
+  color: #46561a;
+}
+
+/* country: small gold caps with side lines */
+.addr-country {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+
   font-family: "Montserrat", sans-serif;
   font-size: 9px;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: 4px;
   text-transform: uppercase;
 
-  color: var(--olive, #4b5428);
+  color: var(--gold-deep, #b08b46);
+}
+
+.addr-country::before,
+.addr-country::after {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 /* =====================================
@@ -211,16 +274,15 @@
   width: fit-content;
   max-width: 100%;
 
-  margin-top: 35px;
-  padding: 14px 26px;
+  padding: 13px 26px;
 
   border: 1px solid rgba(217, 182, 106, 0.8);
   border-radius: 999px;
 
   font-family: "Montserrat", sans-serif;
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 
   color: var(--cream, #f1e6cf);
@@ -264,38 +326,26 @@
 
 .venue-map {
   position: relative;
-
   min-height: 480px;
   overflow: hidden;
-
   background: #e4d9bd;
-
   border-left: 1px solid rgba(217, 182, 106, 0.7);
 }
 
 .venue-map iframe {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   border: 0;
-
-  /* Warm map colours to match the wedding theme */
   filter: sepia(0.25) saturate(0.85) contrast(0.95);
 }
 
-/* Gold inner frame over the map */
-
 .venue-map::after {
   content: "";
-
   position: absolute;
   inset: 14px;
-
   border: 1px solid rgba(217, 182, 106, 0.8);
-
   pointer-events: none;
 }
 
@@ -305,43 +355,35 @@
 
 .venue::before {
   content: "✦";
-
   position: absolute;
   top: 70px;
   left: 8%;
-
   font-size: 17px;
   color: rgba(217, 182, 106, 0.45);
-
   animation: venueFloat 4s ease-in-out infinite;
 }
 
 .venue::after {
   content: "✦";
-
   position: absolute;
   right: 8%;
   bottom: 70px;
-
   font-size: 14px;
   color: rgba(217, 182, 106, 0.38);
-
   animation: venueFloat 5s ease-in-out infinite reverse;
 }
 
 @keyframes venueFloat {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-10px);
   }
 }
 
 /* =====================================
-   TABLET
+   TABLET & MOBILE BREAKPOINTS
 ===================================== */
 
 @media (max-width: 800px) {
@@ -358,20 +400,15 @@
   }
 
   .venue-info {
-    padding: 50px 40px;
+    padding: 45px 30px;
   }
 
   .venue-map {
     min-height: 360px;
-
     border-left: 0;
     border-top: 1px solid rgba(217, 182, 106, 0.7);
   }
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width: 480px) {
   .venue {
@@ -379,20 +416,34 @@
   }
 
   .venue-header h2 {
-    font-size: 46px;
+    font-size: 42px;
   }
 
   .venue-info {
-    padding: 45px 24px;
+    padding: 40px 20px;
   }
 
   .venue-info h3 {
-    font-size: 38px;
+    font-size: 32px;
   }
 
-  .venue-address {
-    font-size: 10px;
-    overflow-wrap: anywhere;
+  .venue-address-box {
+    padding: 32px 14px 20px;
+    margin-bottom: 22px;
+  }
+
+  .addr-main {
+    font-size: 19px;
+  }
+
+  .addr-sub {
+    font-size: 10.5px;
+    line-height: 1.8;
+  }
+
+  .addr-country::before,
+  .addr-country::after {
+    width: 16px;
   }
 
   .venue-map {
@@ -405,15 +456,11 @@
 
   .map-button {
     width: 100%;
-    padding: 14px 12px;
-    font-size: 9px;
-    letter-spacing: 1px;
+    padding: 13px 12px;
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
   }
 }
-
-/* =====================================
-   REDUCED MOTION ACCESSIBILITY
-===================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .venue::before,

@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap");
 
 /* =====================================
-   THEME: burgundy + olive
-   change a colour here and it updates everywhere
+   THEME
 ===================================== */
+
 :root {
   --burgundy-deep: #4a0e1a;
   --burgundy: #6b1a2e;
@@ -15,11 +15,16 @@
 
   --cream: #f1e6cf;
   --cream-soft: #e8dcb8;
+
   --gold: #d9b66a;
   --gold-deep: #b08b46;
 
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* =====================================
+   RESET
+===================================== */
 
 * {
   margin: 0;
@@ -44,10 +49,12 @@ body {
 
 /* =====================================
    OPEN TRANSITION
-   (classes are added by App.jsx when the envelope is tapped)
 ===================================== */
+
 .home-pop {
-  animation: home-pop 900ms cubic-bezier(0.2, 0.9, 0.3, 1.15) 2500ms backwards;
+  animation: home-pop 900ms
+    cubic-bezier(0.2, 0.9, 0.3, 1.15)
+    2500ms backwards;
 }
 
 @keyframes home-pop {
@@ -62,7 +69,10 @@ body {
   }
 }
 
-/* hero text waits (hidden) until the page is "live", then rises in */
+/* =====================================
+   REVEAL ANIMATION
+===================================== */
+
 .hero .reveal {
   opacity: 0;
 }
@@ -75,15 +85,18 @@ body {
 /* =====================================
    HERO
 ===================================== */
+
 .hero {
   min-height: 100vh;
   min-height: 100dvh;
+
   position: relative;
   overflow: hidden;
   isolation: isolate;
 
   display: flex;
   flex-direction: column;
+
   justify-content: center;
   align-items: center;
 
@@ -91,24 +104,45 @@ body {
 
   padding: 40px 20px;
 
-  /* same olive glow as the envelope screen, with a touch of burgundy at the bottom */
   background-color: var(--olive);
+
   background-image:
     var(--grain),
-    radial-gradient(ellipse at center, rgba(128, 138, 76, 0.65) 0%, rgba(0, 0, 0, 0) 62%),
-    radial-gradient(ellipse at 50% 120%, rgba(107, 26, 46, 0.55) 0%, rgba(0, 0, 0, 0) 55%),
-    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.6) 100%);
+    radial-gradient(
+      ellipse at center,
+      rgba(128, 138, 76, 0.65) 0%,
+      rgba(0, 0, 0, 0) 62%
+    ),
+    radial-gradient(
+      ellipse at 50% 120%,
+      rgba(107, 26, 46, 0.55) 0%,
+      rgba(0, 0, 0, 0) 55%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(18, 22, 6, 0.6) 100%
+    );
 
-  background-size: auto, cover, cover, cover;
+  background-size:
+    auto,
+    cover,
+    cover,
+    cover;
+
   background-position: center;
 }
 
-/* Decorative frame */
+/* =====================================
+   HERO FRAME
+===================================== */
 
 .hero::before {
   content: "";
+
   position: absolute;
   inset: 25px;
+
   z-index: 1;
 
   border: 1px solid rgba(217, 182, 106, 0.55);
@@ -121,14 +155,17 @@ body {
 
   position: absolute;
   top: 45px;
+
   z-index: 1;
 
   font-size: 22px;
-
   color: var(--gold);
 }
 
-/* hero text sits above the decoration */
+/* =====================================
+   CONTENT LAYER
+===================================== */
+
 .hero > .subtitle,
 .hero > h1,
 .hero > .hero-ornament,
@@ -139,54 +176,81 @@ body {
   z-index: 2;
 }
 
-/* Floral corners */
+/* =====================================
+   FLORAL CORNERS
+===================================== */
 
 .hero .corner {
   position: absolute;
+
   z-index: 1;
+
   max-width: none;
+
   pointer-events: none;
   user-select: none;
+
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
 }
 
 .hero .corner-tl {
   top: -2%;
   left: -6vw;
+
   width: min(48vw, 320px);
+
   transform-origin: 0 0;
+
   animation: sway 7s ease-in-out infinite;
 }
 
 .hero .corner-br {
   bottom: -2%;
   right: -6vw;
+
   width: min(44vw, 300px);
+
   transform-origin: 100% 100%;
+
   animation: sway 8s ease-in-out infinite reverse;
 }
 
-/* Gold dust */
+/* =====================================
+   FLOATING GOLD DUST
+===================================== */
 
 .hero-dust {
   position: absolute;
   inset: 0;
+
   z-index: 0;
+
   pointer-events: none;
 }
 
 .hero-dust span {
   position: absolute;
+
   border-radius: 50%;
-  background: radial-gradient(circle, #fff2c4, rgba(240, 214, 140, 0) 70%);
+
+  background: radial-gradient(
+    circle,
+    #fff2c4,
+    rgba(240, 214, 140, 0) 70%
+  );
+
   opacity: 0;
+
   animation: dust-rise 6s ease-in-out infinite;
 }
 
-/* TEXT */
+/* =====================================
+   HERO SUBTITLE
+===================================== */
 
 .subtitle {
   font-size: 12px;
+
   letter-spacing: 5px;
   text-transform: uppercase;
 
@@ -195,13 +259,16 @@ body {
   margin-bottom: 25px;
 }
 
+/* =====================================
+   HERO TITLE
+===================================== */
+
 .hero h1 {
   font-family: "Great Vibes", "Cormorant Garamond", cursive;
 
   font-size: clamp(56px, 11vw, 124px);
 
   font-weight: 400;
-
   line-height: 1.05;
 
   color: var(--cream);
@@ -211,10 +278,38 @@ body {
   margin-bottom: 18px;
 }
 
+/* =====================================
+   MONOGRAM
+===================================== */
+
+.hero h1.hero-monogram-wrap {
+  margin-bottom: 4px;
+  line-height: 0;
+}
+
+.hero-monogram {
+  width: clamp(220px, 60vw, 340px);
+
+  height: auto;
+  display: block;
+
+  user-select: none;
+
+  filter:
+    drop-shadow(0 0 22px rgba(241, 230, 207, 0.55))
+    drop-shadow(0 4px 10px rgba(18, 22, 6, 0.35));
+}
+
+/* =====================================
+   ORNAMENT
+===================================== */
+
 .hero-ornament {
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   gap: 14px;
 
   color: var(--gold);
@@ -225,7 +320,9 @@ body {
 .hero-ornament span {
   width: 64px;
   height: 1px;
+
   background: currentColor;
+
   opacity: 0.6;
 }
 
@@ -234,11 +331,14 @@ body {
   font-size: 14px;
 }
 
+/* =====================================
+   DESCRIPTION
+===================================== */
+
 .description {
   font-family: "Cormorant Garamond", serif;
 
   font-size: 28px;
-
   font-style: italic;
 
   color: var(--gold);
@@ -246,63 +346,174 @@ body {
   margin-bottom: 18px;
 }
 
+/* =====================================
+   DATE
+===================================== */
+
 .date {
   font-size: 13px;
 
   letter-spacing: 4px;
-
   text-transform: uppercase;
 
   color: var(--cream-soft);
 
-  margin-bottom: 45px;
-}
-
-/* BUTTON */
-
-.rsvp-button {
-  border: 1px solid var(--gold);
-
-  background: var(--burgundy);
-
-  color: var(--cream);
-
-  padding: 15px 35px;
-
-  font-family: "Montserrat", sans-serif;
-
-  font-size: 12px;
-
-  letter-spacing: 3px;
-
-  text-transform: uppercase;
-
-  cursor: pointer;
-
-  box-shadow: 0 8px 20px rgba(18, 22, 6, 0.4);
-
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
-}
-
-.rsvp-button:hover {
-  background: var(--cream);
-
-  color: var(--burgundy-deep);
-
-  transform: translateY(-4px);
-}
-
-.rsvp-button:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 4px;
+  margin-bottom: 52px;   /* a little extra room for the top rose */
 }
 
 /* =====================================
-   ANIMATION
+   RSVP BUTTON  (rounded, double gold line, rose corners)
 ===================================== */
+
+.rsvp-button {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  min-height: 54px;
+  padding: 16px 34px;
+
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+
+  background: linear-gradient(180deg, #7c1f35 0%, #55101f 100%);
+  color: var(--cream);
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  /* thin second gold line inside the border */
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 3px #5a1223,
+    inset 0 0 0 4px rgba(217, 182, 106, 0.4);
+
+  transition:
+    translate 0.3s ease,
+    scale 0.2s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.rsvp-text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.rsvp-arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  color: var(--gold);
+
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.rsvp-arrow svg {
+  display: block;
+}
+
+/* ---------- rose corners ---------- */
+
+.rsvp-flower {
+  position: absolute;
+  z-index: 1;
+  width: 76px;
+  pointer-events: none;
+}
+
+.rsvp-flower svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+
+  transform-origin: 64% 54%;
+  filter: drop-shadow(0 2px 4px rgba(18, 22, 6, 0.45));
+  animation: rose-sway 6s ease-in-out infinite;
+}
+
+/* top-left corner */
+.rsvp-flower-tl {
+  top: -24px;
+  left: -38px;
+}
+
+/* bottom-right corner (same rose, turned around) */
+.rsvp-flower-br {
+  bottom: -24px;
+  right: -38px;
+  transform: rotate(180deg);
+}
+
+.rsvp-flower-br svg {
+  animation-delay: -3s;
+}
+
+/* =====================================
+   RSVP HOVER
+===================================== */
+
+@media (hover: hover) {
+  .rsvp-button:hover {
+    translate: 0 -3px;
+
+    background: linear-gradient(180deg, #8a2a40 0%, #651529 100%);
+    border-color: #f0d98f;
+
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.35),
+      0 0 22px rgba(217, 182, 106, 0.3),
+      inset 0 0 0 3px #651529,
+      inset 0 0 0 4px rgba(240, 217, 143, 0.55);
+  }
+
+  .rsvp-button:hover .rsvp-arrow {
+    transform: translateX(5px);
+    color: #f0d98f;
+  }
+}
+
+/* =====================================
+   RSVP CLICK / TAP
+===================================== */
+
+.rsvp-button:active {
+  scale: 0.97;
+  translate: 0 0;
+}
+
+/* =====================================
+   RSVP KEYBOARD FOCUS
+===================================== */
+
+.rsvp-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+}
+
+/* =====================================
+   ANIMATIONS
+===================================== */
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -316,22 +527,55 @@ body {
 }
 
 @keyframes sway {
-  0%, 100% { transform: rotate(0deg); }
-  50%      { transform: rotate(1.6deg); }
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(1.6deg);
+  }
 }
 
 @keyframes dust-rise {
-  0%   { opacity: 0;   transform: translateY(14px) scale(0.6); }
-  40%  { opacity: 0.9; }
-  100% { opacity: 0;   transform: translateY(-46px) scale(1.2); }
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.6);
+  }
+
+  40% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-46px) scale(1.2);
+  }
+}
+
+@keyframes rose-sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+
+  50% {
+    transform: rotate(2.5deg);
+  }
 }
 
 /* =====================================
    MOBILE
 ===================================== */
+
 @media (max-width: 600px) {
+
   .hero::before {
     inset: 15px;
+  }
+
+  .hero-monogram {
+    width: min(70vw, 280px);
   }
 
   .hero h1 {
@@ -350,14 +594,103 @@ body {
   .date {
     font-size: 11px;
     letter-spacing: 2px;
+
+    margin-bottom: 42px;
   }
 
   .hero-ornament span {
     width: 44px;
   }
+
+  /* MOBILE RSVP BUTTON */
+
+  .rsvp-button {
+    min-height: 50px;
+
+    padding: 14px 26px;
+
+    gap: 14px;
+
+    border-radius: 14px;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+  }
+
+  .rsvp-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .rsvp-flower {
+    width: 62px;
+  }
+
+  .rsvp-flower-tl {
+    top: -20px;
+    left: -31px;
+  }
+
+  .rsvp-flower-br {
+    bottom: -20px;
+    right: -31px;
+  }
 }
 
+/* =====================================
+   SMALL PHONES
+===================================== */
+
+@media (max-width: 380px) {
+
+  .hero {
+    padding: 35px 20px;
+  }
+
+  .hero-monogram {
+    width: min(65vw, 250px);
+  }
+
+  .date {
+    margin-bottom: 36px;
+  }
+
+  .rsvp-button {
+    padding: 13px 22px;
+
+    font-size: 9px;
+
+    gap: 12px;
+
+    letter-spacing: 1.5px;
+  }
+
+  .rsvp-flower {
+    width: 54px;
+  }
+
+  .rsvp-flower-tl {
+    top: -17px;
+    left: -27px;
+  }
+
+  .rsvp-flower-br {
+    bottom: -17px;
+    right: -27px;
+  }
+}
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
 @media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
   .home-pop {
     animation: none;
   }
@@ -368,11 +701,17 @@ body {
 
   .is-live .hero .reveal,
   .hero .corner,
-  .hero-dust span {
+  .hero-dust span,
+  .rsvp-flower svg {
     animation: none;
   }
 
   .hero-dust span {
     opacity: 0.5;
+  }
+
+  .rsvp-button,
+  .rsvp-arrow {
+    transition: none;
   }
 }

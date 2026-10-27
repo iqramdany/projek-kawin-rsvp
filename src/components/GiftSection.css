@@ -11,7 +11,8 @@
 
   background:
     var(--grain, none),
-    radial-gradient(ellipse at center, rgba(128, 138, 76, 0.5) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at 50% 35%, rgba(128, 138, 76, 0.5) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at 50% 120%, rgba(107, 26, 46, 0.4) 0%, rgba(0, 0, 0, 0) 55%),
     radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.55) 100%),
     var(--olive, #4b5428);
 
@@ -31,7 +32,7 @@
   font-size: 130px;
   font-weight: 500;
   letter-spacing: 12px;
-  color: rgba(217, 182, 106, 0.09);
+  color: rgba(217, 182, 106, 0.08);
   pointer-events: none;
   white-space: nowrap;
 }
@@ -47,6 +48,30 @@
   width: min(100%, 560px);
   margin: 0 auto;
   text-align: center;
+}
+
+
+/* =========================
+   ICON BADGE
+========================= */
+
+.gift-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+
+  color: var(--gold, #d9b66a);
+  background: linear-gradient(160deg, #7c1f35, #4a0e1a);
+  border: 1px solid rgba(217, 182, 106, 0.85);
+
+  box-shadow:
+    0 0 0 5px rgba(217, 182, 106, 0.12),
+    0 10px 20px rgba(18, 22, 6, 0.4);
 }
 
 
@@ -74,6 +99,27 @@
   text-shadow: 0 3px 16px rgba(18, 22, 6, 0.5);
 }
 
+.gift-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 22px;
+  color: var(--gold, #d9b66a);
+}
+
+.gift-divider span {
+  width: 52px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.gift-divider i {
+  font-style: normal;
+  font-size: 14px;
+}
+
 
 /* =========================
    MESSAGE
@@ -81,7 +127,7 @@
 
 .gift-message {
   width: min(100%, 450px);
-  margin: 0 auto 35px;
+  margin: 0 auto 48px;
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   line-height: 1.9;
@@ -90,37 +136,77 @@
 
 
 /* =========================
-   QR CARD (cream paper + gold frame)
+   QR CARD (cream paper, double gold frame, tab on top edge)
 ========================= */
 
-.qr-wrapper {
+.qr-card {
   position: relative;
   width: fit-content;
   margin: 0 auto;
-  padding: 22px;
+  padding: 44px 30px 26px;
 
-  border: 1px solid rgba(217, 182, 106, 0.8);
+  border: 1px solid rgba(176, 139, 70, 0.8);
 
-  background: var(--grain, none), linear-gradient(160deg, #f6ecd5, #efe2c4);
+  background:
+    var(--grain, none),
+    linear-gradient(160deg, #f6ecd5, #efe2c4);
 
   box-shadow:
     0 24px 50px rgba(18, 22, 6, 0.5),
-    0 0 0 6px rgba(217, 182, 106, 0.14);
+    0 0 0 6px rgba(217, 182, 106, 0.14),
+    inset 0 0 0 6px #f6ecd5,
+    inset 0 0 0 7px rgba(176, 139, 70, 0.5);
 }
 
-/* inner gold frame */
-.qr-wrapper::before {
-  content: "";
+/* burgundy tab half outside the card */
+.qr-tab {
   position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(176, 139, 70, 0.55);
-  pointer-events: none;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 182, 106, 0.9);
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: var(--gold, #d9b66a);
+  background: linear-gradient(180deg, #7c1f35, #4a0e1a);
+
+  box-shadow:
+    0 0 0 5px #f1e5c9,
+    0 6px 14px rgba(74, 14, 26, 0.35);
+}
+
+/* white QR area with gold corner brackets (white stays behind the code so it scans) */
+.qr-frame {
+  --c: #b08b46;
+  padding: 16px;
+
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 1.5px 20px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 1.5px 20px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 1.5px 20px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 1.5px 20px no-repeat,
+    #fff;
+
+  box-shadow: 0 8px 20px rgba(74, 14, 26, 0.12);
 }
 
 .qr-code {
   display: block;
-  width: 230px;
-  height: 230px;
+  width: 220px;
+  height: 220px;
   object-fit: contain;
   background: #fff;
 }
@@ -131,26 +217,79 @@
 ========================= */
 
 .qr-text {
-  margin: 20px 0 0;
+  margin: 18px 0 0;
   font-family: "Montserrat", sans-serif;
   font-size: 9px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
+  line-height: 1.8;
   text-transform: uppercase;
-  color: var(--gold, #d9b66a);
+  color: var(--olive, #4b5428);
 }
 
 
 /* =========================
-   DECORATIVE LINE
+   SAVE BUTTON
 ========================= */
 
-.gift-content::after {
+.qr-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 30px;
+  padding: 13px 28px;
+
+  border: 1px solid rgba(217, 182, 106, 0.85);
+  border-radius: 999px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: var(--cream, #f1e6cf);
+  background: rgba(74, 14, 26, 0.35);
+  cursor: pointer;
+
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.qr-save:hover {
+  background: var(--cream, #f1e6cf);
+  color: var(--burgundy-deep, #4a0e1a);
+  transform: translateY(-3px);
+}
+
+.qr-save:focus-visible {
+  outline: 2px solid var(--gold, #d9b66a);
+  outline-offset: 4px;
+}
+
+
+/* =========================
+   THANK YOU LINE
+========================= */
+
+.gift-thanks {
+  margin: 34px 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold, #d9b66a);
+}
+
+.gift-thanks::before {
   content: "";
   display: block;
   width: 45px;
   height: 1px;
-  margin: 28px auto 0;
+  margin: 0 auto 18px;
   background: var(--gold, #d9b66a);
   opacity: 0.7;
 }
@@ -171,6 +310,12 @@
     letter-spacing: 6px;
   }
 
+  .gift-icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 14px;
+  }
+
   .gift-content h2 {
     font-size: 44px;
   }
@@ -178,19 +323,42 @@
   .gift-message {
     font-size: 11px;
     line-height: 1.8;
-    margin-bottom: 30px;
+    margin-bottom: 42px;
   }
 
-  .qr-wrapper {
-    padding: 18px;
+  .qr-card {
+    padding: 42px 20px 22px;
+  }
+
+  .qr-frame {
+    padding: 14px;
   }
 
   .qr-code {
-    width: 200px;
-    height: 200px;
+    width: 190px;
+    height: 190px;
   }
 
   .qr-text {
     font-size: 8px;
+  }
+
+  .qr-save {
+    margin-top: 26px;
+    font-size: 9px;
+  }
+
+  .gift-thanks {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qr-save {
+    transition: none;
+  }
+
+  .qr-save:hover {
+    transform: none;
   }
 }
