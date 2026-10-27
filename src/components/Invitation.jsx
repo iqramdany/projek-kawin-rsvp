@@ -28,11 +28,10 @@ function Invitation() {
         </p>
 
         <h2 className="inv-parent">
-          Muamar Aslie Bin Haznil
-          <br />
-          <span className="nowrap">&amp; Keluarga</span>
+          <span>Muamar Aslie Bin Haznil</span>
+          <i>&amp;</i>
+          <span>Keluarga</span>
         </h2>
-
         <h3 className="inv-note">
           (Wakil kepada Allahyarham Haznil Bin Husin &amp;
           <br />
@@ -42,9 +41,9 @@ function Invitation() {
         <p className="invitation-serta">Serta</p>
 
         <h2 className="inv-parent">
-          Rosnani Binti Ismail
-          <br />
-          <span className="nowrap">&amp; Keluarga</span>
+          <span>Rosnani Binti Ismail</span>
+          <i>&amp;</i>
+          <span>Keluarga</span>
         </h2>
         <h3 className="inv-note">
           (Isteri kepada Allahyarham Mohamad Zaki Bin Lemas)

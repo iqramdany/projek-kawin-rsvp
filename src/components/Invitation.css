@@ -81,15 +81,31 @@
 
 /* ---------- parents (burgundy) ---------- */
 .inv-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 0.4rem 0;
+
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(20px, 3.8vw, 26px);
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0.3px;
-  color: var(--burgundy-deep, #4a0e1a);
-  margin: 0 0 4px;
+  font-size: clamp(1.1rem, 4.4vw, 1.4rem); /* smaller than the couple names */
+  line-height: 1.25;
+  color: var(--burgundy, #6b1a2e);
 }
 
+.inv-parent i {
+  font-size: 0.85em;   /* small & */
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-deep, #b08b46);
+}
+
+.inv-parent span {
+  display: block;
+}
+
+/* ---------- notes under the parents ---------- */
 .inv-note {
   max-width: 480px;
   margin: 0 auto 16px;
@@ -141,6 +157,8 @@
 
 .inv-couple span {
   font-size: clamp(30px, 6vw, 44px);
+  text-wrap: balance;      /* long names break evenly instead of leaving one word alone */
+  overflow-wrap: anywhere;
 }
 
 .inv-couple i {
@@ -150,7 +168,7 @@
   color: var(--gold-deep, #b08b46);
 }
 
-/* ---------- closing (now sits right after the names) ---------- */
+/* ---------- closing (sits right after the names) ---------- */
 .invitation-closing {
   max-width: 460px;
   margin: 20px auto 0;
@@ -162,7 +180,7 @@
   color: var(--green);
 }
 
-/* ---------- divider (now the last item) ---------- */
+/* ---------- divider (the last item) ---------- */
 .invitation-divider {
   display: flex;
   align-items: center;
