@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import "./ucapanwall.css";
-
+import "./Ucapanwall.css";
 // same web-app URL you use in RSVP.jsx
 const SHEET_URL =
   "https://script.google.com/macros/s/AKfycbygfTCV5UJ-JyxKR9-OukSa_wZVy2IQjrEsfCy3Ag4DwdGo4yQzKAbxE2kbKJtI8YLD/exec";
