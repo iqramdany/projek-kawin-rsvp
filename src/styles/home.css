@@ -245,18 +245,41 @@ body {
 }
 
 /* =====================================
-   HERO SUBTITLE
+   HERO SUBTITLE  (Dengan penuh kesyukuran)
 ===================================== */
 
 .subtitle {
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
 
-  letter-spacing: 5px;
-  text-transform: uppercase;
+  margin-top: 40px;      /* push it down, away from the top star */
+  margin-bottom: 22px;
 
-  color: var(--cream-soft);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: none;
 
-  margin-bottom: 25px;
+  color: var(--gold);
+  text-shadow: 0 2px 10px rgba(18, 22, 6, 0.5);
+}
+
+/* thin gold lines on both sides */
+.subtitle::before,
+.subtitle::after {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  opacity: 0.8;
+}
+
+.subtitle::after {
+  background: linear-gradient(270deg, transparent, var(--gold));
 }
 
 /* =====================================
@@ -583,8 +606,16 @@ body {
   }
 
   .subtitle {
-    font-size: 10px;
-    letter-spacing: 3px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    gap: 10px;
+    margin-top: 32px;
+    margin-bottom: 18px;
+  }
+
+  .subtitle::before,
+  .subtitle::after {
+    width: 24px;
   }
 
   .description {
@@ -650,6 +681,16 @@ body {
 
   .hero-monogram {
     width: min(65vw, 250px);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    margin-top: 28px;
+  }
+
+  .subtitle::before,
+  .subtitle::after {
+    width: 18px;
   }
 
   .date {
