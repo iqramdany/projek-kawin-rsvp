@@ -1,0 +1,217 @@
+/* =====================================
+   UCAPAN WALL  (cream paper, burgundy + gold)
+===================================== */
+.uw {
+  --paper: #f8f1e1;
+  position: relative;
+  padding: 90px 22px 80px;
+  overflow: hidden;
+  text-align: center;
+
+  background:
+    radial-gradient(ellipse at 85% 45%, rgba(128, 138, 76, 0.12), rgba(128, 138, 76, 0) 60%),
+    radial-gradient(ellipse at 10% 100%, rgba(122, 30, 52, 0.08), rgba(122, 30, 52, 0) 55%),
+    var(--paper);
+}
+
+/* header */
+.uw-header { margin-bottom: 44px; }
+
+.uw-header p {
+  margin: 0 0 14px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #5f7027;
+}
+
+.uw-header h2 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(36px, 7vw, 54px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--burgundy-deep, #4a0e1a);
+}
+
+.uw-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+.uw-divider span {
+  width: 70px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b08b46);
+}
+.uw-divider span:last-child {
+  background: linear-gradient(270deg, transparent, #b08b46);
+}
+.uw-divider i { font-style: normal; font-size: 13px; color: #b08b46; }
+
+.uw-empty {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 20px;
+  color: #7a5a4a;
+}
+
+.uw-hint {
+  margin-top: 18px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(122, 90, 74, 0.7);
+}
+
+/* =========================
+   WALL
+========================= */
+.uw-wall {
+  width: min(100%, 820px);
+  height: 460px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 2), 1fr);
+  gap: 18px;
+  overflow: hidden;
+
+  -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+}
+
+/* few wishes -> plain list, no animation */
+.uw-wall.is-static {
+  height: auto;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.uw-col { overflow: hidden; }
+.uw-wall.is-static .uw-col { overflow: visible; }
+
+.uw-track {
+  animation: uw-scroll var(--dur, 40s) linear infinite;
+  will-change: transform;
+}
+.uw-wall.is-static .uw-track { animation: none; }
+
+.uw-col.is-rev .uw-track { animation-direction: reverse; }
+
+/* pause while touching / hovering / reading a full wish */
+.uw-col:hover .uw-track,
+.uw-col:active .uw-track,
+.uw-col:has(.is-open) .uw-track {
+  animation-play-state: paused;
+}
+
+@keyframes uw-scroll {
+  to { transform: translateY(-50%); }
+}
+
+/* =========================
+   CARD
+========================= */
+.uw-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;           /* margin (not gap) so the loop is seamless */
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(176, 139, 70, 0.4);
+  box-shadow: 0 8px 20px rgba(74, 14, 26, 0.07);
+  -webkit-tap-highlight-color: transparent;
+
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.uw-card:hover,
+.uw-card.is-open {
+  border-color: rgba(95, 112, 39, 0.6);
+  box-shadow: 0 12px 26px rgba(47, 53, 25, 0.14);
+}
+
+.uw-avatar {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ecd593;
+
+  background: radial-gradient(circle at 30% 25%, #8a2540 0%, #5a1424 60%, #4a0e1a 100%);
+  border: 1px solid rgba(236, 213, 147, 0.7);
+  box-shadow: 0 0 0 3px #f8f1e1, 0 0 0 4px rgba(176, 139, 70, 0.55);
+}
+
+.uw-body { min-width: 0; }
+
+.uw-body h3 {
+  margin: 0 0 4px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--burgundy-deep, #4a0e1a);
+}
+
+.uw-body p {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #5b4a3f;
+  overflow-wrap: anywhere;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.uw-card.is-open .uw-body p {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  display: block;
+}
+
+/* the guest's own wish, just sent */
+.uw-card.is-fresh {
+  background: rgba(255, 250, 235, 0.92);
+  border-color: rgba(176, 139, 70, 0.9);
+  animation: uw-pop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes uw-pop {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (max-width: 700px) {
+  /* extra bottom space so the fixed menu bar never covers the content */
+  .uw { padding: 72px 18px calc(150px + env(safe-area-inset-bottom, 0px)); }
+  .uw-wall { height: 420px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uw-track { animation: none; }
+  .uw-wall { height: auto; max-height: 460px; overflow-y: auto; }
+  .uw-card.is-fresh { animation: none; }
+}

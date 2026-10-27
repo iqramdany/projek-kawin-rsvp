@@ -772,3 +772,20 @@ body {
     transition: none;
   }
 }
+
+/* keep the last section clear of the fixed mobile menu (68px bar + 12px gap) */
+@media (max-width: 600px) {
+  #ucapan {
+    padding-bottom: calc(130px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* keep text away from the floating chat / music buttons on the right */
+  #ucapan .uw-empty,
+  #ucapan .uw-hint {
+    max-width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

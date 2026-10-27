@@ -37,6 +37,20 @@ function RSVP() {
           message,
         }),
       });
+
+      // show the guest's wish on the Ucapan wall straight away
+      if (message.trim()) {
+        window.dispatchEvent(
+          new CustomEvent("ucapan:new", {
+            detail: {
+              name: name.trim(),
+              message: message.trim(),
+              fresh: true,
+            },
+          })
+        );
+      }
+
       setSubmitted(true);
     } catch (error) {
       alert("Maaf, RSVP gagal dihantar. Sila cuba lagi.");
@@ -98,8 +112,10 @@ function RSVP() {
 
           <input
             id="name"
+            name="name"
             type="text"
             placeholder="Nama penuh"
+            autoComplete="name"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -116,6 +132,7 @@ function RSVP() {
                 type="radio"
                 name="attendance"
                 value="yes"
+                autoComplete="off"
                 checked={attendance === "yes"}
                 onChange={() => setAttendance("yes")}
               />
@@ -130,6 +147,7 @@ function RSVP() {
                 type="radio"
                 name="attendance"
                 value="no"
+                autoComplete="off"
                 checked={attendance === "no"}
                 onChange={() => setAttendance("no")}
               />
@@ -178,8 +196,10 @@ function RSVP() {
 
           <textarea
             id="message"
+            name="message"
             rows="4"
             placeholder="Tinggalkan ucapan untuk pasangan..."
+            autoComplete="off"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />

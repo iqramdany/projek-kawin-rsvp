@@ -12,6 +12,7 @@ import MobileMenu from "./components/MobileMenu";
 import MusicPlayer from "./components/MusicPlayer";
 import OpeningEnvelope from "./components/OpeningEnvelope";
 import ContactFab from "./components/ContactFab";
+import UcapanWall from "./components/Ucapanwall";
 
 // Floating gold dust
 const DUST = Array.from({ length: 22 }, (_, i) => ({
@@ -311,6 +312,9 @@ function App() {
         <section id="rsvp">
           <RSVP />
         </section>
+
+        {/* UCAPAN */}
+        <UcapanWall />
 
         {/* MOBILE MENU */}
         <MobileMenu />
