@@ -605,12 +605,22 @@ body {
     font-size: 64px;
   }
 
+  /* smaller flowers so they don't reach the text */
+  .hero .corner-tl {
+    width: min(36vw, 190px);
+    left: -8vw;
+  }
+
+  .hero .corner-br {
+    width: min(38vw, 210px);
+  }
+
   .subtitle {
     font-size: 18px;
     letter-spacing: 1px;
     gap: 10px;
-    margin-top: 32px;
-    margin-bottom: 18px;
+    margin-top: 100px;   /* lower = clear of the flower */
+    margin-bottom: 4px;
   }
 
   .subtitle::before,
