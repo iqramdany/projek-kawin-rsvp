@@ -598,7 +598,7 @@ body {
   }
 
   .hero-monogram {
-    width: min(70vw, 280px);
+    width: min(64vw, 250px);
   }
 
   .hero h1 {
@@ -615,12 +615,18 @@ body {
     width: min(38vw, 210px);
   }
 
+  /* keep content clear of the bottom menu bar */
+  .hero {
+    padding-top: 40px;
+    padding-bottom: 130px;
+  }
+
   .subtitle {
     font-size: 18px;
     letter-spacing: 1px;
     gap: 10px;
-    margin-top: 100px;   /* lower = clear of the flower */
-    margin-bottom: 4px;
+    margin-top: 85px;    /* lower = clear of the flower */
+    margin-bottom: -14px;
   }
 
   .subtitle::before,
