@@ -32,22 +32,24 @@ function Invitation() {
           <i>&amp;</i>
           <span>Keluarga</span>
         </h2>
-        <h3 className="inv-note">
+        <p className="inv-note">
           (Wakil kepada Allahyarham Haznil Bin Husin &amp;
           <br />
           <span className="nowrap">Allahyarham Marjanah Binti Embor)</span>
-        </h3>
+        </p>
 
         <p className="invitation-serta">Serta</p>
 
         <h2 className="inv-parent">
           <span>Rosnani Binti Ismail</span>
+        </h2>
+        <p className="inv-note">
+          (Isteri kepada Allahyarham Mohamad Zaki Bin Lemas)
+        </p>
+        <h2 className="inv-parent">
           <i>&amp;</i>
           <span>Keluarga</span>
         </h2>
-        <h3 className="inv-note">
-          (Isteri kepada Allahyarham Mohamad Zaki Bin Lemas)
-        </h3>
 
         <p className="invitation-text">
           Dengan penuh kesyukuran menjemput Dato' / Datin / Tuan / Puan /
