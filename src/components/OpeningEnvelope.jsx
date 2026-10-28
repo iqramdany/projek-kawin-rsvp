@@ -32,10 +32,20 @@ function OpeningEnvelope({ onOpen, onStart }) {
     >
       {/* decoration behind the envelope */}
       <div className="decor" aria-hidden="true">
-        <img className="corner corner-tl" src="/floral-left.png" alt="" draggable="false"
-             onError={(e) => (e.currentTarget.style.display = "none")} />
-        <img className="corner corner-br" src="/floral-right.png" alt="" draggable="false"
-             onError={(e) => (e.currentTarget.style.display = "none")} />
+        <img
+          className="corner corner-tl"
+          src="/floral-left.png"
+          alt=""
+          draggable="false"
+          onError={(e) => (e.currentTarget.style.display = "none")}
+        />
+        <img
+          className="corner corner-br"
+          src="/floral-right.png"
+          alt=""
+          draggable="false"
+          onError={(e) => (e.currentTarget.style.display = "none")}
+        />
         <div className="dust">
           {DUST.map((d, i) => (
             <span
@@ -56,8 +66,6 @@ function OpeningEnvelope({ onOpen, onStart }) {
       <div className="stage">
         {/* The envelope is built in code, so closed and open are the SAME object */}
         <div className="envelope">
-
-
           <div className="env-shadow" />
           <div className="env-back" />
 
@@ -65,9 +73,19 @@ function OpeningEnvelope({ onOpen, onStart }) {
           <div className="letter">
             <div className="letter-inner">
               <span className="letter-small">Anda</span>
-              <span className="letter-script">dijemput</span>
-              <span className="letter-line" />
-              <span className="letter-date">12.12.2026</span>
+
+              <span className="letter-script">
+                <span className="ls-line">diundang</span>
+                <span className="ls-line">untuk hadir</span>
+              </span>
+
+              <span className="letter-orn" aria-hidden="true">
+                <i />
+                <b>✦</b>
+                <i />
+              </span>
+
+              <span className="letter-date">12 · 12 · 2026</span>
             </div>
           </div>
 
@@ -79,16 +97,38 @@ function OpeningEnvelope({ onOpen, onStart }) {
           </div>
 
           {/* soft shadow under the flap + fold creases */}
-          <svg className="creases" viewBox="0 0 395 269" preserveAspectRatio="none" aria-hidden="true">
+          <svg
+            className="creases"
+            viewBox="0 0 395 269"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
             <defs>
               <filter id="crease-blur" x="-10%" y="-10%" width="120%" height="120%">
                 <feGaussianBlur stdDeviation="2.5" />
               </filter>
             </defs>
-            <path className="flap-shadow" d="M0 4 L197.5 160 L395 4" fill="none"
-                  stroke="#000" strokeOpacity="0.45" strokeWidth="4" filter="url(#crease-blur)" />
-            <path d="M197.5 150 L395 268" stroke="rgba(255,205,205,0.3)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-            <path d="M197.5 150 L0 268" stroke="rgba(255,205,205,0.14)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <path
+              className="flap-shadow"
+              d="M0 4 L197.5 160 L395 4"
+              fill="none"
+              stroke="#000"
+              strokeOpacity="0.45"
+              strokeWidth="4"
+              filter="url(#crease-blur)"
+            />
+            <path
+              d="M197.5 150 L395 268"
+              stroke="rgba(255,205,205,0.3)"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M197.5 150 L0 268"
+              stroke="rgba(255,205,205,0.14)"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+            />
           </svg>
 
           {/* flap: rotates open in 3D */}

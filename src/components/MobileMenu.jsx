@@ -23,7 +23,7 @@ const Svg = ({ children }) => (
 const ITEMS = [
   {
     id: "home",
-    label: "Home",
+    label: "Utama",
     icon: (
       <Svg>
         <path d="M3 11l9-8 9 8" />
@@ -31,20 +31,26 @@ const ITEMS = [
       </Svg>
     ),
   },
-  {
-    id: "couple",
-    label: "Couple",
-    icon: (
-      <Svg>
-        <circle cx="9" cy="15" r="5" />
-        <circle cx="15" cy="15" r="5" />
-        <path d="M12 3l2 2.5-2 2.5-2-2.5z" />
-      </Svg>
-    ),
-  },
+{
+  id: "couple",
+  label: "Jemputan",
+  icon: (
+    <Svg>
+      {/* Invitation card */}
+      <rect x="5" y="3" width="14" height="18" rx="1.5" />
+      
+      {/* Gold-style decorative lines */}
+      <path d="M8 8h8" />
+      <path d="M8 11h8" />
+      
+      {/* Small heart */}
+      <path d="M12 17s-3-1.8-3-3.5a1.7 1.7 0 0 1 3-1.1 1.7 1.7 0 0 1 3 1.1c0 1.7-3 3.5-3 3.5z" />
+    </Svg>
+  ),
+},
   {
     id: "event",
-    label: "Event",
+    label: "Acara",
     icon: (
       <Svg>
         <rect x="3" y="5" width="18" height="16" rx="3" />
@@ -55,7 +61,7 @@ const ITEMS = [
   },
   {
     id: "gift",
-    label: "Gift",
+    label: "Hadiah",
     icon: (
       <Svg>
         <rect x="3" y="9" width="18" height="12" rx="1.5" />

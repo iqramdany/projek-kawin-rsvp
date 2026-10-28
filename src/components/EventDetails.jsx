@@ -29,7 +29,7 @@ const icons = {
   ),
   cake: (
     <>
-      <rect x="3.5" y="15" width="17" height="5.5" rx="1"/><rect x="6.5" y="10" width="11" height="5" rx="1"/><path d="M3.5 17.7c1.4 1 2.8 1 4.2 0s2.8-1 4.2 0 2.8 1 4.2 0 2.8-1 4.2 0"/><circle cx="12" cy="7.6" r="1.6"/><path d="M12 6c0-1 .6-1.7 1.8-2.2"/>
+      <rect x="3.5" y="15" width="17" height="5.5" rx="1"/><rect x="6.5" y="10" width="11" height="5" rx="1"/><path d="M3.5 17.7c1.4 1 2.8 1 4.2 0s2.8-1 4.2 0 2.8 1 4.2 0 2.8 1 4.2 0"/><circle cx="12" cy="7.6" r="1.6"/><path d="M12 6c0-1 .6-1.7 1.8-2.2"/>
     </>
   ),
   camera: (
@@ -44,7 +44,6 @@ const icons = {
   ),
 };
 
-
 const events = [
   { icon: "guests",  title: "Ketibaan Tetamu", time: "10:30 Pagi" },
   { icon: "car",     title: "Ketibaan Rombongan Keluarga", time: "10:50 Pagi" },
@@ -56,37 +55,67 @@ const events = [
   { icon: "favour",  title: "Majlis Bersurai", time: "2:00 Petang" },
 ];
 
-function EventDetails() {
+// returns [ref, inView]; turns true once when the element scrolls into view
+function useInView(threshold = 0.2, rootMargin = "0px 0px -8% 0px") {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [inView, setInView] = useState(false);
 
-  // animate the items in when the section scrolls into view
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (!("IntersectionObserver" in window)) {
-      setVisible(true);
+      setInView(true);
       return;
     }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setInView(true);
           io.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold, rootMargin }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [threshold, rootMargin]);
+
+  return [ref, inView];
+}
+
+function TimelineItem({ ev, index }) {
+  const [ref, inView] = useInView(0.3);
 
   return (
-    <section
+    <div
       ref={ref}
-      className={`event-details ${visible ? "is-visible" : ""}`}
+      className={`tl-item ${index % 2 ? "is-alt" : ""} ${
+        ev.featured ? "is-featured" : ""
+      } ${inView ? "is-in" : ""}`}
     >
-      <div className="event-header">
+      <div className="tl-card">
+        <span className="tl-step">{String(index + 1).padStart(2, "0")}</span>
+        <h3>{ev.title}</h3>
+      </div>
+
+      <div className="tl-dot">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          {icons[ev.icon]}
+        </svg>
+      </div>
+
+      <p className="tl-time">{ev.time}</p>
+    </div>
+  );
+}
+
+function EventDetails() {
+  const [headRef, headIn] = useInView(0.3);
+  const [lineRef, lineIn] = useInView(0.05, "0px 0px -15% 0px");
+
+  return (
+    <section className="event-details">
+      <div ref={headRef} className={`event-header ${headIn ? "is-in" : ""}`}>
         <p>Save the Date</p>
         <h2>Atur Cara Majlis</h2>
         <div className="event-divider" aria-hidden="true">
@@ -96,28 +125,9 @@ function EventDetails() {
         </div>
       </div>
 
-      <div className="tl">
+      <div ref={lineRef} className={`tl ${lineIn ? "is-drawn" : ""}`}>
         {events.map((ev, i) => (
-          <div
-            key={ev.title}
-            className={`tl-item ${i % 2 ? "is-alt" : ""} ${
-              ev.featured ? "is-featured" : ""
-            }`}
-            style={{ "--i": i }}
-          >
-            <div className="tl-card">
-              <span className="tl-step">{String(i + 1).padStart(2, "0")}</span>
-              <h3>{ev.title}</h3>
-            </div>
-
-            <div className="tl-dot">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                {icons[ev.icon]}
-              </svg>
-            </div>
-
-            <p className="tl-time">{ev.time}</p>
-          </div>
+          <TimelineItem key={ev.title} ev={ev} index={i} />
         ))}
       </div>
     </section>

@@ -14,7 +14,126 @@
     var(--paper);
 }
 
-/* header */
+/* =========================
+   DECOR
+========================= */
+.uw-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* semua kandungan duduk atas hiasan */
+.uw-header,
+.uw-wall,
+.uw-empty,
+.uw-hint {
+  position: relative;
+  z-index: 1;
+}
+
+/* bingkai dalam */
+.uw-decor::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(176, 139, 70, 0.35);
+  border-radius: 6px;
+}
+.uw-decor::after {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(176, 139, 70, 0.18);
+  border-radius: 4px;
+}
+
+/* cincin di belakang dinding */
+.uw-ring {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  width: 560px;
+  height: 560px;
+  max-width: 130%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(176, 139, 70, 0.38);
+  animation: uw-spin 90s linear infinite;
+}
+.uw-ring--2 {
+  width: 430px;
+  height: 430px;
+  border: 1px solid rgba(95, 112, 39, 0.22);
+  animation-direction: reverse;
+  animation-duration: 120s;
+}
+@keyframes uw-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* penjuru */
+.uw-corner {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  border: 2px solid #b08b46;
+  opacity: 0.75;
+}
+.uw-corner::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #b08b46;
+  transform: rotate(45deg);
+}
+.uw-corner.tl { top: 26px; left: 26px; border-right: 0; border-bottom: 0; border-top-left-radius: 14px; }
+.uw-corner.tr { top: 26px; right: 26px; border-left: 0; border-bottom: 0; border-top-right-radius: 14px; }
+.uw-corner.bl { bottom: 26px; left: 26px; border-right: 0; border-top: 0; border-bottom-left-radius: 14px; }
+.uw-corner.br { bottom: 26px; right: 26px; border-left: 0; border-top: 0; border-bottom-right-radius: 14px; }
+.uw-corner.tl::after { top: -5px; left: -5px; }
+.uw-corner.tr::after { top: -5px; right: -5px; }
+.uw-corner.bl::after { bottom: -5px; left: -5px; }
+.uw-corner.br::after { bottom: -5px; right: -5px; }
+
+/* daun olive */
+.uw-leaf {
+  position: absolute;
+  width: 70px;
+  height: 28px;
+  border-radius: 0 100% 0 100%;
+  background: linear-gradient(135deg, rgba(128, 138, 76, 0.55), rgba(95, 112, 39, 0.35));
+  opacity: 0.7;
+}
+.uw-leaf.l1 { top: 22%; left: 3%;  transform: rotate(-35deg); }
+.uw-leaf.l2 { top: 27%; left: 6%;  transform: rotate(10deg) scale(0.8); }
+.uw-leaf.r1 { bottom: 24%; right: 3%; transform: rotate(145deg); }
+.uw-leaf.r2 { bottom: 29%; right: 6%; transform: rotate(190deg) scale(0.8); }
+
+/* kilauan emas */
+.uw-spark {
+  position: absolute;
+  font-style: normal;
+  color: #b08b46;
+  animation: uw-twinkle 3.6s ease-in-out infinite;
+}
+.uw-spark.s1 { top: 9%;  left: 14%;  font-size: 14px; }
+.uw-spark.s2 { top: 16%; right: 12%; font-size: 18px; animation-delay: 0.8s; }
+.uw-spark.s3 { top: 46%; left: 5%;   font-size: 11px; animation-delay: 1.6s; }
+.uw-spark.s4 { top: 58%; right: 6%;  font-size: 13px; animation-delay: 2.2s; }
+.uw-spark.s5 { bottom: 12%; left: 18%;  font-size: 16px; animation-delay: 1.2s; }
+.uw-spark.s6 { bottom: 9%;  right: 20%; font-size: 12px; animation-delay: 2.8s; }
+
+@keyframes uw-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%      { opacity: 0.9; transform: scale(1.15); }
+}
+
+/* =========================
+   HEADER
+========================= */
 .uw-header { margin-bottom: 44px; }
 
 .uw-header p {
@@ -204,14 +323,37 @@
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+/* =========================
+   MOBILE
+========================= */
 @media (max-width: 700px) {
   /* extra bottom space so the fixed menu bar never covers the content */
   .uw { padding: 72px 18px calc(150px + env(safe-area-inset-bottom, 0px)); }
   .uw-wall { height: 420px; }
+
+  .uw-decor::before { inset: 10px; }
+  .uw-decor::after  { inset: 15px; }
+
+  .uw-corner { width: 36px; height: 36px; }
+  .uw-corner.tl { top: 20px; left: 20px; }
+  .uw-corner.tr { top: 20px; right: 20px; }
+  .uw-corner.bl { bottom: 20px; left: 20px; }
+  .uw-corner.br { bottom: 20px; right: 20px; }
+
+  .uw-ring { width: 380px; height: 380px; }
+  .uw-ring--2 { width: 290px; height: 290px; }
+  .uw-leaf { width: 48px; height: 20px; }
 }
 
+/* =========================
+   REDUCED MOTION
+========================= */
 @media (prefers-reduced-motion: reduce) {
   .uw-track { animation: none; }
   .uw-wall { height: auto; max-height: 460px; overflow-y: auto; }
   .uw-card.is-fresh { animation: none; }
+
+  .uw-ring,
+  .uw-spark { animation: none; }
+  .uw-spark { opacity: 0.6; }
 }

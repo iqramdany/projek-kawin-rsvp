@@ -219,12 +219,15 @@ function App() {
           </div>
 
           {/* SUBTITLE */}
-          <p className="subtitle reveal" style={{ "--d": "0s" }}>
+          <p className="subtitle reveal reveal-spread" style={{ "--d": "0.4s" }}>
             Dengan penuh kesyukuran
           </p>
 
           {/* MONOGRAM */}
-          <h1 className="hero-monogram-wrap reveal" style={{ "--d": "0.2s" }}>
+          <h1
+            className="hero-monogram-wrap reveal reveal-monogram"
+            style={{ "--d": "0.7s" }}
+          >
             <img
               className="hero-monogram"
               src="/monogram.png"
@@ -235,8 +238,8 @@ function App() {
 
           {/* ORNAMENT */}
           <div
-            className="hero-ornament reveal"
-            style={{ "--d": "0.4s" }}
+            className="hero-ornament reveal reveal-ornament"
+            style={{ "--d": "1.3s" }}
             aria-hidden="true"
           >
             <span />
@@ -245,20 +248,20 @@ function App() {
           </div>
 
           {/* DESCRIPTION */}
-          <p className="description reveal" style={{ "--d": "0.5s" }}>
+          <p className="description reveal" style={{ "--d": "1.5s" }}>
             Majlis Perkahwinan
           </p>
 
           {/* DATE */}
-          <p className="date reveal" style={{ "--d": "0.7s" }}>
+          <p className="date reveal reveal-spread" style={{ "--d": "1.7s" }}>
             12 Disember 2026
           </p>
 
           {/* RSVP BUTTON WITH ROSES */}
           <button
             type="button"
-            className="rsvp-button reveal"
-            style={{ "--d": "0.9s" }}
+            className="rsvp-button reveal reveal-pop"
+            style={{ "--d": "2s" }}
             onClick={scrollToRsvp}
             aria-label="Sahkan kehadiran ke majlis perkahwinan"
           >

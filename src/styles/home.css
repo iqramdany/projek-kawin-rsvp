@@ -19,6 +19,9 @@
   --gold: #d9b66a;
   --gold-deep: #b08b46;
 
+  /* when the hero entrance starts (matches the envelope opening) */
+  --start: 2.5s;
+
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -54,7 +57,7 @@ body {
 .home-pop {
   animation: home-pop 900ms
     cubic-bezier(0.2, 0.9, 0.3, 1.15)
-    2500ms backwards;
+    var(--start) backwards;
 }
 
 @keyframes home-pop {
@@ -70,7 +73,7 @@ body {
 }
 
 /* =====================================
-   REVEAL ANIMATION
+   HERO REVEAL (base)
 ===================================== */
 
 .hero .reveal {
@@ -78,8 +81,32 @@ body {
 }
 
 .is-live .hero .reveal {
-  animation: fadeUp 1s ease both;
-  animation-delay: calc(2.5s + var(--d, 0s));
+  animation: fadeUp 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--start) + var(--d, 0s));
+}
+
+/* subtitle + date: letters spread out while fading in */
+.is-live .hero .reveal-spread {
+  animation: spread 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--start) + var(--d, 0s));
+}
+
+/* monogram: zoom in out of a soft blur */
+.is-live .hero .reveal-monogram {
+  animation: monogram-in 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--start) + var(--d, 0s));
+}
+
+/* ornament: container fades, lines grow from the star */
+.is-live .hero .reveal-ornament {
+  animation: fadeIn 0.8s ease both;
+  animation-delay: calc(var(--start) + var(--d, 0s));
+}
+
+/* RSVP button: pop with a little overshoot */
+.is-live .hero .reveal-pop {
+  animation: pop-in 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+  animation-delay: calc(var(--start) + var(--d, 0s));
 }
 
 /* =====================================
@@ -148,6 +175,8 @@ body {
   border: 1px solid rgba(217, 182, 106, 0.55);
 
   pointer-events: none;
+
+  opacity: 0;
 }
 
 .hero::after {
@@ -160,6 +189,20 @@ body {
 
   font-size: 22px;
   color: var(--gold);
+
+  opacity: 0;
+}
+
+.is-live .hero::before {
+  animation: frame-in 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--start);
+}
+
+.is-live .hero::after {
+  animation:
+    star-in 1.2s cubic-bezier(0.2, 0.9, 0.3, 1.2) both,
+    star-twinkle 3.5s ease-in-out infinite;
+  animation-delay: calc(var(--start) + 0.3s), calc(var(--start) + 1.6s);
 }
 
 /* =====================================
@@ -191,6 +234,8 @@ body {
   user-select: none;
 
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
+
+  opacity: 0;
 }
 
 .hero .corner-tl {
@@ -200,8 +245,6 @@ body {
   width: min(48vw, 320px);
 
   transform-origin: 0 0;
-
-  animation: sway 7s ease-in-out infinite;
 }
 
 .hero .corner-br {
@@ -211,8 +254,21 @@ body {
   width: min(44vw, 300px);
 
   transform-origin: 100% 100%;
+}
 
-  animation: sway 8s ease-in-out infinite reverse;
+/* slide in from the corners, then keep swaying */
+.is-live .hero .corner-tl {
+  animation:
+    corner-in-tl 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    sway 7s ease-in-out infinite;
+  animation-delay: calc(var(--start) + 0.1s), calc(var(--start) + 1.9s);
+}
+
+.is-live .hero .corner-br {
+  animation:
+    corner-in-br 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    sway 8s ease-in-out infinite reverse;
+  animation-delay: calc(var(--start) + 0.25s), calc(var(--start) + 2.05s);
 }
 
 /* =====================================
@@ -349,6 +405,24 @@ body {
   opacity: 0.6;
 }
 
+.hero-ornament span:first-child {
+  transform-origin: 100% 50%;
+}
+
+.hero-ornament span:last-child {
+  transform-origin: 0 50%;
+}
+
+.is-live .hero-ornament span {
+  animation: line-grow 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--start) + var(--d, 0s) + 0.25s);
+}
+
+.is-live .hero-ornament i {
+  animation: star-in 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+  animation-delay: calc(var(--start) + var(--d, 0s));
+}
+
 .hero-ornament i {
   font-style: normal;
   font-size: 14px;
@@ -474,6 +548,12 @@ body {
   animation: rose-sway 6s ease-in-out infinite;
 }
 
+/* roses bloom a moment after the button appears */
+.is-live .rsvp-flower {
+  animation: rose-bloom 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation-delay: calc(var(--start) + var(--d, 0s) + 0.5s);
+}
+
 /* top-left corner */
 .rsvp-flower-tl {
   top: -24px;
@@ -489,6 +569,13 @@ body {
 
 .rsvp-flower-br svg {
   animation-delay: -3s;
+}
+
+/* the bottom-right rose is already rotated, so bloom it with opacity only */
+.is-live .rsvp-flower-br {
+  animation-name: fadeIn;
+  animation-duration: 0.9s;
+  animation-delay: calc(var(--start) + var(--d, 0s) + 0.7s);
 }
 
 /* =====================================
@@ -546,6 +633,143 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* letters start wide and tighten to the element's own letter-spacing */
+@keyframes spread {
+  from {
+    opacity: 0;
+    letter-spacing: 8px;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes monogram-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+
+  60% {
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes rose-bloom {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    rotate: -30deg;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+    rotate: 0deg;
+  }
+}
+
+@keyframes frame-in {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes star-in {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes line-grow {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes corner-in-tl {
+  from {
+    opacity: 0;
+    transform: translate(-70px, -70px) rotate(-8deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes corner-in-br {
+  from {
+    opacity: 0;
+    transform: translate(70px, 70px) rotate(8deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -752,12 +976,21 @@ body {
     animation: none;
   }
 
-  .hero .reveal {
+  .hero .reveal,
+  .hero::before,
+  .hero::after,
+  .hero .corner,
+  .rsvp-flower {
     opacity: 1;
   }
 
   .is-live .hero .reveal,
-  .hero .corner,
+  .is-live .hero::before,
+  .is-live .hero::after,
+  .is-live .hero .corner,
+  .is-live .hero-ornament span,
+  .is-live .hero-ornament i,
+  .is-live .rsvp-flower,
   .hero-dust span,
   .rsvp-flower svg {
     animation: none;

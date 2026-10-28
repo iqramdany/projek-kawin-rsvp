@@ -6,6 +6,7 @@
   --dot: 60px;
   --paper: #f8f1e1;
   --green: #5f7027;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 
   position: relative;
   padding: 100px 24px;
@@ -56,14 +57,39 @@
   width: 70px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #b08b46);
+  transform-origin: 100% 50%;
 }
 .event-divider span:last-child {
   background: linear-gradient(270deg, transparent, #b08b46);
+  transform-origin: 0 50%;
 }
 .event-divider i {
   font-style: normal;
   font-size: 13px;
   color: #b08b46;
+}
+
+/* header: hidden until it scrolls into view */
+.event-header:not(.is-in) p,
+.event-header:not(.is-in) h2,
+.event-header:not(.is-in) .event-divider {
+  opacity: 0;
+}
+
+.event-header.is-in p {
+  animation: evSpread 1.2s var(--ease) backwards;
+}
+.event-header.is-in h2 {
+  animation: evRise 1s var(--ease) 0.2s backwards;
+}
+.event-header.is-in .event-divider {
+  animation: evFade 0.6s ease 0.5s backwards;
+}
+.event-header.is-in .event-divider span {
+  animation: evGrow 0.9s var(--ease) 0.6s backwards;
+}
+.event-header.is-in .event-divider i {
+  animation: evStar 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.3) 0.5s backwards;
 }
 
 /* =========================
@@ -75,7 +101,7 @@
   margin: 0 auto;
 }
 
-/* centre line */
+/* centre line (draws itself downward) */
 .tl::before {
   content: "";
   position: absolute;
@@ -91,6 +117,10 @@
     rgba(176, 139, 70, 0.8) 94%,
     transparent
   );
+  clip-path: inset(0 0 100% 0);
+}
+.tl.is-drawn::before {
+  animation: evLine 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .tl-item {
@@ -101,9 +131,6 @@
   align-items: center;
   column-gap: 34px;
   margin-bottom: 26px;
-
-  opacity: 0;
-  transform: translateY(26px);
 }
 .tl-item:last-child { margin-bottom: 0; }
 
@@ -111,13 +138,32 @@
   grid-template-areas: "time dot card";
 }
 
-.is-visible .tl-item {
-  animation: tlIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  animation-delay: calc(var(--i) * 110ms);
+/* each row: hidden until it scrolls into view */
+.tl-item:not(.is-in) .tl-card,
+.tl-item:not(.is-in) .tl-dot,
+.tl-item:not(.is-in) .tl-time {
+  opacity: 0;
 }
 
-@keyframes tlIn {
-  to { opacity: 1; transform: translateY(0); }
+/* card slides in from its own side */
+.tl-item.is-in .tl-card {
+  animation: evCardL 0.9s var(--ease) backwards;
+}
+.tl-item.is-alt.is-in .tl-card {
+  animation-name: evCardR;
+}
+
+/* medallion pops in with a little spin */
+.tl-item.is-in .tl-dot {
+  animation: evDot 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.3) 0.15s backwards;
+}
+
+/* time pill slides in last, from the opposite side */
+.tl-item.is-in .tl-time {
+  animation: evTimeR 0.8s var(--ease) 0.3s backwards;
+}
+.tl-item.is-alt.is-in .tl-time {
+  animation-name: evTimeL;
 }
 
 /* =========================
@@ -204,8 +250,7 @@
     0 0 0 7px rgba(176, 139, 70, 0.6),
     0 12px 24px rgba(74, 14, 26, 0.28);
 
-  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.45s ease,
-    color 0.45s ease;
+  transition: transform 0.45s var(--ease), background 0.45s ease, color 0.45s ease;
 }
 
 .tl-dot svg {
@@ -286,6 +331,52 @@
   margin: 20px auto 0;
 }
 
+/* =========================
+   KEYFRAMES
+========================= */
+@keyframes evRise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes evSpread {
+  from { opacity: 0; letter-spacing: 12px; transform: translateY(10px); }
+  to   { opacity: 1; letter-spacing: 4px;  transform: translateY(0); }
+}
+@keyframes evFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes evGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes evStar {
+  from { opacity: 0; transform: scale(0) rotate(-180deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes evLine {
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes evCardL {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes evCardR {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes evDot {
+  from { opacity: 0; transform: scale(0) rotate(-120deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes evTimeR {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes evTimeL {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 @keyframes tlRing {
   0%   { transform: scale(1);   opacity: 0.9; }
   100% { transform: scale(1.5); opacity: 0; }
@@ -359,15 +450,38 @@
   }
 
   .tl-dot svg { width: 23px; height: 23px; }
+
+  /* on mobile everything sits on the right, so always slide in from the right */
+  .tl-item.is-in .tl-card,
+  .tl-item.is-alt.is-in .tl-card {
+    animation-name: evCardR;
+  }
+  .tl-item.is-in .tl-time,
+  .tl-item.is-alt.is-in .tl-time {
+    animation-name: evTimeR;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tl-item,
-  .is-visible .tl-item {
-    animation: none;
+  .event-header:not(.is-in) p,
+  .event-header:not(.is-in) h2,
+  .event-header:not(.is-in) .event-divider,
+  .tl-item:not(.is-in) .tl-card,
+  .tl-item:not(.is-in) .tl-dot,
+  .tl-item:not(.is-in) .tl-time {
     opacity: 1;
-    transform: none;
   }
+  .tl::before { clip-path: none; }
+
+  .event-header.is-in p,
+  .event-header.is-in h2,
+  .event-header.is-in .event-divider,
+  .event-header.is-in .event-divider span,
+  .event-header.is-in .event-divider i,
+  .tl.is-drawn::before,
+  .tl-item.is-in .tl-card,
+  .tl-item.is-in .tl-dot,
+  .tl-item.is-in .tl-time,
   .event-details::before,
   .event-details::after,
   .tl-item.is-featured .tl-dot::after {
