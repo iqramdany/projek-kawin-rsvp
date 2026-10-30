@@ -1,35 +1,84 @@
+import { useEffect, useRef, useState } from "react";
 import "./GiftSection.css";
 
-function GiftSection() {
-  const saveQr = async () => {
-    const file_url = "/duitnow-qr.png";
+const QR_URL = "/duitnow-qr.png";
 
+// muat turun biasa (komputer / Android)
+const downloadFile = (file) => {
+  const url = URL.createObjectURL(file);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "duitnow-qr.png";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+};
+
+function GiftSection() {
+  const fileRef = useRef(null);
+  const [hint, setHint] = useState(false);
+
+  // siapkan fail QR awal-awal (supaya iPhone boleh share terus bila ditekan)
+  useEffect(() => {
+    let alive = true;
+    fetch(QR_URL)
+      .then((r) => r.blob())
+      .then((blob) => {
+        if (alive && blob.type.startsWith("image/")) {
+          fileRef.current = new File([blob], "duitnow-qr.png", {
+            type: blob.type,
+          });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  // cara asal (fetch semasa tekan) - hanya jika fail belum sempat siap
+  const saveSlow = async () => {
     try {
-      const res = await fetch(file_url);
+      const res = await fetch(QR_URL);
       const blob = await res.blob();
       const file = new File([blob], "duitnow-qr.png", { type: blob.type });
 
-      // telefon: buka menu kongsi (ada pilihan Save Image)
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file], title: "DuitNow QR" });
         return;
       }
-
-      // komputer / Android: muat turun biasa
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "duitnow-qr.png";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
+      downloadFile(file);
     } catch (err) {
-      // tetamu tutup menu kongsi = bukan ralat
       if (err && err.name === "AbortError") return;
-      // jika gagal, buka gambar supaya boleh tekan lama untuk simpan
-      window.open(file_url, "_blank");
+      window.open(QR_URL, "_blank");
+      setHint(true);
     }
+  };
+
+  // PENTING: tiada await sebelum navigator.share bila fail sudah siap
+  const saveQr = () => {
+    const file = fileRef.current;
+
+    if (!file) {
+      saveSlow();
+      return;
+    }
+
+    // telefon: menu kongsi (ada Save Image)
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator
+        .share({ files: [file], title: "DuitNow QR" })
+        .catch((err) => {
+          if (err && err.name === "AbortError") return; // tetamu tutup menu
+          downloadFile(file);
+          setHint(true);
+        });
+      return;
+    }
+
+    // komputer / Android: muat turun biasa
+    downloadFile(file);
   };
 
   return (
@@ -76,9 +125,10 @@ function GiftSection() {
 
           <div className="qr-frame">
             <img
-              src="/duitnow-qr.png"
+              src={QR_URL}
               alt="DuitNow QR"
               className="qr-code"
+              draggable="false"
             />
           </div>
 
@@ -92,6 +142,12 @@ function GiftSection() {
         <button type="button" className="qr-save" onClick={saveQr}>
           ↓&nbsp; Simpan Kod QR
         </button>
+
+        {hint && (
+          <p className="qr-hint">
+            Tekan lama pada gambar QR di atas, kemudian pilih “Save Image”.
+          </p>
+        )}
 
         <p className="gift-thanks">Terima kasih atas keikhlasan anda</p>
 

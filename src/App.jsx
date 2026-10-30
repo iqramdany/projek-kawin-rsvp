@@ -13,6 +13,7 @@ import MusicPlayer from "./components/MusicPlayer";
 import OpeningEnvelope from "./components/OpeningEnvelope";
 import ContactFab from "./components/ContactFab";
 import UcapanWall from "./components/Ucapanwall";
+import PetalFall from "./components/PetalFall";
 
 // Floating gold dust
 const DUST = Array.from({ length: 22 }, (_, i) => ({
@@ -174,6 +175,9 @@ function App() {
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       />
+
+      {/* FALLING ROSE PETALS (mula bila sampul dibuka) */}
+      {isOpening && <PetalFall />}
 
       {/* MAIN WEBSITE */}
       <main className={`wedding-page${isOpening ? " home-pop is-live" : ""}`}>

@@ -223,11 +223,24 @@
 
 .uw-col.is-rev .uw-track { animation-direction: reverse; }
 
-/* pause while touching / hovering / reading a full wish */
-.uw-col:hover .uw-track,
-.uw-col:active .uw-track,
+/* pause: jari menekan / kad terbuka / tetikus menuding (komputer sahaja) */
+.uw-wall.is-held .uw-track,
 .uw-col:has(.is-open) .uw-track {
   animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .uw-col:hover .uw-track {
+    animation-play-state: paused;
+  }
+}
+
+/* skrol halaman tetap boleh, tekan lama tak pilih teks */
+.uw-wall {
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 @keyframes uw-scroll {
@@ -356,4 +369,116 @@
   .uw-ring,
   .uw-spark { animation: none; }
   .uw-spark { opacity: 0.6; }
+}
+
+/* =========================
+   BUNGA (flowers)
+========================= */
+.uw-flower {
+  --r: 0deg;
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.85;
+  transform: rotate(var(--r));
+  transform-origin: center;
+  animation: uw-sway 7s ease-in-out infinite alternate;
+  filter: drop-shadow(0 4px 6px rgba(74, 14, 26, 0.12));
+}
+
+/* bunga burgundy */
+.uw-flower.is-rose {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%237a1e34' fill-opacity='.6' stroke='%23b08b46' stroke-width='1.4'%3E%3Cellipse cx='50' cy='26' rx='13' ry='22'/%3E%3Cellipse cx='50' cy='26' rx='13' ry='22' transform='rotate(72 50 50)'/%3E%3Cellipse cx='50' cy='26' rx='13' ry='22' transform='rotate(144 50 50)'/%3E%3Cellipse cx='50' cy='26' rx='13' ry='22' transform='rotate(216 50 50)'/%3E%3Cellipse cx='50' cy='26' rx='13' ry='22' transform='rotate(288 50 50)'/%3E%3C/g%3E%3Ccircle cx='50' cy='50' r='9' fill='%23ecd593' stroke='%23b08b46' stroke-width='1.4'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%237a1e34'/%3E%3C/svg%3E");
+}
+
+/* bunga krim & olive */
+.uw-flower.is-daisy {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23fffaf0' stroke='%23808a4c' stroke-width='1.3'%3E%3Cellipse cx='50' cy='20' rx='7' ry='17'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(45 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(90 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(135 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(180 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(225 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(270 50 50)'/%3E%3Cellipse cx='50' cy='20' rx='7' ry='17' transform='rotate(315 50 50)'/%3E%3C/g%3E%3Ccircle cx='50' cy='50' r='10' fill='%23b08b46'/%3E%3Ccircle cx='50' cy='50' r='4' fill='%235f7027'/%3E%3C/svg%3E");
+}
+
+/* penjuru */
+.uw-flower.f1 { top: -22px;  left: -22px;  --r: -12deg; }
+.uw-flower.f2 { top: -16px;  right: -18px; --r: 20deg; width: 80px; height: 80px; animation-delay: 1.2s; }
+.uw-flower.f3 { bottom: -24px; left: -18px; --r: 15deg; width: 104px; height: 104px; animation-delay: 2s; }
+.uw-flower.f4 { bottom: -18px; right: -22px; --r: -18deg; width: 84px; height: 84px; animation-delay: 0.6s; }
+/* kecil di tepi */
+.uw-flower.f5 { top: 38%; left: -10px;  --r: 30deg; width: 44px; height: 44px; opacity: 0.7; animation-delay: 1.8s; }
+.uw-flower.f6 { top: 64%; right: -10px; --r: -25deg; width: 40px; height: 40px; opacity: 0.7; animation-delay: 2.6s; }
+
+@keyframes uw-sway {
+  from { transform: rotate(calc(var(--r) - 5deg)); }
+  to   { transform: rotate(calc(var(--r) + 5deg)); }
+}
+
+/* =========================
+   STICKER
+========================= */
+.uw-sticker {
+  --r: 0deg;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 7px 16px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--burgundy-deep, #4a0e1a);
+  background: #fffaf0;
+  border: 1.5px dashed #b08b46;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px #fffaf0, 0 6px 14px rgba(74, 14, 26, 0.12);
+  transform: rotate(var(--r));
+}
+
+.uw-sticker.st1 { top: 7%;  left: 7%;  --r: -8deg; }
+.uw-sticker.st2 { top: 11%; right: 6%; --r: 7deg; color: #5f7027; border-color: #808a4c; }
+
+/* meterai bulat */
+.uw-sticker.is-seal {
+  width: 78px;
+  height: 78px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 15px;
+  color: #ecd593;
+  background: radial-gradient(circle at 30% 25%, #8a2540 0%, #5a1424 60%, #4a0e1a 100%);
+  border: 1.5px dashed rgba(236, 213, 147, 0.85);
+  box-shadow: 0 0 0 3px #7a1e34, 0 6px 14px rgba(74, 14, 26, 0.25);
+}
+.uw-sticker.st3 { bottom: 7%; right: 8%; --r: 10deg; }
+
+/* emoji kecil terapung */
+.uw-sticker.is-mini {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  font-style: normal;
+  font-size: 22px;
+}
+.uw-sticker.st4 { bottom: 14%; left: 8%; --r: -14deg; }
+
+@media (max-width: 700px) {
+  .uw-flower.f1 { width: 70px; height: 70px; top: -18px; left: -18px; }
+  .uw-flower.f2 { width: 58px; height: 58px; top: -12px; right: -14px; }
+  .uw-flower.f3 { width: 76px; height: 76px; bottom: -18px; left: -14px; }
+  .uw-flower.f4 { width: 62px; height: 62px; bottom: -14px; right: -16px; }
+  .uw-flower.f5, .uw-flower.f6 { display: none; }
+
+  .uw-sticker { font-size: 14px; padding: 5px 12px; }
+  .uw-sticker.st1 { top: 3.5%; left: 5%; }
+  .uw-sticker.st2 { display: none; }
+  .uw-sticker.is-seal { width: 60px; height: 60px; font-size: 12px; }
+  .uw-sticker.st3 { bottom: 105px; right: 5%; }
+  .uw-sticker.st4 { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uw-flower { animation: none; }
 }

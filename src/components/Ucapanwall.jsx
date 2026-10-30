@@ -41,6 +41,7 @@ function UcapanWall() {
   const [wishes, setWishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cols, setCols] = useState(2);
+  const [held, setHeld] = useState(false); // jari sedang menekan dinding
 
   // 1 column on phones, 2 on bigger screens
   useEffect(() => {
@@ -82,28 +83,28 @@ function UcapanWall() {
 
   return (
     <section className="uw" id="ucapan">
-        <div className="uw-decor" aria-hidden="true">
-    <span className="uw-ring" />
-    <span className="uw-ring uw-ring--2" />
+      <div className="uw-decor" aria-hidden="true">
+        <span className="uw-ring" />
+        <span className="uw-ring uw-ring--2" />
 
-    <span className="uw-corner tl" />
-    <span className="uw-corner tr" />
-    <span className="uw-corner bl" />
-    <span className="uw-corner br" />
+        <span className="uw-corner tl" />
+        <span className="uw-corner tr" />
+        <span className="uw-corner bl" />
+        <span className="uw-corner br" />
 
-    <span className="uw-leaf l1" />
-    <span className="uw-leaf l2" />
-    <span className="uw-leaf r1" />
-    <span className="uw-leaf r2" />
+        <span className="uw-leaf l1" />
+        <span className="uw-leaf l2" />
+        <span className="uw-leaf r1" />
+        <span className="uw-leaf r2" />
 
-    <i className="uw-spark s1">✦</i>
-    <i className="uw-spark s2">✧</i>
-    <i className="uw-spark s3">✦</i>
-    <i className="uw-spark s4">✧</i>
-    <i className="uw-spark s5">✦</i>
-    <i className="uw-spark s6">✧</i>
-    
-  </div>
+        <i className="uw-spark s1">✦</i>
+        <i className="uw-spark s2">✧</i>
+        <i className="uw-spark s3">✦</i>
+        <i className="uw-spark s4">✧</i>
+        <i className="uw-spark s5">✦</i>
+        <i className="uw-spark s6">✧</i>
+      </div>
+
       <div className="uw-header">
         <p>Ucapan &amp; Doa</p>
         <h2>Dari Hati Tetamu</h2>
@@ -123,7 +124,14 @@ function UcapanWall() {
       )}
 
       {wishes.length > 0 && (
-        <div className={`uw-wall${animate ? "" : " is-static"}`} style={{ "--cols": cols }}>
+        <div
+          className={`uw-wall${animate ? "" : " is-static"}${held ? " is-held" : ""}`}
+          style={{ "--cols": cols }}
+          onPointerDown={() => setHeld(true)}
+          onPointerUp={() => setHeld(false)}
+          onPointerCancel={() => setHeld(false)}
+          onPointerLeave={() => setHeld(false)}
+        >
           <Column items={colA} animate={animate} dur={dur(colA.length)} />
           {colB.length > 0 && (
             <Column items={colB} animate={animate} dur={dur(colB.length)} reverse />
@@ -131,7 +139,7 @@ function UcapanWall() {
         </div>
       )}
 
-      {animate && <p className="uw-hint">Sentuh untuk berhenti &amp; baca penuh</p>}
+      {animate && <p className="uw-hint">Tahan untuk berhenti &amp; baca penuh</p>}
     </section>
   );
 }
