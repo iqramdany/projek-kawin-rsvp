@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+.no-touch,
+.no-touch * {
+  pointer-events: none !important;
+}
