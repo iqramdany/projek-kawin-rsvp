@@ -2,157 +2,85 @@ import { useEffect, useRef, useState } from "react";
 import "./GiftSection.css";
 
 const QR_URL = "/duitnow-qr.png";
-const FILE_NAME = "duitnow-qr.png";
 
-const isIOS = () => {
-  if (typeof navigator === "undefined") return false;
+const isIOS =
+  typeof navigator !== "undefined" &&
+  (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
 
-  return (
-    /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
-    (navigator.platform === "MacIntel" &&
-      navigator.maxTouchPoints > 1)
-  );
-};
-
-// Download QR image
+// muat turun biasa (komputer / Android)
 const downloadFile = (file) => {
   const url = URL.createObjectURL(file);
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = FILE_NAME;
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  setTimeout(() => {
-    URL.revokeObjectURL(url);
-  }, 10000);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "duitnow-qr.png";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
 };
 
 function GiftSection() {
   const fileRef = useRef(null);
+  const [fallback, setFallback] = useState(false);
+  const [busy, setBusy] = useState(false);
 
-  const [hint, setHint] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  // Preload QR image
+  // siapkan fail QR awal-awal (iOS mesti share terus dalam tekanan jari)
   useEffect(() => {
-    let active = true;
-
-    const prepareQR = async () => {
-      try {
-        const response = await fetch(QR_URL);
-
-        if (!response.ok) {
-          throw new Error("Failed to load QR");
+    let alive = true;
+    fetch(QR_URL)
+      .then((r) => r.blob())
+      .then((blob) => {
+        if (alive && blob.type.startsWith("image/")) {
+          fileRef.current = new File([blob], "duitnow-qr.png", {
+            type: blob.type,
+          });
         }
-
-        const blob = await response.blob();
-
-        if (!blob.type.startsWith("image/")) {
-          throw new Error("Invalid image");
-        }
-
-        const file = new File([blob], FILE_NAME, {
-          type: blob.type || "image/png",
-        });
-
-        if (active) {
-          fileRef.current = file;
-        }
-      } catch (error) {
-        console.error("QR preload error:", error);
-      }
-    };
-
-    prepareQR();
-
+      })
+      .catch(() => {});
     return () => {
-      active = false;
+      alive = false;
     };
   }, []);
 
-  // Open original QR image
-  const openQR = () => {
-    window.open(QR_URL, "_blank", "noopener,noreferrer");
-  };
-
-  // Save QR
-  const saveQr = async () => {
-    if (loading) return;
-
-    setHint("");
-
-    const ios = isIOS();
+  const saveQr = () => {
     const file = fileRef.current;
 
-    // iOS: use native share sheet
-    if (ios) {
-      if (
-        file &&
-        navigator.share &&
-        navigator.canShare?.({ files: [file] })
-      ) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: "DuitNow QR",
-          });
-
-          return;
-        } catch (error) {
-          if (error.name === "AbortError") return;
-
-          console.error("Share error:", error);
-        }
-      }
-
-      // iOS fallback
-      setHint(
-        "Tekan 'Buka Gambar QR', kemudian tekan ikon kongsi dan pilih 'Save Image'."
-      );
-
+    // 1) menu kongsi (iPhone HTTPS / Android) - mesti dipanggil serta-merta
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      setBusy(true);
+      navigator
+        .share({ files: [file], title: "DuitNow QR" })
+        .catch((err) => {
+          if (err && err.name === "AbortError") return; // tetamu tutup menu
+          setFallback(true);
+        })
+        .finally(() => setBusy(false));
       return;
     }
 
-    // Android / Desktop
-    try {
-      setLoading(true);
-
-      let qrFile = file;
-
-      if (!qrFile) {
-        const response = await fetch(QR_URL);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch QR");
-        }
-
-        const blob = await response.blob();
-
-        qrFile = new File([blob], FILE_NAME, {
-          type: blob.type || "image/png",
-        });
-
-        fileRef.current = qrFile;
-      }
-
-      downloadFile(qrFile);
-
-      setHint(
-        "Muat turun telah dimulakan. Semak folder Downloads anda."
-      );
-    } catch (error) {
-      console.error("Download error:", error);
-
-      setHint(
-        "Muat turun tidak disokong oleh pelayar ini. Sila buka gambar QR dan simpan secara manual."
-      );
-    } finally {
-      setLoading(false);
+    // 2) iPhone tanpa menu kongsi (http / browser dalam app): tunjuk pautan buka
+    if (isIOS) {
+      setFallback(true);
+      return;
     }
+
+    // 3) komputer / Android: muat turun biasa
+    if (file) {
+      downloadFile(file);
+      return;
+    }
+
+    // fail belum siap: cuba ambil sekarang
+    setBusy(true);
+    fetch(QR_URL)
+      .then((r) => r.blob())
+      .then((blob) => {
+        if (!blob.type.startsWith("image/")) throw new Error("not image");
+        downloadFile(new File([blob], "duitnow-qr.png", { type: blob.type }));
+      })
+      .catch(() => setFallback(true))
+      .finally(() => setBusy(false));
   };
 
   return (
@@ -213,41 +141,33 @@ function GiftSection() {
           </p>
         </div>
 
-        {/* SAVE BUTTON */}
         <button
           type="button"
           className="qr-save"
           onClick={saveQr}
-          disabled={loading}
+          disabled={busy}
         >
-          {loading ? (
-            "Memproses..."
-          ) : (
-            <>
-              <span aria-hidden="true">↓</span>
-              &nbsp; Simpan Kod QR
-            </>
-          )}
+          ↓&nbsp; Simpan Kod QR
         </button>
 
-        {/* FALLBACK MESSAGE */}
-        {hint && (
+        {fallback && (
           <div className="qr-save-feedback" role="status">
-            <p className="qr-hint">{hint}</p>
-
-            <button
-              type="button"
+            <p className="qr-hint">
+              Tekan lama pada gambar QR, kemudian pilih “Save Image”. Atau
+              tekan butang di bawah untuk membuka gambar, kemudian simpan.
+            </p>
+            <a
               className="qr-open"
-              onClick={openQR}
+              href={QR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Buka Gambar QR ↗
-            </button>
+              Buka Kod QR
+            </a>
           </div>
         )}
 
-        <p className="gift-thanks">
-          Terima kasih atas keikhlasan anda
-        </p>
+        <p className="gift-thanks">Terima kasih atas keikhlasan anda</p>
 
       </div>
     </section>

@@ -475,6 +475,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+    text-decoration: none;
+
 
   gap: 6px;
 
@@ -685,6 +687,8 @@
   .qr-code {
     width: 190px;
     height: 190px;
+    -webkit-touch-callout: default;
+
   }
 
   /* QR Text */
