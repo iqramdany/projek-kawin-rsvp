@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Montserrat:wght@500;600&display=swap');
+
 /* =====================================
-   GIFT SECTION  (olive section, cream QR card)
-   colours come from home.css variables, with fallbacks
+   GIFT SECTION
+   Olive green background, cream QR card
+   Burgundy + gold wedding theme
 ===================================== */
 
 .gift-section {
@@ -11,9 +14,21 @@
 
   background:
     var(--grain, none),
-    radial-gradient(ellipse at 50% 35%, rgba(128, 138, 76, 0.5) 0%, rgba(0, 0, 0, 0) 62%),
-    radial-gradient(ellipse at 50% 120%, rgba(107, 26, 46, 0.4) 0%, rgba(0, 0, 0, 0) 55%),
-    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.55) 100%),
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(128, 138, 76, 0.5) 0%,
+      rgba(0, 0, 0, 0) 62%
+    ),
+    radial-gradient(
+      ellipse at 50% 120%,
+      rgba(107, 26, 46, 0.4) 0%,
+      rgba(0, 0, 0, 0) 55%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(18, 22, 6, 0.55) 100%
+    ),
     var(--olive, #4b5428);
 
   box-shadow:
@@ -21,39 +36,45 @@
     inset 0 -1px 0 rgba(217, 182, 106, 0.45);
 }
 
-/* big faint word behind the content */
+/* Decorative background text */
+
 .gift-section::before {
   content: "GIFT";
   position: absolute;
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
+
   font-family: "Cormorant Garamond", serif;
   font-size: 130px;
   font-weight: 500;
   letter-spacing: 12px;
+
   color: rgba(217, 182, 106, 0.08);
+
   pointer-events: none;
   white-space: nowrap;
 }
 
 
-/* =========================
+/* =====================================
    CONTENT
-========================= */
+===================================== */
 
 .gift-content {
   position: relative;
   z-index: 1;
+
   width: min(100%, 560px);
   margin: 0 auto;
+
   text-align: center;
 }
 
 
-/* =========================
+/* =====================================
    ICON BADGE
-========================= */
+===================================== */
 
 .gift-icon {
   display: inline-flex;
@@ -62,11 +83,19 @@
 
   width: 52px;
   height: 52px;
+
   margin-bottom: 18px;
   border-radius: 50%;
 
   color: var(--gold, #d9b66a);
-  background: linear-gradient(160deg, #7c1f35, #4a0e1a);
+
+  background:
+    linear-gradient(
+      160deg,
+      #7c1f35,
+      #4a0e1a
+    );
+
   border: 1px solid rgba(217, 182, 106, 0.85);
 
   box-shadow:
@@ -75,42 +104,57 @@
 }
 
 
-/* =========================
+/* =====================================
    HEADER
-========================= */
+===================================== */
 
 .gift-label {
   margin: 0 0 12px;
+
   font-family: "Montserrat", sans-serif;
   font-size: 10px;
   font-weight: 600;
+
   letter-spacing: 4px;
   text-transform: uppercase;
+
   color: var(--gold, #d9b66a);
 }
 
 .gift-content h2 {
   margin: 0 0 18px;
+
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(42px, 6vw, 58px);
   font-weight: 500;
   line-height: 1;
+
   color: var(--cream, #f1e6cf);
-  text-shadow: 0 3px 16px rgba(18, 22, 6, 0.5);
+
+  text-shadow:
+    0 3px 16px rgba(18, 22, 6, 0.5);
 }
+
+
+/* =====================================
+   DECORATIVE DIVIDER
+===================================== */
 
 .gift-divider {
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 14px;
   margin: 0 0 22px;
+
   color: var(--gold, #d9b66a);
 }
 
 .gift-divider span {
   width: 52px;
   height: 1px;
+
   background: currentColor;
   opacity: 0.6;
 }
@@ -121,27 +165,34 @@
 }
 
 
-/* =========================
+/* =====================================
    MESSAGE
-========================= */
+===================================== */
 
 .gift-message {
   width: min(100%, 450px);
+
   margin: 0 auto 48px;
+
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   line-height: 1.9;
+
   color: var(--cream-soft, #e8dcb8);
 }
 
 
-/* =========================
-   QR CARD (cream paper, double gold frame, tab on top edge)
-========================= */
+/* =====================================
+   QR CARD
+   Cream paper with double gold frame
+===================================== */
 
 .qr-card {
   position: relative;
+
   width: fit-content;
+  max-width: 100%;
+
   margin: 0 auto;
   padding: 44px 30px 26px;
 
@@ -149,7 +200,11 @@
 
   background:
     var(--grain, none),
-    linear-gradient(160deg, #f6ecd5, #efe2c4);
+    linear-gradient(
+      160deg,
+      #f6ecd5,
+      #efe2c4
+    );
 
   box-shadow:
     0 24px 50px rgba(18, 22, 6, 0.5),
@@ -158,112 +213,212 @@
     inset 0 0 0 7px rgba(176, 139, 70, 0.5);
 }
 
-/* burgundy tab half outside the card */
+
+/* =====================================
+   QR TAB
+===================================== */
+
 .qr-tab {
   position: absolute;
+
   top: 0;
   left: 50%;
+
   transform: translate(-50%, -50%);
+
   white-space: nowrap;
 
   padding: 9px 22px;
+
   border-radius: 999px;
   border: 1px solid rgba(217, 182, 106, 0.9);
 
   font-family: "Montserrat", sans-serif;
   font-size: 9px;
   font-weight: 600;
+
   letter-spacing: 3px;
   text-transform: uppercase;
 
   color: var(--gold, #d9b66a);
-  background: linear-gradient(180deg, #7c1f35, #4a0e1a);
+
+  background:
+    linear-gradient(
+      180deg,
+      #7c1f35,
+      #4a0e1a
+    );
 
   box-shadow:
     0 0 0 5px #f1e5c9,
     0 6px 14px rgba(74, 14, 26, 0.35);
 }
 
-/* white QR area with gold corner brackets (white stays behind the code so it scans) */
+
+/* =====================================
+   QR FRAME
+   White background for easy scanning
+===================================== */
+
 .qr-frame {
   --c: #b08b46;
+
   padding: 16px;
 
   background:
-    linear-gradient(var(--c), var(--c)) top left / 20px 1.5px no-repeat,
-    linear-gradient(var(--c), var(--c)) top left / 1.5px 20px no-repeat,
-    linear-gradient(var(--c), var(--c)) top right / 20px 1.5px no-repeat,
-    linear-gradient(var(--c), var(--c)) top right / 1.5px 20px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom left / 20px 1.5px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom left / 1.5px 20px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom right / 20px 1.5px no-repeat,
-    linear-gradient(var(--c), var(--c)) bottom right / 1.5px 20px no-repeat,
-    #fff;
+    linear-gradient(var(--c), var(--c))
+      top left / 20px 1.5px no-repeat,
 
-  box-shadow: 0 8px 20px rgba(74, 14, 26, 0.12);
+    linear-gradient(var(--c), var(--c))
+      top left / 1.5px 20px no-repeat,
+
+    linear-gradient(var(--c), var(--c))
+      top right / 20px 1.5px no-repeat,
+
+    linear-gradient(var(--c), var(--c))
+      top right / 1.5px 20px no-repeat,
+
+    linear-gradient(var(--c), var(--c))
+      bottom left / 20px 1.5px no-repeat,
+
+    linear-gradient(var(--c), var(--c))
+      bottom left / 1.5px 20px no-repeat,
+
+    linear-gradient(var(--c), var(--c))
+      bottom right / 20px 1.5px no-repeat,
+
+    linear-gradient(var(--c), var(--c))
+      bottom right / 1.5px 20px no-repeat,
+
+    #ffffff;
+
+  box-shadow:
+    0 8px 20px rgba(74, 14, 26, 0.12);
 }
+
+
+/* =====================================
+   QR IMAGE
+===================================== */
 
 .qr-code {
   display: block;
+
   width: 220px;
   height: 220px;
+
+  max-width: 100%;
+
   object-fit: contain;
-  background: #fff;
+
+  background: #ffffff;
+
+  user-select: none;
 }
 
 
-/* =========================
-   QR TEXT
-========================= */
+/* =====================================
+   QR DESCRIPTION
+===================================== */
 
 .qr-text {
   margin: 18px 0 0;
+
   font-family: "Montserrat", sans-serif;
   font-size: 9px;
   font-weight: 600;
+
   letter-spacing: 1.5px;
   line-height: 1.8;
+
   text-transform: uppercase;
+
   color: var(--olive, #4b5428);
 }
 
 
-/* =========================
-   SAVE BUTTON
-========================= */
+/* =====================================
+   SAVE QR BUTTON
+   Android / iOS / Desktop
+===================================== */
 
 .qr-save {
+  position: relative;
+  z-index: 2;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  gap: 7px;
+
   margin-top: 30px;
-  padding: 13px 28px;
+  padding: 14px 30px;
+
+  min-height: 46px;
 
   border: 1px solid rgba(217, 182, 106, 0.85);
   border-radius: 999px;
 
   font-family: "Montserrat", sans-serif;
-  font-size: 9.5px;
+  font-size: 10px;
   font-weight: 600;
+
   letter-spacing: 2px;
   text-transform: uppercase;
 
   color: var(--cream, #f1e6cf);
-  background: rgba(74, 14, 26, 0.35);
+
+  background: rgba(74, 14, 26, 0.5);
+
   cursor: pointer;
+
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
 
   transition:
     background 0.35s ease,
     color 0.35s ease,
-    transform 0.35s ease;
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-.qr-save:hover {
-  background: var(--cream, #f1e6cf);
-  color: var(--burgundy-deep, #4a0e1a);
-  transform: translateY(-3px);
+
+/* Hover */
+
+@media (hover: hover) {
+  .qr-save:hover:not(:disabled) {
+    background: var(--cream, #f1e6cf);
+
+    color: var(--burgundy-deep, #4a0e1a);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+      0 8px 24px rgba(18, 22, 6, 0.25);
+  }
 }
+
+
+/* Tap feedback */
+
+.qr-save:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+
+/* Loading state */
+
+.qr-save:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+
+/* Keyboard accessibility */
 
 .qr-save:focus-visible {
   outline: 2px solid var(--gold, #d9b66a);
@@ -271,33 +426,187 @@
 }
 
 
-/* =========================
+/* =====================================
+   DOWNLOAD FEEDBACK CONTAINER
+===================================== */
+
+.qr-save-feedback {
+  width: min(100%, 350px);
+
+  margin: 18px auto 0;
+  padding: 16px 20px;
+
+  border: 1px solid rgba(217, 182, 106, 0.35);
+  border-radius: 12px;
+
+  background: rgba(18, 22, 6, 0.25);
+
+  box-shadow:
+    0 8px 24px rgba(18, 22, 6, 0.12);
+
+  animation: qrFeedbackIn 0.3s ease both;
+}
+
+
+/* =====================================
+   DOWNLOAD INSTRUCTIONS
+===================================== */
+
+.qr-hint {
+  margin: 0;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 1.8;
+
+  color: var(--cream, #f1e6cf);
+
+  overflow-wrap: break-word;
+}
+
+
+/* =====================================
+   OPEN QR FALLBACK BUTTON
+===================================== */
+
+.qr-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 14px;
+  padding: 11px 22px;
+
+  min-height: 42px;
+
+  border: 1px solid var(--gold, #d9b66a);
+  border-radius: 999px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  color: var(--burgundy-deep, #4a0e1a);
+
+  background: var(--cream, #f1e6cf);
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    background 0.25s ease;
+}
+
+
+/* Hover */
+
+@media (hover: hover) {
+  .qr-open:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+}
+
+
+/* Tap feedback */
+
+.qr-open:active {
+  transform: scale(0.96);
+}
+
+
+/* Keyboard accessibility */
+
+.qr-open:focus-visible {
+  outline: 2px solid var(--gold, #d9b66a);
+  outline-offset: 4px;
+}
+
+
+/* =====================================
+   FEEDBACK ANIMATION
+===================================== */
+
+@keyframes qrFeedbackIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =====================================
    THANK YOU LINE
-========================= */
+===================================== */
 
 .gift-thanks {
   margin: 34px 0 0;
+
   font-family: "Cormorant Garamond", serif;
   font-size: 19px;
   font-style: italic;
   font-weight: 500;
+
   color: var(--gold, #d9b66a);
 }
 
 .gift-thanks::before {
   content: "";
+
   display: block;
+
   width: 45px;
   height: 1px;
+
   margin: 0 auto 18px;
+
   background: var(--gold, #d9b66a);
   opacity: 0.7;
 }
 
 
-/* =========================
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 768px) {
+  .gift-section {
+    padding: 90px 22px;
+  }
+
+  .gift-section::before {
+    font-size: 100px;
+    letter-spacing: 9px;
+  }
+
+  .gift-content h2 {
+    font-size: clamp(42px, 7vw, 52px);
+  }
+}
+
+
+/* =====================================
    MOBILE
-========================= */
+   Android / iPhone
+===================================== */
 
 @media (max-width: 600px) {
   .gift-section {
@@ -306,71 +615,188 @@
 
   .gift-section::before {
     top: 30px;
+
     font-size: 75px;
     letter-spacing: 6px;
   }
 
+  /* Icon */
+
   .gift-icon {
     width: 46px;
     height: 46px;
+
     margin-bottom: 14px;
+  }
+
+  /* Header */
+
+  .gift-label {
+    font-size: 9px;
+    letter-spacing: 3px;
   }
 
   .gift-content h2 {
     font-size: 44px;
   }
 
+  /* Divider */
+
+  .gift-divider {
+    gap: 12px;
+  }
+
+  .gift-divider span {
+    width: 40px;
+  }
+
+  /* Message */
+
   .gift-message {
     font-size: 11px;
     line-height: 1.8;
+
     margin-bottom: 42px;
   }
+
+  /* QR Card */
 
   .qr-card {
     padding: 42px 20px 22px;
   }
 
+  /* QR Tab */
+
+  .qr-tab {
+    padding: 8px 18px;
+
+    font-size: 8px;
+    letter-spacing: 2.5px;
+  }
+
+  /* QR Frame */
+
   .qr-frame {
     padding: 14px;
   }
+
+  /* QR Image */
 
   .qr-code {
     width: 190px;
     height: 190px;
   }
 
+  /* QR Text */
+
   .qr-text {
     font-size: 8px;
+    letter-spacing: 1px;
   }
 
-.qr-save {
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  appearance: none;
-}
+  /* Save Button */
 
-.qr-hint {
-  margin: 12px 0 0;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #7a5a4a;
-}
+  .qr-save {
+    margin-top: 28px;
+    padding: 14px 26px;
+
+    min-height: 46px;
+
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
+  }
+
+  /* Feedback */
+
+  .qr-save-feedback {
+    width: min(100%, 330px);
+
+    padding: 14px 16px;
+  }
+
+  .qr-hint {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  /* Open QR */
+
+  .qr-open {
+    padding: 11px 18px;
+    font-size: 9.5px;
+  }
+
+  /* Thank You */
 
   .gift-thanks {
     font-size: 17px;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+
+/* =====================================
+   SMALL MOBILE
+   iPhone SE / Narrow Android screens
+===================================== */
+
+@media (max-width: 375px) {
+  .gift-section {
+    padding: 70px 14px;
+  }
+
+  .gift-section::before {
+    font-size: 60px;
+    letter-spacing: 5px;
+  }
+
+  .gift-content h2 {
+    font-size: 38px;
+  }
+
+  .gift-message {
+    font-size: 10.5px;
+  }
+
+  .qr-card {
+    padding: 38px 16px 20px;
+  }
+
+  .qr-frame {
+    padding: 12px;
+  }
+
+  .qr-code {
+    width: 175px;
+    height: 175px;
+  }
+
   .qr-save {
+    padding: 13px 22px;
+    font-size: 9px;
+  }
+
+  .qr-save-feedback {
+    padding: 12px 14px;
+  }
+}
+
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .qr-save,
+  .qr-open {
     transition: none;
   }
 
-  .qr-save:hover {
+  .qr-save-feedback {
+    animation: none;
+  }
+
+  .qr-save:hover,
+  .qr-open:hover {
     transform: none;
   }
 }

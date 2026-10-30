@@ -461,6 +461,45 @@
     letter-spacing: 1.5px;
   }
 }
+/* Navigation buttons container */
+
+.venue-map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Secondary location button */
+
+.map-button-secondary {
+  background: transparent;
+  color: var(--burgundy, #6b1a2e);
+  border: 1px solid var(--burgundy, #6b1a2e);
+}
+
+.map-button-secondary:hover {
+  background: var(--burgundy, #6b1a2e);
+  color: var(--cream, #f1e6cf);
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .venue-map-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .venue-map-actions .map-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .venue::before,
