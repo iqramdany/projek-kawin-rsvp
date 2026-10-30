@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import "./Ucapanwall.css";
-// same web-app URL you use in RSVP.jsx
+
 const SHEET_URL =
   "https://script.google.com/macros/s/AKfycbygfTCV5UJ-JyxKR9-OukSa_wZVy2IQjrEsfCy3Ag4DwdGo4yQzKAbxE2kbKJtI8YLD/exec";
 
-const MIN_TO_SCROLL = 6; // fewer wishes than this = static cards (no loop gaps)
+const MIN_TO_SCROLL = 6;
 
 function Card({ wish }) {
-  const [open, setOpen] = useState(false);
   return (
-    <article
-      className={`uw-card${open ? " is-open" : ""}${wish.fresh ? " is-fresh" : ""}`}
-      onClick={() => setOpen((o) => !o)}
-    >
+    <article className={`uw-card${wish.fresh ? " is-fresh" : ""}`}>
       <span className="uw-avatar" aria-hidden="true">
         {(wish.name || "?").trim().charAt(0).toUpperCase()}
       </span>
@@ -41,9 +37,7 @@ function UcapanWall() {
   const [wishes, setWishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cols, setCols] = useState(2);
-  const [held, setHeld] = useState(false); // jari sedang menekan dinding
 
-  // 1 column on phones, 2 on bigger screens
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 700px)");
     const update = () => setCols(mq.matches ? 1 : 2);
@@ -52,7 +46,6 @@ function UcapanWall() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // load wishes from the sheet
   useEffect(() => {
     let alive = true;
     fetch(SHEET_URL)
@@ -67,7 +60,6 @@ function UcapanWall() {
     };
   }, []);
 
-  // a guest just sent a wish from the RSVP form -> show it straight away
   useEffect(() => {
     const onNew = (e) => {
       if (e.detail?.message) setWishes((prev) => [e.detail, ...prev]);
@@ -86,17 +78,14 @@ function UcapanWall() {
       <div className="uw-decor" aria-hidden="true">
         <span className="uw-ring" />
         <span className="uw-ring uw-ring--2" />
-
         <span className="uw-corner tl" />
         <span className="uw-corner tr" />
         <span className="uw-corner bl" />
         <span className="uw-corner br" />
-
         <span className="uw-leaf l1" />
         <span className="uw-leaf l2" />
         <span className="uw-leaf r1" />
         <span className="uw-leaf r2" />
-
         <i className="uw-spark s1">✦</i>
         <i className="uw-spark s2">✧</i>
         <i className="uw-spark s3">✦</i>
@@ -125,12 +114,8 @@ function UcapanWall() {
 
       {wishes.length > 0 && (
         <div
-          className={`uw-wall${animate ? "" : " is-static"}${held ? " is-held" : ""}`}
+          className={`uw-wall${animate ? "" : " is-static"}`}
           style={{ "--cols": cols }}
-          onPointerDown={() => setHeld(true)}
-          onPointerUp={() => setHeld(false)}
-          onPointerCancel={() => setHeld(false)}
-          onPointerLeave={() => setHeld(false)}
         >
           <Column items={colA} animate={animate} dur={dur(colA.length)} />
           {colB.length > 0 && (
@@ -138,8 +123,6 @@ function UcapanWall() {
           )}
         </div>
       )}
-
-      {animate && <p className="uw-hint">Tahan untuk berhenti &amp; baca penuh</p>}
     </section>
   );
 }

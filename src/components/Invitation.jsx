@@ -35,7 +35,7 @@ function Invitation() {
         <p className="inv-note">
           (Wakil kepada Allahyarham Haznil Bin Husin &amp;
           <br />
-          <span className="nowrap">Allahyarham Marjanah Binti Embor)</span>
+          <span className="nowrap">Allahyarham Marjanah Binti Embot)</span>
         </p>
 
         <p className="invitation-serta">Serta</p>

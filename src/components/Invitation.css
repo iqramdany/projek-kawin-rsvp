@@ -1,211 +1,378 @@
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@500;600&display=swap');
-
 /* =====================================
-   INVITATION  (cream paper, burgundy + olive green)
+   GIFT SECTION  (olive section, cream QR card)
    colours come from home.css variables, with fallbacks
 ===================================== */
-.invitation {
-  --green: #5f7027;       /* main olive green */
-  --green-deep: #46561a;  /* darker green */
 
-  padding: clamp(36px, 7vw, 80px) 20px;
-  background:
-    radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%),
-    #f8f1e1;
-}
-
-.invitation-card {
+.gift-section {
   position: relative;
+  padding: 110px 24px;
+  color: var(--cream, #f1e6cf);
   overflow: hidden;
-  max-width: 800px;
-  margin: 0 auto;
-  /* top | left-right | bottom (extra bottom space so the flower doesn't cover the text) */
-  padding: clamp(56px, 8vw, 80px) clamp(24px, 7vw, 70px) clamp(70px, 10vw, 100px);
-  text-align: center;
 
   background:
     var(--grain, none),
-    linear-gradient(160deg, #f6ecd5, #efe2c4);
-  border: 1px solid rgba(176, 139, 70, 0.55);
+    radial-gradient(ellipse at 50% 35%, rgba(128, 138, 76, 0.5) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(ellipse at 50% 120%, rgba(107, 26, 46, 0.4) 0%, rgba(0, 0, 0, 0) 55%),
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(18, 22, 6, 0.55) 100%),
+    var(--olive, #4b5428);
+
   box-shadow:
-    0 18px 40px rgba(47, 53, 25, 0.18),
-    inset 0 0 0 7px #f6ecd5,
-    inset 0 0 0 8px rgba(176, 139, 70, 0.5);
+    inset 0 1px 0 rgba(217, 182, 106, 0.45),
+    inset 0 -1px 0 rgba(217, 182, 106, 0.45);
 }
 
-/* keep the text above the floral corners */
-.invitation-card > :not(.inv-corner) {
-  position: relative;
-  z-index: 1;
-}
-
-/* floral corners */
-.inv-corner {
+/* big faint word behind the content */
+.gift-section::before {
+  content: "GIFT";
   position: absolute;
-  max-width: none;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 130px;
+  font-weight: 500;
+  letter-spacing: 12px;
+  color: rgba(217, 182, 106, 0.08);
   pointer-events: none;
-  user-select: none;
-  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.25));
-}
-.inv-corner-tl {
-  top: -4%;
-  left: -5%;
-  width: clamp(110px, 20vw, 190px);
-}
-.inv-corner-br {
-  bottom: -4%;
-  right: -5%;
-  width: clamp(110px, 20vw, 190px);
-}
-
-/* ---------- Bismillah ---------- */
-.invitation-label {
-  font-family: "Amiri", serif;
-  font-size: clamp(22px, 4vw, 28px);
-  line-height: 1.5;
-  color: var(--burgundy, #6b1a2e);
-  margin: 0 0 18px;
-}
-
-/* ---------- intro line ---------- */
-.invitation-intro {
-  font-family: "Montserrat", sans-serif;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  line-height: 1.7;
-  color: var(--green);
-  margin: 0 0 22px;
-}
-
-/* ---------- parents (burgundy) ---------- */
-.inv-parent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  margin: 0;
-
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  font-size: clamp(1.1rem, 4.4vw, 1.4rem); /* smaller than the couple names */
-  line-height: 1.25;
-  color: var(--burgundy, #6b1a2e);
-}
-
-.inv-parent i {
-  font-size: 0.85em;   /* small & */
-  font-style: italic;
-  font-weight: 500;
-  color: var(--gold-deep, #b08b46);
-}
-
-.inv-parent span {
-  display: block;
-}
-
-/* ---------- notes under the parents ---------- */
-.inv-note {
-  max-width: 480px;
-  margin: 8px auto 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(12px, 2.6vw, 15px);
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--green);
-}
-
-/* "& Keluarga" that comes right after a note */
-.inv-note + .inv-parent {
-  margin-top: 6px;
-}
-
-/* keep "Allahyarham Marjanah Binti Embor)" together on one line */
-.inv-note .nowrap {
   white-space: nowrap;
 }
 
-.invitation-serta {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px;
-  font-style: italic;
-  color: #a8813a;
-  margin: 20px 0 16px;
+
+/* =========================
+   CONTENT
+========================= */
+
+.gift-content {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 560px);
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* ---------- invitation text ---------- */
-.invitation-text {
-  max-width: 520px;
-  margin: 26px auto 18px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(16px, 3vw, 18px);
-  font-weight: 500;
-  line-height: 1.55;
-  color: #3f4a22;
-}
 
-/* ---------- couple names ---------- */
-.inv-couple {
-  display: flex;
-  flex-direction: column;
+/* =========================
+   ICON BADGE
+========================= */
+
+.gift-icon {
+  display: inline-flex;
   align-items: center;
-  gap: 2px;
-  margin: 0;
-  font-family: "Great Vibes", "Cormorant Garamond", cursive;
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--burgundy, #6b1a2e);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+
+  color: var(--gold, #d9b66a);
+  background: linear-gradient(160deg, #7c1f35, #4a0e1a);
+  border: 1px solid rgba(217, 182, 106, 0.85);
+
+  box-shadow:
+    0 0 0 5px rgba(217, 182, 106, 0.12),
+    0 10px 20px rgba(18, 22, 6, 0.4);
 }
 
-.inv-couple span {
-  font-size: clamp(30px, 6vw, 44px);
-  text-wrap: balance;      /* long names break evenly instead of leaving one word alone */
-  overflow-wrap: anywhere;
+
+/* =========================
+   HEADER
+========================= */
+
+.gift-label {
+  margin: 0 0 12px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold, #d9b66a);
 }
 
-.inv-couple i {
-  font-style: normal;
+.gift-content h2 {
+  margin: 0 0 18px;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(18px, 3vw, 22px);
-  color: var(--gold-deep, #b08b46);
-}
-
-/* ---------- closing (sits right after the names) ---------- */
-.invitation-closing {
-  max-width: 460px;
-  margin: 24px auto 0;
-  font-family: "Cormorant Garamond", serif;
-  font-style: italic;
+  font-size: clamp(42px, 6vw, 58px);
   font-weight: 500;
-  font-size: clamp(15px, 2.8vw, 17px);
-  line-height: 1.55;
-  color: var(--green);
+  line-height: 1;
+  color: var(--cream, #f1e6cf);
+  text-shadow: 0 3px 16px rgba(18, 22, 6, 0.5);
 }
 
-/* ---------- divider (the last item) ---------- */
-.invitation-divider {
+.gift-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 24px 0 0;
-  color: var(--gold-deep, #b08b46);
+  gap: 14px;
+  margin: 0 0 22px;
+  color: var(--gold, #d9b66a);
 }
-.invitation-divider span {
-  width: 50px;
+
+.gift-divider span {
+  width: 52px;
   height: 1px;
   background: currentColor;
   opacity: 0.6;
 }
-.invitation-divider i {
+
+.gift-divider i {
   font-style: normal;
   font-size: 14px;
 }
 
+
+/* =========================
+   MESSAGE
+========================= */
+
+.gift-message {
+  width: min(100%, 450px);
+  margin: 0 auto 48px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--cream-soft, #e8dcb8);
+}
+
+
+/* =========================
+   QR CARD (cream paper, double gold frame, tab on top edge)
+========================= */
+
+.qr-card {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 44px 30px 26px;
+
+  border: 1px solid rgba(176, 139, 70, 0.8);
+
+  background:
+    var(--grain, none),
+    linear-gradient(160deg, #f6ecd5, #efe2c4);
+
+  box-shadow:
+    0 24px 50px rgba(18, 22, 6, 0.5),
+    0 0 0 6px rgba(217, 182, 106, 0.14),
+    inset 0 0 0 6px #f6ecd5,
+    inset 0 0 0 7px rgba(176, 139, 70, 0.5);
+}
+
+/* burgundy tab half outside the card */
+.qr-tab {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 182, 106, 0.9);
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: var(--gold, #d9b66a);
+  background: linear-gradient(180deg, #7c1f35, #4a0e1a);
+
+  box-shadow:
+    0 0 0 5px #f1e5c9,
+    0 6px 14px rgba(74, 14, 26, 0.35);
+}
+
+/* white QR area with gold corner brackets (white stays behind the code so it scans) */
+.qr-frame {
+  --c: #b08b46;
+  padding: 16px;
+
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 1.5px 20px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 1.5px 20px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 1.5px 20px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 20px 1.5px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 1.5px 20px no-repeat,
+    #fff;
+
+  box-shadow: 0 8px 20px rgba(74, 14, 26, 0.12);
+}
+
+.qr-code {
+  display: block;
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  background: #fff;
+  -webkit-touch-callout: default; /* keep iPhone long-press "Save Image" */
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+
+/* =========================
+   QR TEXT
+========================= */
+
+.qr-text {
+  margin: 18px 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: var(--olive, #4b5428);
+}
+
+
+/* =========================
+   SAVE BUTTON
+========================= */
+
+.qr-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  z-index: 3;
+
+  margin-top: 30px;
+  padding: 13px 28px;
+
+  border: 1px solid rgba(217, 182, 106, 0.85);
+  border-radius: 999px;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: var(--cream, #f1e6cf);
+  background: rgba(74, 14, 26, 0.35);
+
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.qr-save:hover {
+  background: var(--cream, #f1e6cf);
+  color: var(--burgundy-deep, #4a0e1a);
+  transform: translateY(-3px);
+}
+
+.qr-save:focus-visible {
+  outline: 2px solid var(--gold, #d9b66a);
+  outline-offset: 4px;
+}
+
+.qr-hint {
+  margin: 14px 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--cream-soft, #e8dcb8);
+}
+
+
+/* =========================
+   THANK YOU LINE
+========================= */
+
+.gift-thanks {
+  margin: 34px 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold, #d9b66a);
+}
+
+.gift-thanks::before {
+  content: "";
+  display: block;
+  width: 45px;
+  height: 1px;
+  margin: 0 auto 18px;
+  background: var(--gold, #d9b66a);
+  opacity: 0.7;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 600px) {
-  .invitation-intro { letter-spacing: 1.5px; font-size: 8.5px; }
-  .invitation-divider span { width: 36px; }
+  .gift-section {
+    padding: 80px 18px;
+  }
+
+  .gift-section::before {
+    top: 30px;
+    font-size: 75px;
+    letter-spacing: 6px;
+  }
+
+  .gift-icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 14px;
+  }
+
+  .gift-content h2 {
+    font-size: 44px;
+  }
+
+  .gift-message {
+    font-size: 11px;
+    line-height: 1.8;
+    margin-bottom: 42px;
+  }
+
+  .qr-card {
+    padding: 42px 20px 22px;
+  }
+
+  .qr-frame {
+    padding: 14px;
+  }
+
+  .qr-code {
+    width: 190px;
+    height: 190px;
+  }
+
+  .qr-text {
+    font-size: 8px;
+  }
+
+  .gift-thanks {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qr-save {
+    transition: none;
+  }
+
+  .qr-save:hover {
+    transform: none;
+  }
 }

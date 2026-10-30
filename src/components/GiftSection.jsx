@@ -3,6 +3,11 @@ import "./GiftSection.css";
 
 const QR_URL = "/duitnow-qr.png";
 
+const isIOS =
+  typeof navigator !== "undefined" &&
+  (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
+
 // muat turun biasa (komputer / Android)
 const downloadFile = (file) => {
   const url = URL.createObjectURL(file);
@@ -48,15 +53,24 @@ function GiftSection() {
         await navigator.share({ files: [file], title: "DuitNow QR" });
         return;
       }
+
+      if (isIOS) {
+        setHint(true);
+        return;
+      }
+
       downloadFile(file);
     } catch (err) {
       if (err && err.name === "AbortError") return;
+      if (isIOS) {
+        setHint(true);
+        return;
+      }
       window.open(QR_URL, "_blank");
       setHint(true);
     }
   };
 
-  // PENTING: tiada await sebelum navigator.share bila fail sudah siap
   const saveQr = () => {
     const file = fileRef.current;
 
@@ -71,9 +85,15 @@ function GiftSection() {
         .share({ files: [file], title: "DuitNow QR" })
         .catch((err) => {
           if (err && err.name === "AbortError") return; // tetamu tutup menu
-          downloadFile(file);
+          if (!isIOS) downloadFile(file);
           setHint(true);
         });
+      return;
+    }
+
+    // iPhone tanpa menu kongsi: tunjuk arahan tekan lama
+    if (isIOS) {
+      setHint(true);
       return;
     }
 

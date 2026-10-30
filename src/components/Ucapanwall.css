@@ -464,6 +464,19 @@
 }
 .uw-sticker.st4 { bottom: 14%; left: 8%; --r: -14deg; }
 
+.uw-wall,
+.uw-wall * {
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.uw-track,
+.uw-wall:hover .uw-track,
+.uw-wall.is-held .uw-track {
+  animation-play-state: running !important;
+}
+
 @media (max-width: 700px) {
   .uw-flower.f1 { width: 70px; height: 70px; top: -18px; left: -18px; }
   .uw-flower.f2 { width: 58px; height: 58px; top: -12px; right: -14px; }

@@ -39,6 +39,10 @@
 .pf-petal.k0 i { background: radial-gradient(circle at 30% 25%, #b04060 0%, #7a1e34 75%); }
 .pf-petal.k1 i { background: radial-gradient(circle at 30% 25%, #f0c4cc 0%, #d98a9c 75%); }
 .pf-petal.k2 i { background: radial-gradient(circle at 30% 25%, #fbf0d2 0%, #e2c27a 75%); }
+.petal-fall,
+.petal-fall * {
+  pointer-events: none;
+}
 
 @keyframes pf-fall {
   from { transform: translate3d(0, -12vh, 0); }
