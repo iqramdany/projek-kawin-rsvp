@@ -44,7 +44,7 @@
 
 .gift-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: min(100%, 560px);
   margin: 0 auto;
   text-align: center;
@@ -209,6 +209,9 @@
   height: 220px;
   object-fit: contain;
   background: #fff;
+  -webkit-touch-callout: default; /* keep iPhone long-press "Save Image" */
+  -webkit-user-select: auto;
+  user-select: auto;
 }
 
 
@@ -237,6 +240,9 @@
   align-items: center;
   justify-content: center;
 
+  position: relative;
+  z-index: 3;
+
   margin-top: 30px;
   padding: 13px 28px;
 
@@ -251,7 +257,12 @@
 
   color: var(--cream, #f1e6cf);
   background: rgba(74, 14, 26, 0.35);
+
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
 
   transition:
     background 0.35s ease,
@@ -268,6 +279,14 @@
 .qr-save:focus-visible {
   outline: 2px solid var(--gold, #d9b66a);
   outline-offset: 4px;
+}
+
+.qr-hint {
+  margin: 14px 0 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--cream-soft, #e8dcb8);
 }
 
 
@@ -342,23 +361,6 @@
   .qr-text {
     font-size: 8px;
   }
-
-.qr-save {
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.qr-hint {
-  margin: 12px 0 0;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #7a5a4a;
-}
 
   .gift-thanks {
     font-size: 17px;
