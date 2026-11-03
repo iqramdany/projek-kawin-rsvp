@@ -3,6 +3,13 @@ import "./GiftSection.css";
 
 const QR_URL = "/duitnow-qr.png";
 
+// maklumat akaun bank (untuk tetamu yang tidak boleh imbas QR)
+const BANK = {
+  name: "Bank Islam",
+  holder: "SHARMARIZ BINTI HAZNIL",
+  number: "10043023188842",
+};
+
 const isIOS =
   typeof navigator !== "undefined" &&
   (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -20,10 +27,40 @@ const downloadFile = (file) => {
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 };
 
+// salin teks ke clipboard (ada cara ganti untuk browser lama / http)
+const copyText = async (text) => {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    /* cuba cara ganti di bawah */
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+};
+
 function GiftSection() {
   const fileRef = useRef(null);
+  const copyTimer = useRef(null);
+  const numRef = useRef(null);
   const [fallback, setFallback] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState("idle"); // idle | ok | fail
 
   // siapkan fail QR awal-awal (iOS mesti share terus dalam tekanan jari)
   useEffect(() => {
@@ -40,6 +77,7 @@ function GiftSection() {
       .catch(() => {});
     return () => {
       alive = false;
+      clearTimeout(copyTimer.current);
     };
   }, []);
 
@@ -81,6 +119,20 @@ function GiftSection() {
       })
       .catch(() => setFallback(true))
       .finally(() => setBusy(false));
+  };
+
+  const copyNumber = async () => {
+    const ok = await copyText(BANK.number);
+    if (!ok && numRef.current) {
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(numRef.current);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    setCopied(ok ? "ok" : "fail");
+    clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopied("idle"), 3000);
   };
 
   return (
@@ -139,6 +191,42 @@ function GiftSection() {
             <br />
             atau e-dompet anda
           </p>
+
+          <div className="qr-bank">
+            <span className="qr-bank-name">{BANK.name}</span>
+            <span className="qr-bank-holder">{BANK.holder}</span>
+
+            <div className="qr-bank-row">
+              <span className="qr-bank-no" ref={numRef}>
+                {BANK.number}
+              </span>
+              <button
+                type="button"
+                className={`qr-bank-copy${copied === "ok" ? " is-done" : ""}`}
+                onClick={copyNumber}
+                aria-label={copied === "ok" ? "Disalin" : "Salin nombor akaun"}
+                title="Salin nombor akaun"
+              >
+                {copied === "ok" ? (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                    stroke="currentColor" strokeWidth="2.2"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    aria-hidden="true">
+                    <path d="M5 12.5l4.5 4.5L19 7.5" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none"
+                    stroke="currentColor" strokeWidth="1.8"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    aria-hidden="true">
+                    <path d="M8 6.5V5a2 2 0 0 1 2-2h5.2L19 6.8V15a2 2 0 0 1-2 2h-1.5" />
+                    <path d="M5 8.5a2 2 0 0 1 2-2h5l3.5 3.5V19a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" />
+                    <path d="M8 14h5M8 17h5" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
 
         <button

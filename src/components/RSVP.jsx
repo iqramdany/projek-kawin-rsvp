@@ -4,7 +4,7 @@ import "./RSVP.css";
 const MAX_GUESTS = 10; // highest number guests can pick (change if you want a lower limit)
 
 const SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbypjflxiWEtF_kNJCWyE4QX9oSkej0FW9kpQ3-YrQmzJGDrsCgVv_nw1DTN45ssfWQh/exec";
+  "https://script.google.com/macros/s/AKfycbyMG3HiqrZYwmWVCHDnEPdndWZJWoTIxvyZpbHMnjgEZFhRVJH1C3KxmWpcLKzHqoIOKg/exec";
 
 function RSVP() {
   const [submitted, setSubmitted] = useState(false);

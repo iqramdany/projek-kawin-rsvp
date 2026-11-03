@@ -296,13 +296,15 @@
 
 /* =====================================
    QR IMAGE
+   (cropped pink DuitNow box, not square,
+   so height is automatic)
 ===================================== */
 
 .qr-code {
   display: block;
 
   width: 220px;
-  height: 220px;
+  height: auto;
 
   max-width: 100%;
 
@@ -472,8 +474,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-    text-decoration: none;
-
+  text-decoration: none;
 
   gap: 6px;
 
@@ -549,6 +550,131 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+
+/* =====================================
+   BANK DETAILS (small, inside the QR card)
+===================================== */
+
+.qr-bank {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 16px;
+  padding-top: 14px;
+
+  border-top: 1px dashed rgba(176, 139, 70, 0.55);
+}
+
+.qr-bank-name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: var(--olive, #4b5428);
+}
+
+.qr-bank-holder {
+  margin-top: 4px;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  color: var(--burgundy-deep, #4a0e1a);
+}
+
+/* number + copy icon always stay on ONE line */
+
+.qr-bank-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.qr-bank-no {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  white-space: nowrap;
+
+  /* lining numerals so 1 and I are not confused */
+  font-variant-numeric: lining-nums tabular-nums;
+
+  color: var(--burgundy-deep, #4a0e1a);
+
+  -webkit-user-select: all;
+  user-select: all;
+}
+
+/* small round copy icon */
+
+.qr-bank-copy {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: 1px solid rgba(176, 139, 70, 0.7);
+  border-radius: 50%;
+
+  color: var(--burgundy-deep, #4a0e1a);
+  background: transparent;
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+}
+
+@media (hover: hover) {
+  .qr-bank-copy:hover {
+    background: var(--burgundy-deep, #4a0e1a);
+    color: var(--gold, #d9b66a);
+    border-color: var(--burgundy-deep, #4a0e1a);
+  }
+}
+
+.qr-bank-copy:active {
+  transform: scale(0.92);
+}
+
+.qr-bank-copy:focus-visible {
+  outline: 2px solid var(--gold, #d9b66a);
+  outline-offset: 3px;
+}
+
+/* after copying: green tick */
+
+.qr-bank-copy.is-done {
+  background: var(--olive, #4b5428);
+  border-color: var(--olive, #4b5428);
+  color: #fffaf0;
 }
 
 
@@ -683,9 +809,8 @@
 
   .qr-code {
     width: 190px;
-    height: 190px;
+    height: auto;
     -webkit-touch-callout: default;
-
   }
 
   /* QR Text */
@@ -725,6 +850,12 @@
   .qr-open {
     padding: 11px 18px;
     font-size: 9.5px;
+  }
+
+  /* Bank */
+
+  .qr-bank-no {
+    font-size: 19px;
   }
 
   /* Thank You */
@@ -768,7 +899,7 @@
 
   .qr-code {
     width: 175px;
-    height: 175px;
+    height: auto;
   }
 
   .qr-save {
@@ -779,6 +910,11 @@
   .qr-save-feedback {
     padding: 12px 14px;
   }
+
+  .qr-bank-no {
+    font-size: 17px;
+    letter-spacing: 0.5px;
+  }
 }
 
 
@@ -788,7 +924,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .qr-save,
-  .qr-open {
+  .qr-open,
+  .qr-bank-copy {
     transition: none;
   }
 
@@ -797,7 +934,8 @@
   }
 
   .qr-save:hover,
-  .qr-open:hover {
+  .qr-open:hover,
+  .qr-bank-copy:hover {
     transform: none;
   }
 }
