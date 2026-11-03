@@ -13,6 +13,10 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
+
+  /* the container is bigger than the visible button (the closed panel
+     still takes space), so it must NOT catch taps meant for the page */
+  pointer-events: none;
 }
 
 /* ---------- main round button (Reduced Size) ---------- */
@@ -25,6 +29,9 @@
   place-items: center;
   border-radius: 50%;
   cursor: pointer;
+
+  /* the button itself stays tappable */
+  pointer-events: auto;
 
   color: #ecd593;
   border: 1px solid rgba(236, 213, 147, 0.8);

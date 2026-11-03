@@ -939,3 +939,100 @@
     transform: none;
   }
 }
+
+
+/* =====================================
+   MOBILE COMPACT  (keep this block LAST)
+   The section was taller than a phone screen, so the
+   QR, copy icon and save button sat below the fold.
+   This tightens the spacing so they show sooner.
+===================================== */
+
+@media (max-width: 600px) {
+  .gift-section {
+    padding: 44px 18px 56px;
+  }
+
+  .gift-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 8px;
+  }
+
+  .gift-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .gift-label {
+    margin-bottom: 8px;
+  }
+
+  .gift-content h2 {
+    font-size: 34px;
+    margin-bottom: 12px;
+  }
+
+  .gift-divider {
+    margin-bottom: 14px;
+  }
+
+  .gift-message {
+    font-size: 11px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
+  .qr-card {
+    min-width: 220px;
+    padding: 34px 16px 16px;
+  }
+
+  .qr-frame {
+    padding: 10px;
+  }
+
+  .qr-code {
+    width: 168px;
+    margin: 0 auto;
+  }
+
+  .qr-text {
+    margin-top: 12px;
+  }
+
+  .qr-bank {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .qr-bank-row {
+    margin-top: 6px;
+  }
+
+  .qr-bank-no {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+  }
+
+  .qr-save {
+    margin-top: 20px;
+    min-height: 44px;
+    padding: 12px 24px;
+  }
+
+  .gift-thanks {
+    margin-top: 22px;
+  }
+
+  .gift-thanks::before {
+    margin-bottom: 12px;
+  }
+}
+
+/* short phone screens: drop the small gift icon to save more space */
+@media (max-width: 600px) and (max-height: 800px) {
+  .gift-icon {
+    display: none;
+  }
+}
