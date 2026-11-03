@@ -2,9 +2,20 @@ import { useEffect, useState } from "react";
 import "./Ucapanwall.css";
 
 const SHEET_URL =
-  "https://script.google.com/macros/s/AKfycbygfTCV5UJ-JyxKR9-OukSa_wZVy2IQjrEsfCy3Ag4DwdGo4yQzKAbxE2kbKJtI8YLD/exec";
+  "https://script.google.com/macros/s/AKfycbypjflxiWEtF_kNJCWyE4QX9oSkej0FW9kpQ3-YrQmzJGDrsCgVv_nw1DTN45ssfWQh/exec";
 
 const MIN_TO_SCROLL = 6;
+
+// Attendance helper: works for the rows/events your form sends
+// (attendance: "yes" | "no" | "Hadir" | "Tidak Hadir", guests: number).
+// Attending rows without a guest number count as 1 person.
+const guestsOf = (w) => {
+  const a = String(w.attendance ?? w.attending ?? w.kehadiran ?? "")
+    .trim()
+    .toLowerCase();
+  const hadir = a !== "" && !/^(tidak|x|no|n$)/.test(a);
+  return hadir ? Math.max(1, Number(w.guests ?? w.pax) || 1) : 0;
+};
 
 function Card({ wish }) {
   return (
@@ -35,7 +46,9 @@ function Column({ items, reverse, animate, dur }) {
 
 function UcapanWall() {
   const [wishes, setWishes] = useState([]);
+  const [serverHadir, setServerHadir] = useState(null); // total kehadiran from Apps Script
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [cols, setCols] = useState(2);
 
   useEffect(() => {
@@ -51,9 +64,16 @@ function UcapanWall() {
     fetch(SHEET_URL)
       .then((r) => r.json())
       .then((d) => {
-        if (alive && Array.isArray(d.wishes)) setWishes(d.wishes);
+        console.log("ucapan data:", d); // remove once everything works
+        if (!alive) return;
+        if (d.error) throw new Error(d.error);
+        if (Array.isArray(d.wishes)) setWishes(d.wishes);
+        if (typeof d.totalHadir === "number") setServerHadir(d.totalHadir);
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.error("ucapan error:", err);
+        if (alive) setError(true);
+      })
       .finally(() => alive && setLoading(false));
     return () => {
       alive = false;
@@ -62,7 +82,10 @@ function UcapanWall() {
 
   useEffect(() => {
     const onNew = (e) => {
-      if (e.detail?.message) setWishes((prev) => [e.detail, ...prev]);
+      if (e.detail?.message) {
+        setWishes((prev) => [e.detail, ...prev]);
+        setServerHadir((t) => (t === null ? t : t + guestsOf(e.detail)));
+      }
     };
     window.addEventListener("ucapan:new", onNew);
     return () => window.removeEventListener("ucapan:new", onNew);
@@ -72,6 +95,13 @@ function UcapanWall() {
   const colA = cols === 1 ? wishes : wishes.filter((_, i) => i % 2 === 0);
   const colB = cols === 1 ? [] : wishes.filter((_, i) => i % 2 === 1);
   const dur = (n) => Math.max(24, n * 7);
+
+  // Total kehadiran: the script's totalHadir (counts every RSVP),
+  // otherwise falls back to adding up the wishes loaded
+  const count =
+    serverHadir !== null
+      ? serverHadir
+      : wishes.reduce((sum, w) => sum + guestsOf(w), 0);
 
   return (
     <section className="uw" id="ucapan">
@@ -102,11 +132,22 @@ function UcapanWall() {
           <i>✦</i>
           <span />
         </div>
+
+        {!loading && !error && count > 0 && (
+          <div className="uw-counter" aria-live="polite">
+            <strong>{count}</strong>
+            <span>tetamu hadir</span>
+          </div>
+        )}
       </div>
 
       {loading && <p className="uw-empty">Memuatkan ucapan...</p>}
 
-      {!loading && wishes.length === 0 && (
+      {!loading && error && (
+        <p className="uw-empty">Ucapan tidak dapat dimuatkan. Sila cuba lagi.</p>
+      )}
+
+      {!loading && !error && wishes.length === 0 && (
         <p className="uw-empty">
           Jadilah yang pertama meninggalkan ucapan untuk pengantin ✦
         </p>
@@ -127,4 +168,4 @@ function UcapanWall() {
   );
 }
 
-export default UcapanWall;
+export default UcapanWall;  

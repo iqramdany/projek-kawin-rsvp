@@ -474,7 +474,7 @@
 .uw-track,
 .uw-wall:hover .uw-track,
 .uw-wall.is-held .uw-track {
-  animation-play-state: running !important;
+  animation-play-state: running !important; 
 }
 
 @media (max-width: 700px) {
@@ -494,4 +494,36 @@
 
 @media (prefers-reduced-motion: reduce) {
   .uw-flower { animation: none; }
+}
+
+/* =========================
+   COUNTER
+========================= */
+.uw-counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 8px 22px;
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(176, 139, 70, 0.4);
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(74, 14, 26, 0.07);
+}
+
+.uw-counter strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--burgundy-deep, #4a0e1a);
+}
+
+.uw-counter span {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #5f7027;
 }
