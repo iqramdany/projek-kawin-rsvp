@@ -53,7 +53,7 @@ function Invitation() {
 
         <p className="invitation-text">
           Dengan penuh kesyukuran menjemput Dato' / Datin / Tuan / Puan /
-          Encik / Cik untuk hadir ke majlis perkahwinan Anakanda kami,
+          Encik / Cik untuk hadir ke majlis perkahwinan anakanda kami,
         </p>
 
         <h2 className="inv-couple">
