@@ -303,6 +303,7 @@
   color: var(--burgundy-deep, #4a0e1a);
 }
 
+/* CHANGED: no more 4-line clamp, so the full wish always shows */
 .uw-body p {
   margin: 0;
   font-family: "Montserrat", sans-serif;
@@ -310,19 +311,10 @@
   line-height: 1.65;
   color: #5b4a3f;
   overflow-wrap: anywhere;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  white-space: pre-line; /* keeps line breaks the guest typed */
 }
 
-.uw-card.is-open .uw-body p {
-  -webkit-line-clamp: unset;
-  line-clamp: unset;
-  display: block;
-}
+/* REMOVED: the ".uw-card.is-open .uw-body p" block (not needed anymore) */
 
 /* the guest's own wish, just sent */
 .uw-card.is-fresh {
@@ -474,7 +466,7 @@
 .uw-track,
 .uw-wall:hover .uw-track,
 .uw-wall.is-held .uw-track {
-  animation-play-state: running !important; 
+  animation-play-state: running !important;
 }
 
 @media (max-width: 700px) {

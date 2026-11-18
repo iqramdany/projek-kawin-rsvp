@@ -64,7 +64,6 @@ function UcapanWall() {
     fetch(SHEET_URL)
       .then((r) => r.json())
       .then((d) => {
-        console.log("ucapan data:", d); // remove once everything works
         if (!alive) return;
         if (d.error) throw new Error(d.error);
         if (Array.isArray(d.wishes)) setWishes(d.wishes);
@@ -94,7 +93,15 @@ function UcapanWall() {
   const animate = wishes.length >= MIN_TO_SCROLL;
   const colA = cols === 1 ? wishes : wishes.filter((_, i) => i % 2 === 0);
   const colB = cols === 1 ? [] : wishes.filter((_, i) => i % 2 === 1);
-  const dur = (n) => Math.max(24, n * 7);
+
+  // CHANGED: scroll time depends on how much text is in the column,
+  // so long wishes scroll slower and stay readable.
+  // ~5s per card + ~1s per 25 characters. Minimum 24s.
+  const dur = (items) =>
+    Math.max(
+      24,
+      items.reduce((sum, w) => sum + 5 + (w.message?.length || 0) / 25, 0)
+    );
 
   // Total kehadiran: the script's totalHadir (counts every RSVP),
   // otherwise falls back to adding up the wishes loaded
@@ -158,9 +165,10 @@ function UcapanWall() {
           className={`uw-wall${animate ? "" : " is-static"}`}
           style={{ "--cols": cols }}
         >
-          <Column items={colA} animate={animate} dur={dur(colA.length)} />
+          {/* CHANGED: dur() now receives the items, not the count */}
+          <Column items={colA} animate={animate} dur={dur(colA)} />
           {colB.length > 0 && (
-            <Column items={colB} animate={animate} dur={dur(colB.length)} reverse />
+            <Column items={colB} animate={animate} dur={dur(colB)} reverse />
           )}
         </div>
       )}
@@ -168,4 +176,4 @@ function UcapanWall() {
   );
 }
 
-export default UcapanWall;  
+export default UcapanWall;
