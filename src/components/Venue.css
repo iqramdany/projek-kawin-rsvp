@@ -263,18 +263,31 @@
 }
 
 /* =====================================
-   GOOGLE MAPS BUTTON
+   MAP BUTTONS (Google Maps + Grab)
 ===================================== */
+
+/* container: two buttons side by side */
+.venue-map-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+
+  width: 100%;
+  max-width: 340px;
+}
 
 .map-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  width: fit-content;
-  max-width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
 
-  padding: 13px 26px;
+  padding: 13px 12px;
 
   border: 1px solid rgba(217, 182, 106, 0.8);
   border-radius: 999px;
@@ -284,6 +297,7 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
+  white-space: nowrap;
 
   color: var(--cream, #f1e6cf);
 
@@ -299,6 +313,7 @@
 
   transition:
     background 0.35s ease,
+    color 0.35s ease,
     transform 0.35s ease,
     box-shadow 0.35s ease;
 }
@@ -318,6 +333,35 @@
 .map-button:focus-visible {
   outline: 2px solid var(--gold, #d9b66a);
   outline-offset: 4px;
+}
+
+/* Google Maps icon */
+.map-button-gicon {
+  display: block;
+  flex-shrink: 0;
+  height: 20px;
+  width: auto;
+  margin-right: 9px;
+}
+
+/* Grab button: Grab green with the white Grab logo */
+.map-button-grab {
+  color: #ffffff;
+  border: 1px solid #008c4f;
+  background: #008c4f;
+  box-shadow: 0 8px 18px rgba(0, 140, 79, 0.3);
+}
+
+.map-button-grab:hover {
+  background: #00a35c;
+  box-shadow: 0 12px 22px rgba(0, 140, 79, 0.4);
+}
+
+.map-button-grablogo {
+  display: block;
+  height: 24px;
+  width: auto;
+  max-width: 100%;
 }
 
 /* =====================================
@@ -454,50 +498,24 @@
     inset: 10px;
   }
 
-  .map-button {
-    width: 100%;
-    padding: 13px 12px;
-    font-size: 9.5px;
-    letter-spacing: 1.5px;
-  }
-}
-/* Navigation buttons container */
-
-.venue-map-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Secondary location button */
-
-.map-button-secondary {
-  background: transparent;
-  color: var(--burgundy, #6b1a2e);
-  border: 1px solid var(--burgundy, #6b1a2e);
-}
-
-.map-button-secondary:hover {
-  background: var(--burgundy, #6b1a2e);
-  color: var(--cream, #f1e6cf);
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
+  /* buttons stay side by side on phones */
   .venue-map-actions {
-    flex-direction: column;
-    align-items: stretch;
     gap: 10px;
   }
 
-  .venue-map-actions .map-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    box-sizing: border-box;
+  .map-button {
+    padding: 13px 8px;
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
+  }
+
+  .map-button-gicon {
+    height: 18px;
+    margin-right: 7px;
+  }
+
+  .map-button-grablogo {
+    height: 22px;
   }
 }
 

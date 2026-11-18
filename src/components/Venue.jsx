@@ -1,7 +1,12 @@
 import "./Venue.css";
 
 const MAP_LINK = "https://www.google.com/maps?q=5.8671963,118.0672106";
-const MAP_EMBED = "https://www.google.com/maps?q=5.8671963,118.0672106&z=16&output=embed";
+const MAP_EMBED =
+  "https://www.google.com/maps?q=5.8671963,118.0672106&z=16&output=embed";
+
+// Grab share link for the venue
+const GRAB_LINK =
+  "https://app.grab.com/open?screenType=CONSUMER_MAP_SEARCH&poiIDs=IT.0V93YY0AT4LMC&sourceID=share&og_title=96%2C+Lorong+Nasalim+7E%2C+Taman+Nasalim&og_description=96%2C+Lorong+Nasalim+7E%2C+Taman+Nasalim%2C+Sandakan%2C+90000%2C+Bahagian+Sandakan%2C+Sabah%2C+Malaysia&og_image=https%3A%2F%2Fcdn.kartaview.org%2Fenc%2Fcrop%3A84500000.0%3A21125000.0%3Anowe%3A0.0%3A11196250.0%2Fresize%3Afit%3A640%3A480%3A0%2FEe1dX--m_pErihIZdkv6VXPjyzt_vmg4HmZPjJDRGVqz90Wc3JyBmkeUKmF-EvLqCYjwwrhYvajiaY8bh2YcTqrtcINadrrmTmVHCW0Z6CQGjZGLbfTPAgTUrxQxW6-r4C2MpDIx-SM3TvKJzGIw35w2PQYkyeG116SGs_MRT2QtMUnUaedkucupjxeoCiDelou8Wof435yP_qNfso98cRM4&deeplink_safe_id=ed5377101833b653e655c352d350a6b0b9c5431a5851ff25d3df8f6d00c2331f&short_link_code=ssxJVVLo";
 
 function Venue() {
   return (
@@ -51,14 +56,38 @@ function Venue() {
               </address>
             </div>
 
-            <a
-              href={MAP_LINK}
-              target="_blank"
-              rel="noreferrer"
-              className="map-button"
-            >
-              ↗&nbsp; Buka Google Maps
-            </a>
+            {/* Two buttons side by side */}
+            <div className="venue-map-actions">
+              <a
+                href={MAP_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="map-button map-button-google"
+              >
+                <img
+                  className="map-button-gicon"
+                  src="/google-maps.png"
+                  alt=""
+                  draggable="false"
+                />
+                <span>Google Maps</span>
+              </a>
+
+              <a
+                href={GRAB_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="map-button map-button-grab"
+                aria-label="Buka lokasi di Grab"
+              >
+                <img
+                  className="map-button-grablogo"
+                  src="/grab-logo.png"
+                  alt="Grab"
+                  draggable="false"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Live Map */}
