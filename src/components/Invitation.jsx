@@ -33,7 +33,7 @@ function Invitation() {
           <span>Keluarga</span>
         </h2>
         <p className="inv-note">
-          (Anakanda kepada Allahyarham Haznil Bin Hussin &amp;
+          (Wakil kepada Allahyarham Haznil Bin Hussin &amp;
           <br />
           <span className="nowrap">Allahyarhamah Marjanah Binti Embot)</span>
         </p>
@@ -53,7 +53,7 @@ function Invitation() {
 
         <p className="invitation-text">
           Dengan penuh kesyukuran menjemput Dato' / Datin / Tuan / Puan /
-          Encik / Cik untuk hadir ke majlis perkahwinan anakda kami,
+          Encik / Cik untuk hadir ke majlis perkahwinan Anakanda kami,
         </p>
 
         <h2 className="inv-couple">
