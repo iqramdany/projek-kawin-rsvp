@@ -33,9 +33,9 @@ function Invitation() {
           <span>Keluarga</span>
         </h2>
         <p className="inv-note">
-          (Wakil kepada Allahyarham Haznil Bin Husin &amp;
+          (Anakanda kepada Allahyarham Haznil Bin Hussin &amp;
           <br />
-          <span className="nowrap">Allahyarham Marjanah Binti Embot)</span>
+          <span className="nowrap">Allahyarhamah Marjanah Binti Embot)</span>
         </p>
 
         <p className="invitation-serta">Serta</p>

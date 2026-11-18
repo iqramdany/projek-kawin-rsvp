@@ -7,7 +7,7 @@ import "./ContactFab.css";
 ---------------------------------- */
 const contacts = [
   { name: "Hassan", role: "Adik Lelaki Pengantin Perempuan", phone: "60143777935" },
-  { name: "Iqram", role: " Pengantin Lelaki", phone: "601112043447" },
+  { name: "Azriyena", role: " kakak Pengantin Perempuan", phone: "60192012910" },
 ];
 
 const WA_TEXT = encodeURIComponent("Assalamualaikum, saya ingin bertanya tentang majlis perkahwinan.");
