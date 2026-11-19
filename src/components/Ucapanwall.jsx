@@ -99,10 +99,9 @@ function UcapanWall() {
   // ~5s per card + ~1s per 25 characters. Minimum 24s.
   const dur = (items) =>
     Math.max(
-      24,
-      items.reduce((sum, w) => sum + 5 + (w.message?.length || 0) / 25, 0)
+      7,
+      items.reduce((sum, w) => sum + 2 + (w.message?.length || 0) / 90, 0)
     );
-
   // Total kehadiran: the script's totalHadir (counts every RSVP),
   // otherwise falls back to adding up the wishes loaded
   const count =
